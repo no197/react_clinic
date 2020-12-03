@@ -9,10 +9,9 @@ instance.interceptors.request.use(
   async (config) => {
     const cookies = new Cookies();
     const user = cookies.get('user');
-    console.log('user', user);
-    const token = localStorage.getItem('token');
 
-    if (token) {
+    if (user) {
+      const { token } = user;
       // eslint-disable-next-line no-param-reassign
       config.headers.Authorization = `Bearer ${token}`;
     }

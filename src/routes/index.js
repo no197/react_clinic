@@ -53,8 +53,10 @@ const Editor = React.lazy(() => import('../pages/forms/Editor'));
 const BasicTables = React.lazy(() => import('../pages/tables/Basic'));
 const AdvancedTables = React.lazy(() => import('../pages/tables/Advanced'));
 
+//patients
 const PatientList = React.lazy(() => import('../pages/Patients/PatientList'));
 const NewPatient = React.lazy(() => import('../pages/Patients/NewPatient'));
+const PatientDetail = React.lazy(() => import('../pages/Patients/PatientDetail'));
 
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
@@ -129,6 +131,11 @@ const patientRoutes = {
       path: '/app/patients/new',
       name: 'Thêm bệnh nhân',
       component: NewPatient,
+      route: PrivateRoute,
+    },
+    {
+      path: '/app/patients/:id',
+      component: PatientDetail,
       route: PrivateRoute,
     },
   ],
