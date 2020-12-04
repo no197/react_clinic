@@ -72,7 +72,7 @@ export default function AVDatePicker({ defaultValue, ...props }, ctx) {
           }}
         />
       </div>
-      <AvField ref={dateRef} name={name} type="date" value={formatDate(date)} validate={validate} />
+      <AvField ref={dateRef} name={name} type="date" hidden value={formatDate(date)} validate={validate} />
     </AvGroup>
   );
 }
