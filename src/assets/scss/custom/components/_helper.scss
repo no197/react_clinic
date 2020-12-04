@@ -24,7 +24,6 @@
   min-width: 160px;
 }
 
-
 // Font Family
 .font-family-secondary {
   font-family: $font-family-secondary;
@@ -85,7 +84,6 @@
   }
 }
 
-
 // Font weight help class
 
 .font-weight-medium {
@@ -95,7 +93,6 @@
 .font-weight-semibold {
   font-weight: 600;
 }
-
 
 // Text specify lines (Only chrome browser support)
 
@@ -117,7 +114,6 @@
   -webkit-line-clamp: 2;
 }
 
-
 .sp-line-3 {
   -webkit-line-clamp: 3;
 }
@@ -131,4 +127,9 @@
 .pull-in {
   margin-left: -$card-spacer-x;
   margin-right: -$card-spacer-x;
+}
+
+//  TODO: 12/03/20 custom font size error
+.invalid-feedback {
+  font-size: 13px !important;
 }
