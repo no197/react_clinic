@@ -1,7 +1,7 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
-import { GET_PATIENTS } from './constant';
+import { CREATE_PATIENTS, GET_PATIENTS } from './constant';
 import apiCall from '../../helpers/apiCall';
-import { getPatientsFail, getPatientsSuccess } from './actions';
+import { createPatientsFail, createPatientsSuccess, getPatientsFail, getPatientsSuccess } from './actions';
 
 function* getPatientsSaga() {
   try {
@@ -23,12 +23,35 @@ function* getPatientsSaga() {
   }
 }
 
+function* createPatientSaga() {
+  try {
+    const { data: resonse } = yield call(() => apiCall.post('/patients'));
+    yield put(createPatientsSuccess(resonse));
+  } catch (error) {
+    let message;
+    switch (error.status) {
+      case 500:
+        message = 'Internal Server Error';
+        break;
+      case 401:
+        message = 'Invalid credentials';
+        break;
+      default:
+        message = error;
+    }
+    yield put(createPatientsFail(message));
+  }
+}
+
 export function* watchGetPatients() {
   yield takeEvery(GET_PATIENTS, getPatientsSaga);
 }
+export function* watchCreatePatients() {
+  yield takeEvery(CREATE_PATIENTS, createPatientSaga);
+}
 
 function* patientSaga() {
-  yield all([fork(watchGetPatients)]);
+  yield all([fork(watchGetPatients, watchCreatePatients)]);
 }
 
 export default patientSaga;

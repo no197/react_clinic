@@ -1,14 +1,19 @@
-import AvFeedback from 'availity-reactstrap-validation/lib/AvFeedback';
 import AvField from 'availity-reactstrap-validation/lib/AvField';
 import AvForm from 'availity-reactstrap-validation/lib/AvForm';
-import AvGroup from 'availity-reactstrap-validation/lib/AvGroup';
-import AvInput from 'availity-reactstrap-validation/lib/AvInput';
-import React from 'react';
-import { Row, Col, Button, Card, CardBody, Label, InputGroupAddon, FormGroup, CustomInput } from 'reactstrap';
-
+import React, { useEffect } from 'react';
+import Select from 'react-select';
+import Flatpickr from 'react-flatpickr';
+import { Row, Col, Button, Card, CardBody } from 'reactstrap';
+import { createPatients } from '../../redux/patients/actions';
 import PageTitle from '../../components/PageTitle';
+import { connect } from 'react-redux';
+import AvGroup from 'availity-reactstrap-validation/lib/AvGroup';
 
 const NewPatient = () => {
+  useEffect(() => {
+    createPatients();
+    return () => {};
+  }, [createPatients]);
   return (
     <React.Fragment>
       <Row className="page-title">
@@ -36,34 +41,33 @@ const NewPatient = () => {
                 supported browsers.
               </p>
               <AvForm>
-                <AvField name="firstname" label="Họ tên" type="text" required />
-                <AvField name="lastname" label="Last Name" type="text" required />
-
-                <AvGroup>
-                  <Label for="username">Username</Label>
-                  <div className="input-group">
-                    <InputGroupAddon addonType="prepend">@</InputGroupAddon>
-                    <AvInput placeholder="Username" name="username" required />
-                    <AvFeedback>Please choose a username.</AvFeedback>
-                  </div>
+                <AvField name="fullName" label="Họ tên" type="text" required />
+                <AvGroup name="gender" required>
+                  <p className="mb-1 mt-3 font-weight-bold">Giới tính</p>
+                  <Select
+                    isMulti={false}
+                    options={[
+                      { value: 'nam', label: 'Nam' },
+                      { value: 'nữ', label: 'Nữ' },
+                    ]}
+                    className="react-select"
+                    classNamePrefix="react-select"></Select>
                 </AvGroup>
-
-                <AvField name="City" label="City" type="text" required />
-                <AvField name="State" label="State" type="text" required />
-                <AvField name="Zip" label="Zip" type="text" required />
-
-                <FormGroup>
-                  <AvInput
-                    tag={CustomInput}
-                    type="checkbox"
-                    name="customCheckbox"
-                    label="Agree to terms and conditions"
-                    required
+                <AvGroup name="dateOfBirth" required>
+                  <p className="mb-1 mt-3 font-weight-bold">Ngày sinh</p>
+                  <Flatpickr
+                    value={new Date()}
+                    onChange={(date) => {
+                      console.log(date);
+                    }}
+                    className="form-control"
                   />
-                </FormGroup>
+                </AvGroup>
+                <AvField name="address" label="Địa Chỉ" type="text" required />
+                <AvField name="phoneNumber" label="Số điện thoại" type="text" required />
 
                 <Button color="primary" type="submit">
-                  Submit
+                  Thêm Bệnh Nhân
                 </Button>
               </AvForm>
             </CardBody>
@@ -73,5 +77,7 @@ const NewPatient = () => {
     </React.Fragment>
   );
 };
-
-export default NewPatient;
+const mapStateToProps = (state) => ({
+  patients: state.Patient.patients,
+});
+export default connect(mapStateToProps, { createPatients })(NewPatient);
