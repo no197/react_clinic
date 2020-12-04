@@ -4,13 +4,11 @@ import { Label } from 'reactstrap';
 import Flatpickr from 'react-flatpickr';
 import AvField from 'availity-reactstrap-validation/lib/AvField';
 import { useEffect } from 'react';
+import moment from 'moment';
 
 const formatDate = (date) => {
   if (typeof date === 'string') return date;
-  const offset = date.getTimezoneOffset();
-  const UTCDate = new Date(date.getTime() - offset * 60 * 1000);
-  const strFormat = UTCDate.toISOString().split('T')[0];
-  return strFormat;
+  return moment(date).format('YYYY-MM-DD');
 };
 
 const getDateValidate = ({ value, units }) => {
@@ -74,7 +72,7 @@ export default function AVDatePicker({ defaultValue, ...props }, ctx) {
           }}
         />
       </div>
-      <AvField ref={dateRef} name={name} type="date" hidden value={formatDate(date)} validate={validate} />
+      <AvField ref={dateRef} name={name} type="date" value={formatDate(date)} validate={validate} />
     </AvGroup>
   );
 }
