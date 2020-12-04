@@ -17,7 +17,6 @@ const PatientList = ({ patients, getPatients }) => {
   }, [getPatients]);
 
   let items = [];
-  let totalItems = 0;
 
   const { SearchBar } = Search;
   const { ExportCSVButton } = CSVExport;
@@ -39,7 +38,7 @@ const PatientList = ({ patients, getPatients }) => {
   };
 
   if (patients) {
-    ({ items, totalItems } = patients);
+    ({ items } = patients);
   }
 
   const columns = [

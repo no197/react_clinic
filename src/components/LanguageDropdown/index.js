@@ -12,93 +12,94 @@ import spainFlag from './flags/spain.jpg';
 import russiaFlag from './flags/russia.jpg';
 
 const Languages = [
-    {
-        name: 'English',
-        flag: enFlag,
-        lng: 'en-US',
-    },
-    {
-        name: 'Việt Nam',
-        flag: germanyFlag,
-        lng: 'vi',
-    },
-    {
-        name: 'Italian',
-        flag: italyFlag,
-    },
-    {
-        name: 'Spanish',
-        flag: spainFlag,
-    },
-    {
-        name: 'Russian',
-        flag: russiaFlag,
-    },
+  {
+    name: 'English',
+    flag: enFlag,
+    lng: 'en-US',
+  },
+  {
+    name: 'Việt Nam',
+    flag: germanyFlag,
+    lng: 'vi',
+  },
+  {
+    name: 'Italian',
+    flag: italyFlag,
+  },
+  {
+    name: 'Spanish',
+    flag: spainFlag,
+  },
+  {
+    name: 'Russian',
+    flag: russiaFlag,
+  },
 ];
 
 class LanguageDropdown extends Component {
-    constructor(props) {
-        super(props);
-        this.toggleDropdown = this.toggleDropdown.bind(this);
+  constructor(props) {
+    super(props);
+    this.toggleDropdown = this.toggleDropdown.bind(this);
 
-        this.state = {
-            dropdownOpen: false,
-        };
-    }
+    this.state = {
+      dropdownOpen: false,
+    };
+  }
 
-    toggleDropdown() {
-        this.setState({
-            dropdownOpen: !this.state.dropdownOpen,
-        });
-    }
-    onChange(lng, i18n) {
-        i18n.changeLanguage(lng);
-        this.toggleDropdown();
-        localStorage.setItem('i18nextLng', lng);
-    }
+  toggleDropdown() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen,
+    });
+  }
+  onChange(lng, i18n) {
+    i18n.changeLanguage(lng);
+    this.toggleDropdown();
+    localStorage.setItem('i18nextLng', lng);
+  }
 
-    render() {
-        const tag = this.props.tag || 'div';
-        const { i18n } = this.props;
-        return (
-            <React.Fragment>
-                <Dropdown
-                    isOpen={this.state.dropdownOpen}
-                    toggle={this.toggleDropdown}
-                    className="d-none d-lg-block"
-                    tag={tag}
-                    id="langDropdown">
-                    <DropdownToggle
-                        data-toggle="dropdown"
-                        tag="a"
-                        className="nav-link mr-0"
-                        onClick={this.toggleDropdown}
-                        aria-expanded={this.state.dropdownOpen}>
-                        <Globe />
-                    </DropdownToggle>
-                    <DropdownMenu right className="">
-                        <div>
-                            {Languages.map((lang, i) => {
-                                return (
-                                    <Link
-                                        onClick={() => this.onChange(lang.lng, i18n)}
-                                        className="dropdown-item notify-item"
-                                        key={i + '-lang'}>
-                                        <img src={lang.flag} alt={lang.name} className="mr-1" height="12" />{' '}
-                                        <span className="align-middle">{lang.name}</span>
-                                    </Link>
-                                );
-                            })}
-                        </div>
-                    </DropdownMenu>
-                </Dropdown>
+  render() {
+    const tag = this.props.tag || 'div';
+    const { i18n } = this.props;
+    return (
+      <React.Fragment>
+        <Dropdown
+          isOpen={this.state.dropdownOpen}
+          toggle={this.toggleDropdown}
+          className="d-none d-lg-block"
+          tag={tag}
+          id="langDropdown">
+          <DropdownToggle
+            data-toggle="dropdown"
+            tag="a"
+            className="nav-link mr-0"
+            onClick={this.toggleDropdown}
+            aria-expanded={this.state.dropdownOpen}>
+            <Globe />
+          </DropdownToggle>
+          <DropdownMenu right className="">
+            <div>
+              {Languages.map((lang, i) => {
+                return (
+                  <Link
+                    to="#"
+                    onClick={() => this.onChange(lang.lng, i18n)}
+                    className="dropdown-item notify-item"
+                    key={i + '-lang'}>
+                    <img src={lang.flag} alt={lang.name} className="mr-1" height="12" />{' '}
+                    <span className="align-middle">{lang.name}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </DropdownMenu>
+        </Dropdown>
 
-                <UncontrolledTooltip placement="left" target="langDropdown">
-                    Change language
-                </UncontrolledTooltip>
-            </React.Fragment>
-        );
-    }
+        <UncontrolledTooltip placement="left" target="langDropdown">
+          Change language
+        </UncontrolledTooltip>
+      </React.Fragment>
+    );
+  }
 }
 
 export default withNamespaces('common')(LanguageDropdown);
