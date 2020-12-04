@@ -63,9 +63,9 @@ export default function AVDatePicker({ defaultValue, ...props }, ctx) {
               const startDate = getDateValidate(start);
               const endDate = getDateValidate(end);
 
-              if (startDate && dateSelect.getTime() < startDate.getTime()) setError(true);
-              if (endDate && dateSelect.getTime() > endDate.getTime()) setError(true);
-            } else setError(false);
+              setError(startDate && dateSelect.getTime() < startDate.getTime());
+              setError(endDate && dateSelect.getTime() > endDate.getTime());
+            }
 
             //Set date data
             const input = dateRef.current.FormCtrl.getInput(name);
