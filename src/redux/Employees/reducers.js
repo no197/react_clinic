@@ -20,12 +20,12 @@ const employeesReducer = (state = INIT_STATE, action) => {
       return { ...state, employees: action.payload, loading: false, error: null };
     case GET_EMPLOYEES_FAIL:
       return { ...state, error: action.payload, loading: false };
-    // case CREATE_GET_EMPLOYEES:
-    //   return { ...state, loading: true };
-    // case CREATE_GET_EMPLOYEES_SUCCESS:
-    //   return { ...state, employees: action.payload, loading: false, error: null };
-    // case CREATE_GET_EMPLOYEES_FAIL:
-    //   return { ...state, error: action.payload, loading: false };
+    case CREATE_GET_EMPLOYEES:
+      return { ...state, loading: true };
+    case CREATE_GET_EMPLOYEES_SUCCESS:
+      return { ...state, employees: action.payload, loading: false, error: null };
+    case CREATE_GET_EMPLOYEES_FAIL:
+      return { ...state, error: action.payload, loading: false };
     default:
       return { ...state };
   }
