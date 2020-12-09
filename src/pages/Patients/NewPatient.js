@@ -22,7 +22,7 @@ const NewPatient = (props) => {
   ];
 
   const handleSubmit = (event, values) => {
-    createPatients(values);
+    props.createPatient(values);
     console.log(values);
   };
 
@@ -63,7 +63,7 @@ const NewPatient = (props) => {
                   />
 
                   <AVSelect
-                    name="gender"
+                    name="Gender"
                     label="Giới tính"
                     placeholder="Chọn giới tính bệnh nhân"
                     // defaultValue={{ value: 'Nam', label: 'Nam' }}
@@ -118,6 +118,6 @@ const mapStateToProps = (state) => ({
   patients: state.Patient.patients,
 });
 const mapDispatchToProps = (dispatch) => ({
- createPatients: (params) => dispatch(createPatients(params))
+ createPatient: (params) => dispatch(createPatients(params))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(NewPatient);

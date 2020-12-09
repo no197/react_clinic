@@ -1,7 +1,7 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
-import { GET_EMPLOYEES } from './constant';
+import { CREATE_EMPLOYEES, GET_EMPLOYEES } from './constant';
 import apiCall from '../../helpers/apiCall';
-import { getEmployeesFail, getEmployeesSuccess } from './actions';
+import { createEmployeesFail, createEmployeesSuccess, getEmployeesFail, getEmployeesSuccess } from './actions';
 
 function* getEmployeesSaga() {
   try {

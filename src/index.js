@@ -35,7 +35,7 @@ const i18n = configureI18n({
 });
 
 ReactDOM.render(
-    <Provider store={configureStore()}>
+    <Provider store={store}>
         <I18nextProvider i18n={i18n}>
             <App />
         </I18nextProvider>

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Routes from './routes/Routes';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 // setup fake backend
 import { configureFakeBackend } from './helpers';
@@ -24,7 +26,7 @@ configureFakeBackend();
  */
 class App extends Component {
   render() {
-    return <Routes></Routes>;
+    return <Routes></Routes>
   }
 }
 

@@ -4,14 +4,18 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Row, Col, Button, Card, CardBody } from 'reactstrap';
 
-import { getPatients } from '../../redux/patients/actions';
+import { deletePatients, getPatients } from '../../redux/patients/actions';
 
 import PageTitle from '../../components/PageTitle';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
+import { confirmAlert } from 'react-confirm-alert';
 
-const PatientList = ({ patients, getPatients }) => {
+
+
+const PatientList = ({ patients, getPatients, deletePatient }) => {
   useEffect(() => {
+ 
     getPatients();
     return () => {};
   }, [getPatients]);
@@ -21,8 +25,24 @@ const PatientList = ({ patients, getPatients }) => {
   const { SearchBar } = Search;
   const { ExportCSVButton } = CSVExport;
 
-  // Cột action
+  // // Cột action
   const ActionColumn = (cell, row, rowIndex, formatExtraData) => {
+    const onClickDelete = ()=> {
+      confirmAlert({
+        title: 'Confirm to submit',
+        message: 'Are you sure to do this.',
+        buttons: [
+          {
+            label: 'Xóa',
+            onClick: () => deletePatient(row.patientId)
+          },
+          {
+            label: 'Không',
+            onClick: () => {}
+          }
+        ]
+      });
+    }
     return (
       <React.Fragment>
         <Link to={`/app/patients/${row.patientId}`}>
@@ -30,7 +50,7 @@ const PatientList = ({ patients, getPatients }) => {
             <i className="uil-pen"></i>
           </Button>
         </Link>
-        <Button color="danger">
+        <Button color="danger" onClick={onClickDelete}>
           <i className="uil-trash-alt"></i>
         </Button>
       </React.Fragment>
@@ -73,7 +93,7 @@ const PatientList = ({ patients, getPatients }) => {
       sort: false,
     },
     {
-      dataField: 'action',
+      dataField: 'action',  
       text: 'Hành động',
       formatter: ActionColumn,
       csvExport: false,
@@ -192,5 +212,10 @@ const PatientList = ({ patients, getPatients }) => {
 const mapStateToProps = (state) => ({
   patients: state.Patient.patients,
 });
+
+const mapDispatchToProps = (dispatch) =>({
+  getPatients: ()=>dispatch(getPatients()),
+  deletePatient: (id) =>dispatch(deletePatients(id))
+})
 
 export default connect(mapStateToProps, { getPatients })(PatientList);
