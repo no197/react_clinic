@@ -1,98 +1,103 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
+import { history } from '../redux/store';
 import Loadable from 'react-loadable';
 import { connect } from 'react-redux';
 
 import { isUserAuthenticated } from '../helpers/authUtils';
 import * as layoutConstants from '../constants/layout';
 import { allFlattenRoutes as routes } from './index';
-// import { Spinner } from 'reactstrap';
+
 import ReactLoading from 'react-loading';
+import { ConnectedRouter } from 'connected-react-router';
+
 // Lazy loading and code splitting -
 // Derieved idea from https://blog.logrocket.com/lazy-loading-components-in-react-16-6-6cea535c0b52
 const loading = () => (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        {/* <Spinner color="primary" /> */}
-        <ReactLoading type="spin" width={48} height={48} color="#5369f8" />
-    </div>
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+    {/* <Spinner color="primary" /> */}
+    <ReactLoading type="spin" width={48} height={48} color="#5369f8" />
+  </div>
 );
 
 // All layouts/containers
 const AuthLayout = Loadable({
-    loader: () => import('../layouts/Auth'),
-    render(loaded, props) {
-        let Component = loaded.default;
-        return <Component {...props} />;
-    },
-    loading,
+  loader: () => import('../layouts/Auth'),
+  render(loaded, props) {
+    let Component = loaded.default;
+    return <Component {...props} />;
+  },
+  loading,
 });
 
 const VerticalLayout = Loadable({
-    loader: () => import('../layouts/Vertical'),
-    render(loaded, props) {
-        let Component = loaded.default;
-        return <Component {...props} />;
-    },
-    loading,
+  loader: () => import('../layouts/Vertical'),
+  render(loaded, props) {
+    let Component = loaded.default;
+    return <Component {...props} />;
+  },
+  loading,
 });
 
 const HorizontalLayout = Loadable({
-    loader: () => import('../layouts/Horizontal'),
-    render(loaded, props) {
-        let Component = loaded.default;
-        return <Component {...props} />;
-    },
-    loading,
+  loader: () => import('../layouts/Horizontal'),
+  render(loaded, props) {
+    let Component = loaded.default;
+    return <Component {...props} />;
+  },
+  loading,
 });
 
 class Routes extends Component {
-    // returns the layout
-    getLayout = () => {
-        if (!isUserAuthenticated()) return AuthLayout;
+  // returns the layout
+  getLayout = () => {
+    if (!isUserAuthenticated()) return AuthLayout;
 
-        let layoutCls = VerticalLayout;
+    let layoutCls = VerticalLayout;
 
-        switch (this.props.layout.layoutType) {
-            case layoutConstants.LAYOUT_HORIZONTAL:
-                layoutCls = HorizontalLayout;
-                break;
-            default:
-                layoutCls = VerticalLayout;
-                break;
-        }
-        return layoutCls;
-    };
-
-    render() {
-        const Layout = this.getLayout();
-
-        // rendering the router with layout
-        return (
-            <BrowserRouter>
-                <Layout {...this.props}>
-                    <Switch>
-                        {routes.map((route, index) => {
-                            return !route.children ? (
-                                <route.route
-                                    key={index}
-                                    path={route.path}
-                                    roles={route.roles}
-                                    exact={route.exact}
-                                    component={route.component}></route.route>
-                            ) : null;
-                        })}
-                    </Switch>
-                </Layout>
-            </BrowserRouter>
-        );
+    switch (this.props.layout.layoutType) {
+      case layoutConstants.LAYOUT_HORIZONTAL:
+        layoutCls = HorizontalLayout;
+        break;
+      default:
+        layoutCls = VerticalLayout;
+        break;
     }
+    return layoutCls;
+  };
+
+  render() {
+    const Layout = this.getLayout();
+
+    // rendering the router with layout
+    return (
+      // <BrowserRouter>
+      <ConnectedRouter history={history}>
+        <Layout {...this.props}>
+          <Switch>
+            {routes.map((route, index) => {
+              return !route.children ? (
+                <route.route
+                  key={index}
+                  path={route.path}
+                  roles={route.roles}
+                  exact={route.exact}
+                  component={route.component}></route.route>
+              ) : null;
+            })}
+          </Switch>
+        </Layout>
+        {/* </BrowserRouter> */}
+      </ConnectedRouter>
+    );
+  }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        layout: state.Layout,
-        user: state.Auth.user,
-    };
+  return {
+    layout: state.Layout,
+    user: state.Auth.user,
+  };
 };
 
 export default connect(mapStateToProps, null)(Routes);

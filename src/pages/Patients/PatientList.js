@@ -1,48 +1,57 @@
+// Import react, effect and router
 import React, { useEffect } from 'react';
-import BootstrapTable from 'react-bootstrap-table-next';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+//Import format date and Icon
+import moment from 'moment';
+import * as FeatherIcon from 'react-feather';
+
+//Import UI Components and Icon
 import { Row, Col, Button, Card, CardBody } from 'reactstrap';
-
-import { deletePatients, getPatients } from '../../redux/patients/actions';
-
-import PageTitle from '../../components/PageTitle';
+import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
-import { confirmAlert } from 'react-confirm-alert';
+import { DeletePatientButton } from '../../components/Confirm/DeleteButtonConfirm';
+import PageTitle from '../../components/PageTitle';
 
-
+//Import action to dispatch
+import { deletePatients, getPatients } from '../../redux/patients/actions';
 
 const PatientList = ({ patients, getPatients, deletePatient }) => {
+  // Use effect to get items
   useEffect(() => {
- 
     getPatients();
     return () => {};
   }, [getPatients]);
 
-  let items = [];
-
+  // Destruct UI Componenet for TookitProvider
   const { SearchBar } = Search;
   const { ExportCSVButton } = CSVExport;
 
-  // // Cột action
+  // Get Items to display on table
+  let items = [];
+  if (patients) {
+    ({ items } = patients);
+  }
+
+  // Config action column
   const ActionColumn = (cell, row, rowIndex, formatExtraData) => {
-    const onClickDelete = ()=> {
-      confirmAlert({
-        title: 'Confirm to submit',
-        message: 'Are you sure to do this.',
-        buttons: [
-          {
-            label: 'Xóa',
-            onClick: () => deletePatient(row.patientId)
-          },
-          {
-            label: 'Không',
-            onClick: () => {}
-          }
-        ]
-      });
-    }
+    const options = {
+      Icon: FeatherIcon.AlertCircle, // Icon confirm
+      headerTitle: 'Xác nhận xóa', // Header confirm
+      content: 'Hành động này sẽ xóa hoàn toàn bệnh nhân ra khỏi hệ thống. Bạn thật sự muốn xóa bệnh nhân đã chọn?',
+      okeBtn: {
+        text: 'Xóa bệnh nhân',
+        color: 'danger',
+        onClick: () => deletePatients(row.patientId), // truyền action cần dispatch
+      },
+      cancelBtn: {
+        text: 'Hủy bỏ',
+        color: 'light',
+      },
+    };
+
     return (
       <React.Fragment>
         <Link to={`/app/patients/${row.patientId}`}>
@@ -50,22 +59,25 @@ const PatientList = ({ patients, getPatients, deletePatient }) => {
             <i className="uil-pen"></i>
           </Button>
         </Link>
-        <Button color="danger" onClick={onClickDelete}>
-          <i className="uil-trash-alt"></i>
-        </Button>
+        <DeletePatientButton {...options} />
       </React.Fragment>
     );
   };
 
-  if (patients) {
-    ({ items } = patients);
-  }
-
+  // Config all column for table
   const columns = [
+    // STT column
+    {
+      dataField: 'stt',
+      text: 'STT',
+      formatter: (cell, row, rowIndex) => rowIndex + 1,
+      exportCSV: false,
+    },
     {
       dataField: 'patientId',
       text: 'ID',
       sort: true,
+      hidden: true,
     },
     {
       dataField: 'fullName',
@@ -80,6 +92,9 @@ const PatientList = ({ patients, getPatients, deletePatient }) => {
     {
       dataField: 'dateOfBirth',
       text: 'Ngày sinh',
+      formatter: (cell, row, rowIndex) => {
+        return moment(new Date(row.dateOfBirth)).format('DD/MM/YYYY'); //Format datetime
+      },
       sort: true,
     },
     {
@@ -93,20 +108,23 @@ const PatientList = ({ patients, getPatients, deletePatient }) => {
       sort: false,
     },
     {
-      dataField: 'action',  
+      dataField: 'action',
       text: 'Hành động',
+      editable: false,
       formatter: ActionColumn,
       csvExport: false,
     },
   ];
 
+  //Config default sort
   const defaultSorted = [
     {
       dataField: 'patientId',
-      order: 'asc',
+      order: 'desc',
     },
   ];
 
+  // Config pagination
   const paginationOptions = {
     paginationSize: 5,
     pageStartIndex: 1,
@@ -133,8 +151,10 @@ const PatientList = ({ patients, getPatients, deletePatient }) => {
     ], // A numeric array is also available. the purpose of above example is custom the text
   };
 
+  // Render component
   return (
     <React.Fragment>
+      {/* BeadCrumb */}
       <Row className="page-title">
         <Col>
           <PageTitle
@@ -149,6 +169,8 @@ const PatientList = ({ patients, getPatients, deletePatient }) => {
           />
         </Col>
       </Row>
+
+      {/* Icon on top */}
       <Row>
         <Col>
           <div className="form-group">
@@ -160,11 +182,16 @@ const PatientList = ({ patients, getPatients, deletePatient }) => {
           </div>
         </Col>
       </Row>
+
+      {/* Main content  */}
       <Row>
         <Col>
           <Card>
             <CardBody>
+              {/* Title  */}
               <h4 className="header-title mt-0 mb-4">Danh sách bệnh nhân</h4>
+
+              {/* Table and Tookit(Search & Export pdf) */}
               {patients && (
                 <ToolkitProvider
                   bootstrap4
@@ -177,8 +204,11 @@ const PatientList = ({ patients, getPatients, deletePatient }) => {
                     <React.Fragment>
                       <Row>
                         <Col>
+                          {/* Search bar */}
                           <SearchBar {...props.searchProps} />
                         </Col>
+
+                        {/* Export CSV */}
                         <Col className="text-right">
                           <ExportCSVButton {...props.csvProps} className="btn btn-primary">
                             Export CSV
@@ -186,6 +216,7 @@ const PatientList = ({ patients, getPatients, deletePatient }) => {
                         </Col>
                       </Row>
 
+                      {/* Table */}
                       <BootstrapTable
                         striped
                         bootstrap4
@@ -212,10 +243,5 @@ const PatientList = ({ patients, getPatients, deletePatient }) => {
 const mapStateToProps = (state) => ({
   patients: state.Patient.patients,
 });
-
-const mapDispatchToProps = (dispatch) =>({
-  getPatients: ()=>dispatch(getPatients()),
-  deletePatient: (id) =>dispatch(deletePatients(id))
-})
 
 export default connect(mapStateToProps, { getPatients })(PatientList);

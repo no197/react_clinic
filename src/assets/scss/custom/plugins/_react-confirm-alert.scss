@@ -1,0 +1,7 @@
+.react-confirm-alert-overlay {
+  background-color: rgba($gray-900, 0.8);
+
+  .react-confirm-alert .react-confirm-alert-body {
+    border: 1px solid $danger;
+  }
+}

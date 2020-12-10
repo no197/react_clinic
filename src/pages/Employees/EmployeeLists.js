@@ -16,7 +16,6 @@ const EmployeesList = ({ employees, getEmployees }) => {
   }, [getEmployees]);
 
   let items = [];
-  let totalItems = 0;
 
   const { SearchBar } = Search;
   const { ExportCSVButton } = CSVExport;
@@ -38,7 +37,7 @@ const EmployeesList = ({ employees, getEmployees }) => {
   };
 
   if (employees) {
-    ({ items, totalItems } = employees);
+    ({ items } = employees);
   }
 
   const columns = [
