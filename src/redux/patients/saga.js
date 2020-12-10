@@ -46,7 +46,7 @@ function* createPatientSaga({payload}) {
 
 function* deletePatientSaga({payload: id}) {
   try {
-yield call(() => apiCall. delete(`/patients/${id}`));
+yield call(() => apiCall.delete(`/patients/${id}`));
     yield put(deletePatientsSuccess(id));
   } catch (error) {
     let message;
