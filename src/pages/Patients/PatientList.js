@@ -17,6 +17,7 @@ import PageTitle from '../../components/PageTitle';
 
 //Import action to dispatch
 import { deletePatients, getPatients } from '../../redux/patients/actions';
+import ButtonAppointmentModal from '../../components/Modal/ButtonAppointmentModal';
 
 const PatientList = ({ patients, getPatients, deletePatient }) => {
   // Use effect to get items
@@ -54,6 +55,10 @@ const PatientList = ({ patients, getPatients, deletePatient }) => {
 
     return (
       <React.Fragment>
+        {/* <ButtonAppointmentModal patient={row} /> */}
+        <Button className="mr-2" color="primary" onClick={() => {}}>
+          <i className="uil-plus"></i>
+        </Button>
         <Link to={`/app/patients/${row.patientId}`}>
           <Button color="warning" className="mr-2">
             <i className="uil-pen"></i>

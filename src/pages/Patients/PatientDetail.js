@@ -11,6 +11,7 @@ import AVSelect from '../../components/Form/AVSelect';
 import PageTitle from '../../components/PageTitle';
 import { connect } from 'react-redux';
 import { clearPatientDetail, getPatientDetail, updatePatient } from '../../redux/patients/actions';
+import Loading from '../../components/Loading/Loading';
 
 const PatientDetail = ({ patient, ...props }) => {
   const { id } = props.match.params;
@@ -38,7 +39,7 @@ const PatientDetail = ({ patient, ...props }) => {
     console.log(values);
   };
 
-  if (!patient) return <div></div>;
+  if (!patient) return <Loading />;
   return (
     <React.Fragment>
       <Row className="page-title">

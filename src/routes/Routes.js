@@ -8,17 +8,12 @@ import { isUserAuthenticated } from '../helpers/authUtils';
 import * as layoutConstants from '../constants/layout';
 import { allFlattenRoutes as routes } from './index';
 
-import ReactLoading from 'react-loading';
 import { ConnectedRouter } from 'connected-react-router';
+import Loading from '../components/Loading/Loading';
 
 // Lazy loading and code splitting -
 // Derieved idea from https://blog.logrocket.com/lazy-loading-components-in-react-16-6-6cea535c0b52
-const loading = () => (
-  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-    {/* <Spinner color="primary" /> */}
-    <ReactLoading type="spin" width={48} height={48} color="#5369f8" />
-  </div>
-);
+const loading = () => <Loading />;
 
 // All layouts/containers
 const AuthLayout = Loadable({
