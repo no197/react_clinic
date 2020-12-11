@@ -1,7 +1,7 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
-import { GET_EMPLOYEES } from './constant';
+import { CREATE_EMPLOYEES, GET_EMPLOYEES } from './constant';
 import apiCall from '../../helpers/apiCall';
-import { getEmployeesFail, getEmployeesSuccess } from './actions';
+import { createEmployeesFail, createEmployeesSuccess, getEmployeesFail, getEmployeesSuccess } from './actions';
 
 function* getEmployeesSaga() {
   try {
@@ -23,35 +23,35 @@ function* getEmployeesSaga() {
   }
 }
 
-// function* createEmployeesaga() {
-//   try {
-//     const { data: resonse } = yield call(() => apiCall.post('/Employees/new'));
-//     yield put(createEmployeesSuccess(resonse));
-//   } catch (error) {
-//     let message;
-//     switch (error.status) {
-//       case 500:
-//         message = 'Internal Server Error';
-//         break;
-//       case 401:
-//         message = 'Invalid credentials';
-//         break;
-//       default:
-//         message = error;
-//     }
-//     yield put(createEmployeesFail(message));
-//   }
-// }
+function* createEmployeesaga() {
+  try {
+    const { data: resonse } = yield call(() => apiCall.post('/employees'));
+    yield put(createEmployeesSuccess(resonse));
+  } catch (error) {
+    let message;
+    switch (error.status) {
+      case 500:
+        message = 'Internal Server Error';
+        break;
+      case 401:
+        message = 'Invalid credentials';
+        break;
+      default:
+        message = error;
+    }
+    yield put(createEmployeesFail(message));
+  }
+}
 
 export function* watchGetEmployees() {
   yield takeEvery(GET_EMPLOYEES, getEmployeesSaga);
 }
-// export function* watchCreateEmployees() {
-//   yield takeEvery(CREATE_Employees, createEmployeesaga);
-// }
+export function* watchCreateEmployees() {
+  yield takeEvery(CREATE_EMPLOYEES, createEmployeesaga);
+}
 
 function* EmployeeSaga() {
-  yield all([fork(watchGetEmployees)]);
+  yield all([fork(watchGetEmployees,watchCreateEmployees)]);
 }
 
 export default EmployeeSaga;

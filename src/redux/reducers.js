@@ -8,11 +8,25 @@ import AppMenu from './appMenu/reducers';
 import { i18nextReducer } from 'i18next-redux-languagedetector';
 import patientReducer from './patients/reducers';
 import employeesReducer from './Employees/reducers';
-export default combineReducers({
-  Auth,
-  AppMenu,
-  Layout,
-  i18next: i18nextReducer,
-  Patient: patientReducer,
-  Employees: employeesReducer,
-});
+import { connectRouter } from 'connected-react-router';
+
+const createRootReducer = (history) =>
+  combineReducers({
+    router: connectRouter(history),
+    Auth,
+    AppMenu,
+    Layout,
+    i18next: i18nextReducer,
+    Patient: patientReducer,
+    Employees: employeesReducer,
+  });
+
+export default createRootReducer;
+// export default combineReducers({
+//   Auth,
+//   AppMenu,
+//   Layout,
+//   i18next: i18nextReducer,
+//   Patient: patientReducer,
+//   Employees: employeesReducer,
+// });

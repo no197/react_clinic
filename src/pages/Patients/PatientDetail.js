@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AvFeedback from 'availity-reactstrap-validation/lib/AvFeedback';
 import AvField from 'availity-reactstrap-validation/lib/AvField';
 import AvForm from 'availity-reactstrap-validation/lib/AvForm';
@@ -9,30 +9,37 @@ import AVDatePicker from '../../components/Form/AVDatePicker';
 import AVSelect from '../../components/Form/AVSelect';
 
 import PageTitle from '../../components/PageTitle';
+import { connect } from 'react-redux';
+import { clearPatientDetail, getPatientDetail, updatePatient } from '../../redux/patients/actions';
+import Loading from '../../components/Loading/Loading';
 
-const PatientDetail = (props) => {
+const PatientDetail = ({ patient, ...props }) => {
   const { id } = props.match.params;
+  const { clearPatientDetail, getPatientDetail, updatePatient } = props;
   const [errors, setErrors] = useState([]);
 
-  const fakePatient = {
-    patientId: 1,
-    fullName: 'Hồ Thị Cẩm Hoài',
-    gender: 'Nữ',
-    dateOfBirth: '2005-12-15T00:00:00',
-    address: '873 Lê Hồng Phong, Q5, TpHCM',
-    phoneNumber: '0903655711',
-  };
+  useEffect(() => {
+    getPatientDetail(id);
+
+    return () => {
+      clearPatientDetail();
+    };
+  }, [clearPatientDetail, getPatientDetail, id]);
+
   const options = [
     { value: 'Nam', label: 'Nam' },
     { value: 'Nữ', label: 'Nữ' },
   ];
 
-  const defaultSelect = options.find((item) => item.value === fakePatient.gender);
+  const defaultSelect = patient ? options.find((item) => item.value === patient.gender) : null;
+  const defaultDate = patient ? patient.dateOfBirth : Date.now();
 
   const handleSubmit = (event, values) => {
+    updatePatient(values);
     console.log(values);
   };
 
+  if (!patient) return <Loading />;
   return (
     <React.Fragment>
       <Row className="page-title">
@@ -64,7 +71,11 @@ const PatientDetail = (props) => {
                 <AvForm
                   onInvalidSubmit={(event, errors, values) => setErrors(errors)}
                   onValidSubmit={handleSubmit}
-                  model={fakePatient}>
+                  model={patient}>
+                  <AvGroup>
+                    <AvInput name="patientId" hidden />
+                  </AvGroup>
+
                   <AvField
                     name="fullName"
                     label="Tên bệnh nhân"
@@ -88,7 +99,7 @@ const PatientDetail = (props) => {
 
                   <AVDatePicker
                     name="dateOfBirth"
-                    defaultValue={fakePatient.dateOfBirth}
+                    defaultValue={defaultDate}
                     error={errors.indexOf('dateOfBirth') !== -1}
                     label="Ngày sinh"
                     options={{
@@ -110,11 +121,20 @@ const PatientDetail = (props) => {
                     <AvFeedback>Địa chỉ của bệnh nhân là bắt buộc</AvFeedback>
                   </AvGroup>
 
-                  <AvGroup>
-                    <Label for="phoneNumber">Số điện thoại</Label>
-                    <AvInput placeholder="Số điện thoại" name="phoneNumber" required />
-                    <AvFeedback>Số điện thoại của bệnh nhân là bắt buộc</AvFeedback>
-                  </AvGroup>
+                  <AvField
+                    name="phoneNumber"
+                    label="Số điện thoại"
+                    placeholder="Số điện thoại"
+                    validate={{
+                      required: { value: true, errorMessage: 'Số điện thoại của bệnh nhân là bắt buộc' },
+                      pattern: {
+                        value: '(09|03|07|08|05)+([0-9]{8})',
+                        errorMessage: 'Số điện thoại không phải là số điện thoại Việt Nam hợp lệ',
+                      },
+                      minLength: { value: 10, errorMessage: 'Số điện thoại chỉ phải bao gồm 10 chữ số' },
+                      maxLength: { value: 10, errorMessage: 'Số điện thoại chỉ có thể dài tối đa 10 chữ số' },
+                    }}
+                  />
 
                   <Button color="primary" type="submit">
                     Submit
@@ -129,4 +149,13 @@ const PatientDetail = (props) => {
   );
 };
 
-export default PatientDetail;
+const mapStateToProps = (state) => ({
+  patient: state.Patient.patient,
+});
+const mapDispatchToProps = (dispatch) => ({
+  getPatientDetail: (id) => dispatch(getPatientDetail(id)),
+  updatePatient: (patient) => dispatch(updatePatient(patient)),
+  clearPatientDetail: () => dispatch(clearPatientDetail()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PatientDetail);

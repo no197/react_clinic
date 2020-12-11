@@ -30,12 +30,6 @@ const setSession = (user) => {
  * @param {*} payload - username and password
  */
 function* login({ payload: { username, password } }) {
-  const options = {
-    body: JSON.stringify({ username, password }),
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-  };
-
   try {
     // const response = yield call(fetchJSON, '/users/authenticate', options);
     const { data: response } = yield call(() => apiCall.post('/auth/login', { email: username, password }));
