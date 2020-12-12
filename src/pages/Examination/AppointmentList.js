@@ -1,7 +1,6 @@
 // Import react, effect and router
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 //Import format date and Icon
 import moment from 'moment';
@@ -16,16 +15,15 @@ import { DeleteButtonConfirm } from '../../components/Confirm/DeleteButtonConfir
 import PageTitle from '../../components/PageTitle';
 
 //Import action to dispatch
-import { deletePatients, getPatients } from '../../redux/patients/actions';
-import ButtonAppointmentModal from '../../components/Modal/ButtonAppointmentModal';
-import { createAppointment } from '../../redux/examinations/actions';
+import { deleteAppointment, getAppointments } from '../../redux/examinations/actions';
+import { Link } from 'react-router-dom';
 
-const PatientList = ({ patients, getPatients, createAppointment }) => {
+const PatientList = ({ appointments, getAppointments }) => {
   // Use effect to get items
   useEffect(() => {
-    getPatients();
+    getAppointments();
     return () => {};
-  }, [getPatients]);
+  }, [getAppointments]);
 
   // Destruct UI Componenet for TookitProvider
   const { SearchBar } = Search;
@@ -33,22 +31,20 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
 
   // Get Items to display on table
   let items = [];
-  if (patients) {
-    ({ items } = patients);
+  if (appointments) {
+    ({ items } = appointments);
   }
 
   // Config action column
   const ActionColumn = (cell, row, rowIndex, formatExtraData) => {
-    const { patientId } = row;
-
     const options = {
       Icon: FeatherIcon.AlertCircle, // Icon confirm
       headerTitle: 'Xác nhận xóa', // Header confirm
-      content: 'Hành động này sẽ xóa hoàn toàn bệnh nhân ra khỏi hệ thống. Bạn thật sự muốn xóa bệnh nhân đã chọn?',
+      content: 'Hành động này sẽ xóa đăng kí khám bệnh của bệnh nhân. Bạn thật sự muốn xóa bệnh nhân đã chọn?',
       okeBtn: {
-        text: 'Xóa bệnh nhân',
+        text: 'Xóa đăng ký',
         color: 'danger',
-        onClick: () => deletePatients(patientId), // truyền action cần dispatch
+        onClick: () => deleteAppointment(row.appointmentId), // truyền action cần dispatch
       },
       cancelBtn: {
         text: 'Hủy bỏ',
@@ -59,24 +55,16 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
     return (
       <React.Fragment>
         {/* <ButtonAppointmentModal patient={row} /> */}
-        <Button
-          className="mr-2"
-          color="primary"
-          onClick={() => {
-            const appoint = {
-              patientId,
-              dateOfAppointment: moment().format('YYYY-MM-DD'),
-              status: 'Đang chờ',
-            };
-            createAppointment(appoint);
+        <Link
+          to={{
+            pathname: `/app/examinations/add/${row.appointmentId}`,
+            state: { patientName: row.patientName },
           }}>
-          <i className="uil-plus"></i>
-        </Button>
-        <Link to={`/app/patients/${patientId}`}>
-          <Button color="warning" className="mr-2">
-            <i className="uil-pen"></i>
+          <Button className="mr-2" color="primary" onClick={() => {}}>
+            <i className=" uil-book-medical"></i>
           </Button>
         </Link>
+
         <DeleteButtonConfirm {...options} />
       </React.Fragment>
     );
@@ -92,37 +80,27 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
       exportCSV: false,
     },
     {
-      dataField: 'patientId',
+      dataField: 'appointmentId',
       text: 'ID',
       sort: true,
       hidden: true,
     },
     {
-      dataField: 'fullName',
-      text: 'Họ tên',
-      sort: true,
-    },
-    {
-      dataField: 'gender',
-      text: 'Giới tính',
+      dataField: 'patientName',
+      text: 'Tên bệnh nhân',
       sort: false,
     },
     {
-      dataField: 'dateOfBirth',
-      text: 'Ngày sinh',
+      dataField: 'dateOfAppointment',
+      text: 'Ngày hẹn khám',
       formatter: (cell, row, rowIndex) => {
-        return moment(new Date(row.dateOfBirth)).format('DD/MM/YYYY'); //Format datetime
+        return moment(new Date(row.dateOfAppointment)).format('DD/MM/YYYY'); //Format datetime
       },
       sort: true,
     },
     {
-      dataField: 'address',
-      text: 'Địa chỉ',
-      sort: false,
-    },
-    {
-      dataField: 'phoneNumber',
-      text: 'Số điện thoại',
+      dataField: 'status',
+      text: 'Tình trạng',
       sort: false,
     },
     {
@@ -137,7 +115,7 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
   //Config default sort
   const defaultSorted = [
     {
-      dataField: 'patientId',
+      dataField: 'appointmentId',
       order: 'desc',
     },
   ];
@@ -178,18 +156,18 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
           <PageTitle
             breadCrumbItems={[
               {
-                label: 'Bệnh nhân',
-                path: '/app/patients',
+                label: 'Khám bệnh',
+                path: '/app/examinations',
                 active: true,
               },
             ]}
-            title={'Danh sách bệnh nhân'}
+            title={'Danh sách đăng ký khám bệnh'}
           />
         </Col>
       </Row>
 
       {/* Icon on top */}
-      <Row>
+      {/* <Row>
         <Col>
           <div className="form-group">
             <Link to="/app/patients/new">
@@ -199,7 +177,7 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
             </Link>
           </div>
         </Col>
-      </Row>
+      </Row> */}
 
       {/* Main content  */}
       <Row>
@@ -210,10 +188,10 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
               <h4 className="header-title mt-0 mb-4">Danh sách bệnh nhân</h4>
 
               {/* Table and Tookit(Search & Export pdf) */}
-              {patients && (
+              {appointments && (
                 <ToolkitProvider
                   bootstrap4
-                  keyField="patientId"
+                  keyField="appointmentId"
                   data={items}
                   columns={columns}
                   search
@@ -223,13 +201,13 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
                       <Row>
                         <Col>
                           {/* Search bar */}
-                          <SearchBar {...props.searchProps} />
+                          <SearchBar {...props.searchProps} placeholder="Tìm kiếm" />
                         </Col>
 
                         {/* Export CSV */}
                         <Col className="text-right">
                           <ExportCSVButton {...props.csvProps} className="btn btn-primary">
-                            Export CSV
+                            Xuất CSV
                           </ExportCSVButton>
                         </Col>
                       </Row>
@@ -238,7 +216,7 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
                       <BootstrapTable
                         striped
                         bootstrap4
-                        keyField="patientId"
+                        keyField="appointmentId"
                         data={items}
                         columns={columns}
                         defaultSorted={defaultSorted}
@@ -259,11 +237,7 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
 };
 
 const mapStateToProps = (state) => ({
-  patients: state.Patient.patients,
+  appointments: state.Examinations.appointments,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getPatients: () => dispatch(getPatients()),
-  createAppointment: (appoint) => dispatch(createAppointment(appoint)),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(PatientList);
+export default connect(mapStateToProps, { getAppointments })(PatientList);

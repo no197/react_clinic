@@ -26,9 +26,6 @@ configureFakeBackend();
  * Main app component
  */
 
-// Lazy load toast
-toast.configure();
-
 class App extends Component {
   render() {
     return <Routes></Routes>;

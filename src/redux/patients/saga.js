@@ -1,4 +1,5 @@
 import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import React from 'react';
 import { CREATE_PATIENTS, DELETE_PATIENTS, GET_PATIENTS, GET_PATIENT_DETAIL, UPDATE_PATIENT } from './constant';
 import apiCall from '../../helpers/apiCall';
 import {
@@ -15,6 +16,7 @@ import {
 } from './actions';
 import { push } from 'connected-react-router';
 import { toast } from 'react-toastify';
+import ToastifyLink from '../../components/Toastify/ToastifyLink';
 
 // GET ALL PATIENTS
 function* getPatientsSaga() {
@@ -65,7 +67,7 @@ function* createPatientSaga({ payload }) {
     const { data: resonse } = yield call(() => apiCall.post('/patients', payload));
     yield put(createPatientsSuccess(resonse));
     yield put(push('/app/patients'));
-    toast.success('Thêm thành công bệnh nhân mới');
+    toast.success(<ToastifyLink to={`/app/patients/${resonse.patientId}`}>Thêm thành công bệnh nhân mới</ToastifyLink>);
   } catch (error) {
     let message;
     switch (error.status) {
