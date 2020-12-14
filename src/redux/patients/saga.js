@@ -111,12 +111,8 @@ function* updatePatientSaga({ payload }) {
 // DELETE PATIENT
 function* deletePatientSaga({ payload: id }) {
   try {
-<<<<<<< HEAD
-yield call(() => apiCall.delete(`/patients/${id}`));
-=======
     yield call(() => apiCall.delete(`/patients/${id}`));
     toast.success('Xóa thành công bệnh nhân!');
->>>>>>> e1a52b2fa0209217ec5395234de5d96598553131
     yield put(deletePatientsSuccess(id));
   } catch (error) {
     let message;
