@@ -9,6 +9,7 @@ import { i18nextReducer } from 'i18next-redux-languagedetector';
 import patientReducer from './patients/reducers';
 import employeesReducer from './Employees/reducers';
 import { connectRouter } from 'connected-react-router';
+import medicineReducer from './Medicines/reducer';
 
 const createRootReducer = (history) =>
   combineReducers({
@@ -19,6 +20,7 @@ const createRootReducer = (history) =>
     i18next: i18nextReducer,
     Patient: patientReducer,
     Employees: employeesReducer,
+    Medicine: medicineReducer,
   });
 
 export default createRootReducer;

@@ -61,6 +61,10 @@ const PatientDetail = React.lazy(() => import('../pages/Patients/PatientDetail')
 const EmployeesList = React.lazy(() => import('../pages/Employees/EmployeeLists'));
 const NewEmployees = React.lazy(() => import('../pages/Employees/NewEmployees'));
 const EmployeesDetail = React.lazy(() => import('../pages/Employees/EmployeesDetail'));
+//medicin
+const MedicineLists = React.lazy(() => import('../pages/Medicines/MedicineLists'));
+const NewMedicine = React.lazy(() => import('../pages/Medicines/NewMedicine'));
+const MedicineDetail = React.lazy(() => import('../pages/Employees/EmployeesDetail'));
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
   <Route
@@ -170,6 +174,36 @@ const employeesRoutes = {
     },
   ],
 };
+
+const medicineRoutes = {
+  path: '/app/medicines',
+  name: 'Thuốc',
+  header: 'Quản lý Thuốc',
+  icon: FeatherIcon.Briefcase,
+  roles: ['Admin', 'Employee'],
+  children: [
+    {
+      path: '/app/medicines',
+      name: 'Danh sách thuốc',
+      component: MedicineLists,
+      exact: true,
+      route: PrivateRoute,
+    },
+    {
+      path: '/app/medicines/new',
+      name: 'Thêm thuốc',
+      component: NewMedicine,
+      route: PrivateRoute,
+    },
+    {
+      path: '/app/medicines/:id',
+      component: EmployeesDetail,
+      route: PrivateRoute,
+    },
+  ],
+};
+
+
 const calendarAppRoutes = {
   path: '/apps/calendar',
   name: 'Calendar',
@@ -255,7 +289,7 @@ const taskAppRoutes = {
   ],
 };
 
-const appRoutes = [patientRoutes,employeesRoutes, calendarAppRoutes, emailAppRoutes, projectAppRoutes, taskAppRoutes];
+const appRoutes = [patientRoutes,employeesRoutes,medicineRoutes, calendarAppRoutes, emailAppRoutes, projectAppRoutes, taskAppRoutes];
 
 // pages
 const pagesRoutes = {
