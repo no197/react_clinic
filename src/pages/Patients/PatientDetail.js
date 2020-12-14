@@ -12,6 +12,7 @@ import PageTitle from '../../components/PageTitle';
 import { connect } from 'react-redux';
 import { clearPatientDetail, getPatientDetail, updatePatient } from '../../redux/patients/actions';
 import Loading from '../../components/Loading/Loading';
+import PreLoaderWidget from '../../components/Loader';
 
 const PatientDetail = ({ patient, ...props }) => {
   const { id } = props.match.params;
@@ -39,7 +40,7 @@ const PatientDetail = ({ patient, ...props }) => {
     console.log(values);
   };
 
-  if (!patient) return <Loading />;
+  if (!patient) return <PreLoaderWidget />;
   return (
     <React.Fragment>
       <Row className="page-title">

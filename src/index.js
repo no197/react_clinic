@@ -10,38 +10,49 @@ import { languageChange } from 'i18next-redux-languagedetector';
 import { I18nextProvider } from 'react-i18next';
 
 const i18nextConfig = {
-    language: null,
-    // TODO: 11/28/20  multilanguages
-    whitelist: ['en', 'vi'],
-    fallbackLng: 'vi',
-    ns: ['common'],
-    defaultNS: 'common',
+  // language: 'vi',
+  lng: 'vi',
+  // TODO: 11/28/20  multilanguages
+  whitelist: ['en', 'vi'],
+  fallbackLng: 'vi',
+  ns: ['common'],
+  defaultNS: 'common',
 };
 
 const store = configureStore({
-    i18next: i18nextConfig,
+  i18next: i18nextConfig,
 });
 
 const i18n = configureI18n({
-    i18nextConfig,
-    redux: {
-        lookupRedux: function () {
-            return store.getState().i18next;
-        },
-        cacheUserLanguageRedux: function (language) {
-            store.dispatch(languageChange(language));
-        },
+  i18nextConfig,
+  redux: {
+    lookupRedux: function () {
+      return store.getState().i18next;
     },
+    cacheUserLanguageRedux: function (language) {
+      store.dispatch(languageChange(language));
+    },
+  },
 });
-
-ReactDOM.render(
+i18n.on('initialized', () => {
+  ReactDOM.render(
     <Provider store={store}>
-        <I18nextProvider i18n={i18n}>
-            <App />
-        </I18nextProvider>
+      <I18nextProvider i18n={i18n}>
+        <App />
+      </I18nextProvider>
     </Provider>,
     document.getElementById('root')
-);
+  );
+});
+
+// ReactDOM.render(
+//   <Provider store={store}>
+//     <I18nextProvider i18n={i18n}>
+//       <App />
+//     </I18nextProvider>
+//   </Provider>,
+//   document.getElementById('root')
+// );
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

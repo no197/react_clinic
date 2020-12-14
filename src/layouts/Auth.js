@@ -1,5 +1,6 @@
 import React, { Component, Suspense } from 'react';
 import { connect } from 'react-redux';
+import PreLoaderWidget from '../components/Loader';
 import Loading from '../components/Loading/Loading';
 
 // code splitting and lazy loading
@@ -7,7 +8,7 @@ import Loading from '../components/Loading/Loading';
 // const Footer = React.lazy(() => import("./Footer"));
 
 // loading
-const loading = () => <Loading />;
+const loading = () => <PreLoaderWidget />;
 
 class AuthLayout extends Component {
   render() {

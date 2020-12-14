@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Button } from 'reactstrap';
 import { Confirm } from './Confirm';
 
-export const DeletePatientButton = ({ ...options }) => {
+export const DeleteButtonConfirm = ({ ...options }) => {
   const dispatch = useDispatch();
   const { Icon, headerTitle, content, okeBtn, cancelBtn } = options;
 
@@ -33,4 +33,4 @@ export const DeletePatientButton = ({ ...options }) => {
   );
 };
 
-export default DeletePatientButton;
+export default DeleteButtonConfirm;

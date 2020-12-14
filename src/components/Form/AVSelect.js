@@ -14,7 +14,7 @@ export default function AVSelect({ defaultValue, ...props }) {
     setError(props.error);
   }, [props.error]);
 
-  const { options, placeholder, name, errorMessage, label } = props;
+  const { options, placeholder, name, errorMessage, label, onChangeCallback } = props;
 
   const handleTouchedSelect = (option, type = 'change') => {
     const value = option ? option.value : '';
@@ -28,6 +28,9 @@ export default function AVSelect({ defaultValue, ...props }) {
     //Handle set value select and errors
     setError(!value);
     setSelectedValue(option);
+    if (typeof onChangeCallback === 'function') {
+      onChangeCallback(option);
+    }
   };
 
   return (

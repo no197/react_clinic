@@ -10,10 +10,12 @@ import { allFlattenRoutes as routes } from './index';
 
 import { ConnectedRouter } from 'connected-react-router';
 import Loading from '../components/Loading/Loading';
+import { ToastContainer } from 'react-toastify';
+import PreLoaderWidget from '../components/Loader';
 
 // Lazy loading and code splitting -
 // Derieved idea from https://blog.logrocket.com/lazy-loading-components-in-react-16-6-6cea535c0b52
-const loading = () => <Loading />;
+const loading = () => <PreLoaderWidget />;
 
 // All layouts/containers
 const AuthLayout = Loadable({
@@ -81,6 +83,7 @@ class Routes extends Component {
               ) : null;
             })}
           </Switch>
+          <ToastContainer />
         </Layout>
         {/* </BrowserRouter> */}
       </ConnectedRouter>

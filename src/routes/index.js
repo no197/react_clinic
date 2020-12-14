@@ -61,6 +61,13 @@ const PatientDetail = React.lazy(() => import('../pages/Patients/PatientDetail')
 const EmployeesList = React.lazy(() => import('../pages/Employees/EmployeeLists'));
 // const NewEmployees = React.lazy(() => import('../pages/Employees/NewPatient'));
 // const EmployeesDetail = React.lazy(() => import('../pages/Employees/PatientDetail'));
+
+//patients
+const AppointmentList = React.lazy(() => import('../pages/Examination/AppointmentList'));
+const ExaminationList = React.lazy(() => import('../pages/Examination/ExaminationList'));
+const NewExamination = React.lazy(() => import('../pages/Examination/NewExamination'));
+const ExaminationDetail = React.lazy(() => import('../pages/Examination/ExaminationDetail'));
+
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
   <Route
@@ -119,7 +126,7 @@ const dashboardRoutes = {
 const patientRoutes = {
   path: '/app/patients',
   name: 'Bệnh nhân',
-  header: 'Quản lý Bệnh Nhân',
+  header: 'Ứng dụng',
   icon: FeatherIcon.Grid,
   roles: ['Admin', 'Employee'],
   children: [
@@ -170,6 +177,41 @@ const patientRoutes = {
 //     },
 //   ],
 // };
+
+const examinationRoutes = {
+  name: 'Khám bệnh',
+  icon: FeatherIcon.Grid,
+  roles: ['Admin', 'Employee', 'Doctor'],
+  children: [
+    {
+      path: '/app/appointments',
+      name: 'Đăng ký khám bệnh',
+      component: AppointmentList,
+      exact: true,
+      route: PrivateRoute,
+    },
+    {
+      path: '/app/examinations',
+      component: ExaminationList,
+      name: 'Phiếu khám bệnh',
+      exact: true,
+      route: PrivateRoute,
+    },
+    {
+      path: '/app/examinations/:examinationId',
+      component: ExaminationDetail,
+      exact: true,
+      route: PrivateRoute,
+    },
+    {
+      path: '/app/examinations/add/:appointId',
+      component: NewExamination,
+      exact: true,
+      route: PrivateRoute,
+    },
+  ],
+};
+
 const calendarAppRoutes = {
   path: '/apps/calendar',
   name: 'Calendar',
@@ -255,7 +297,14 @@ const taskAppRoutes = {
   ],
 };
 
-const appRoutes = [patientRoutes, calendarAppRoutes, emailAppRoutes, projectAppRoutes, taskAppRoutes];
+const appRoutes = [
+  patientRoutes,
+  examinationRoutes,
+  calendarAppRoutes,
+  emailAppRoutes,
+  projectAppRoutes,
+  taskAppRoutes,
+];
 
 // pages
 const pagesRoutes = {
