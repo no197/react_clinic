@@ -60,9 +60,9 @@ const examinationReducer = (state = INIT_STATE, action) => {
     case DELETE_APPOINTMENT:
       return { ...state, loading: true };
     case DELETE_APPOINTMENT_SUCCESS:
-      items = state.examinations.items.filter((item) => item.appointmentId !== action.payload);
+      items = state.appointments.items.filter((item) => item.appointmentId !== action.payload);
       totalItems = items.length;
-      return { ...state, examinations: { ...state.examinations, items, totalItems }, loading: false, error: null };
+      return { ...state, appointments: { ...state.appointments, items, totalItems }, loading: false, error: null };
     case DELETE_APPOINTMENT_FAIL:
       return { ...state, error: action.payload, loading: false };
 

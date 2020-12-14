@@ -179,6 +179,7 @@ const patientRoutes = {
 // };
 
 const examinationRoutes = {
+  path: '/app/appointments',
   name: 'Khám bệnh',
   icon: FeatherIcon.Grid,
   roles: ['Admin', 'Employee', 'Doctor'],

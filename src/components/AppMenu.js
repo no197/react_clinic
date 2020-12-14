@@ -9,6 +9,7 @@ import { getLoggedInUser } from '../helpers/authUtils';
 
 const MenuItemWithChildren = ({ item, linkClassNames, subMenuClassNames, activatedMenuItemIds }) => {
   const Icon = item.icon || null;
+
   return (
     <li className={classNames('side-nav-item', { 'mm-active': activatedMenuItemIds.indexOf(item.id) >= 0 })}>
       <Link
@@ -52,6 +53,8 @@ const MenuItemWithChildren = ({ item, linkClassNames, subMenuClassNames, activat
 };
 
 const MenuItem = ({ item, className, linkClassName }) => {
+  // TODO don't list item without name
+  if (!item.name) return <React.Fragment></React.Fragment>;
   return (
     <li className={classNames('side-nav-item', className)}>
       <MenuItemLink item={item} className={linkClassName} />

@@ -161,6 +161,7 @@ function* createExaminationSaga({ payload }) {
   try {
     const { data: resonse } = yield call(() => apiCall.post('/examinations', payload));
     yield put(createAppointmentSuccess(resonse));
+    yield put(push('/app/examinations/'));
     toast.success(
       <ToastifyLink to={`/app/examinations/${resonse.examinationId}`}>
         Thêm thành công phiếu khám bệnh cho bệnh nhân
