@@ -5,10 +5,11 @@ import { connect } from 'react-redux';
 import { isUserAuthenticated } from '../helpers/authUtils';
 import * as layoutConstants from '../constants/layout';
 import Loading from 'react-loading';
+import PreLoaderWidget from './Loader';
 
 // Lazy loading and code splitting -
 // Derieved idea from https://blog.logrocket.com/lazy-loading-components-in-react-16-6-6cea535c0b52
-const loading = () => <Loading />;
+const loading = () => <PreLoaderWidget />;
 
 // All layouts/containers
 const AuthLayout = React.lazy(() => import('../layouts/Auth'));

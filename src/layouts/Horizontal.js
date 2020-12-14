@@ -7,6 +7,7 @@ import * as layoutConstants from '../constants/layout';
 
 import ThemeCustomizer from '../components/ThemeCustomizer';
 import Loading from 'react-loading';
+import PreLoaderWidget from '../components/Loader';
 
 // code splitting and lazy loading
 // https://blog.logrocket.com/lazy-loading-components-in-react-16-6-6cea535c0b52
@@ -14,7 +15,7 @@ const Topbar = React.lazy(() => import('../components/Topbar'));
 const Navbar = React.lazy(() => import('../components/Navbar'));
 const RightSidebar = React.lazy(() => import('../components/RightSidebar'));
 const Footer = React.lazy(() => import('../components/Footer'));
-const loading = () => <Loading />;
+const loading = () => <PreLoaderWidget />;
 
 class HorizontalLayout extends Component {
   constructor(props) {

@@ -6,6 +6,8 @@ import {
   DELETE_APPOINTMENT,
   GET_APPOINTMENT,
   GET_APPOINTMENTS,
+  GET_EXAMINATIONS,
+  GET_EXAMINATION_DETAIL,
 } from './constant';
 import apiCall from '../../helpers/apiCall';
 import {
@@ -17,15 +19,18 @@ import {
   deleteAppointmentFail,
   getAppointmentSuccess,
   getAppointmentFail,
+  getExaminationDetailSuccess,
+  getExaminationDetailFail,
 } from './actions';
 import { push } from 'connected-react-router';
 import { toast } from 'react-toastify';
 import ToastifyLink from '../../components/Toastify/ToastifyLink';
 
-// GET ALL PATIENTS
-function* getAppointmentsSaga() {
+// GET ALL APPOINTMENT
+function* getAppointmentsSaga({ payload: params }) {
   try {
-    const { data: response } = yield call(() => apiCall.get('/appointments?status=Đang chờ'));
+    const { status } = params;
+    const { data: response } = yield call(() => apiCall.get(`/appointments?status=${status}`));
     yield put(getAppointmentsSuccess(response));
   } catch (error) {
     let message;
@@ -43,6 +48,7 @@ function* getAppointmentsSaga() {
   }
 }
 
+// GET ONE APPOINTMENT
 function* getAppointmentSaga({ payload: id }) {
   try {
     const { data: response } = yield call(() => apiCall.get(`/appointments/${id}`));
@@ -108,6 +114,48 @@ function* deleteAppointmentSaga({ payload: id }) {
   }
 }
 
+// GET ALL EXAMINATION
+function* getExaminationsSaga() {
+  try {
+    const { data: response } = yield call(() => apiCall.get(`/examinations`));
+    yield put(getAppointmentsSuccess(response));
+  } catch (error) {
+    let message;
+    switch (error.status) {
+      case 500:
+        message = 'Internal Server Error';
+        break;
+      case 401:
+        message = 'Invalid credentials';
+        break;
+      default:
+        message = error;
+    }
+    yield put(getAppointmentsFail(message));
+  }
+}
+
+// GET ONE APPOINTMENT
+function* getExaminationDetailSaga({ payload: id }) {
+  try {
+    const { data: response } = yield call(() => apiCall.get(`/examinations/${id}`));
+    yield put(getExaminationDetailSuccess(response));
+  } catch (error) {
+    let message;
+    switch (error.status) {
+      case 500:
+        message = 'Internal Server Error';
+        break;
+      case 401:
+        message = 'Invalid credentials';
+        break;
+      default:
+        message = error;
+    }
+    yield put(getExaminationDetailFail(message));
+  }
+}
+
 // CREATE EXAMINATION
 function* createExaminationSaga({ payload }) {
   try {
@@ -134,6 +182,7 @@ function* createExaminationSaga({ payload }) {
   }
 }
 
+/// APOINTMENTS
 export function* watchGetAppointments() {
   yield takeLatest(GET_APPOINTMENTS, getAppointmentsSaga);
 }
@@ -150,17 +199,31 @@ export function* watchDeleteAppointment() {
   yield takeLatest(DELETE_APPOINTMENT, deleteAppointmentSaga);
 }
 
+/// EXAMINATIONS
+
+export function* watchGetExaminations() {
+  yield takeLatest(GET_EXAMINATIONS, getExaminationsSaga);
+}
+
+export function* watchGetExaminationDetail() {
+  yield takeLatest(GET_EXAMINATION_DETAIL, getExaminationDetailSaga);
+}
+
 export function* watchCreateExamination() {
   yield takeLatest(CREATE_EXAMINATION, createExaminationSaga);
 }
 
 function* examinationSaga() {
   yield all([
+    //Appointment
     call(watchGetAppointments),
     call(watchGetAppointment),
     call(watchCreateAppointment),
     call(watchDeleteAppointment),
 
+    // Examination
+    call(watchGetExaminations),
+    call(watchGetExaminationDetail),
     call(watchCreateExamination),
   ]);
 }

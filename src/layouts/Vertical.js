@@ -8,6 +8,7 @@ import * as layoutConstants from '../constants/layout';
 
 import ThemeCustomizer from '../components/ThemeCustomizer';
 import Loading from '../components/Loading/Loading';
+import PreLoaderWidget from '../components/Loader';
 
 // code splitting and lazy loading
 // https://blog.logrocket.com/lazy-loading-components-in-react-16-6-6cea535c0b52
@@ -18,7 +19,7 @@ const RightSidebar = React.lazy(() => import('../components/RightSidebar'));
 
 // loading
 const emptyLoading = () => <div></div>;
-const loading = () => <Loading />;
+const loading = () => <PreLoaderWidget />;
 
 class VerticalLayout extends Component {
   constructor(props) {

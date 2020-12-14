@@ -14,6 +14,12 @@ import {
   GET_APPOINTMENTS_SUCCESS,
   GET_APPOINTMENT_FAIL,
   GET_APPOINTMENT_SUCCESS,
+  GET_EXAMINATIONS,
+  GET_EXAMINATIONS_FAIL,
+  GET_EXAMINATIONS_SUCCESS,
+  GET_EXAMINATION_DETAIL,
+  GET_EXAMINATION_DETAIL_FAIL,
+  GET_EXAMINATION_DETAIL_SUCCESS,
 } from './constant';
 
 const INIT_STATE = {
@@ -54,10 +60,26 @@ const examinationReducer = (state = INIT_STATE, action) => {
     case DELETE_APPOINTMENT:
       return { ...state, loading: true };
     case DELETE_APPOINTMENT_SUCCESS:
-      items = state.appointments.items.filter((item) => item.appointmentId !== action.payload);
+      items = state.examinations.items.filter((item) => item.appointmentId !== action.payload);
       totalItems = items.length;
-      return { ...state, appointments: { ...state.appointments, items, totalItems }, loading: false, error: null };
+      return { ...state, examinations: { ...state.examinations, items, totalItems }, loading: false, error: null };
     case DELETE_APPOINTMENT_FAIL:
+      return { ...state, error: action.payload, loading: false };
+
+    // GET ALL EXAMINATIONS
+    case GET_EXAMINATIONS:
+      return { ...state, loading: true };
+    case GET_EXAMINATIONS_SUCCESS:
+      return { ...state, appointments: action.payload, loading: false, error: null };
+    case GET_EXAMINATIONS_FAIL:
+      return { ...state, error: action.payload, loading: false };
+
+    // GET APPOINTMENT DETAIl
+    case GET_EXAMINATION_DETAIL:
+      return { ...state, loading: true };
+    case GET_EXAMINATION_DETAIL_SUCCESS:
+      return { ...state, examination: action.payload, loading: false, error: null };
+    case GET_EXAMINATION_DETAIL_FAIL:
       return { ...state, error: action.payload, loading: false };
 
     // CREATE EXAMINATION

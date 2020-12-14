@@ -9,39 +9,40 @@ const Detector = new LanguageDetector();
 Detector.addDetector(ReduxDetector);
 
 export default function configureI18n({ i18nextConfig, redux }) {
-    i18n.use(Backend)
-        .use(Detector)
-        .use(reactI18nextModule)
-        .init({
-            backend: {
-                backends: [Fetch],
-                backendOptions: [
-                    {
-                        loadPath: '/locales/{{lng}}/{{ns}}.json',
-                    },
-                ],
-            },
-            detection: {
-                order: ['localStorage', 'redux', 'sessionStorage', 'navigator'],
-                lookupRedux: redux.lookupRedux,
-                cacheUserLanguageRedux: redux.cacheUserLanguageRedux,
-                caches: ['localStorage', 'redux'],
-                excludeCacheFor: ['cimode'],
-            },
-            whitelist: i18nextConfig.whitelist,
-            fallbackLng: i18nextConfig.fallbackLng,
-            ns: i18nextConfig.ns,
-            defaultNS: i18nextConfig.defaultNS,
-            debug: process.env.NODE_ENV !== 'production',
-            interpolation: {
-                escapeValue: false,
-            },
-            react: {
-                wait: false,
-            },
-            nonExplicitWhitelist: true,
-            load: 'currentOnly',
-        });
+  i18n
+    .use(Backend)
+    .use(Detector)
+    .use(reactI18nextModule)
+    .init({
+      backend: {
+        backends: [Fetch],
+        backendOptions: [
+          {
+            loadPath: '/locales/{{lng}}/{{ns}}.json',
+          },
+        ],
+      },
+      detection: {
+        order: ['localStorage', 'redux', 'sessionStorage', 'navigator'],
+        lookupRedux: redux.lookupRedux,
+        cacheUserLanguageRedux: redux.cacheUserLanguageRedux,
+        caches: ['localStorage', 'redux'],
+        excludeCacheFor: ['cimode'],
+      },
+      whitelist: i18nextConfig.whitelist,
+      fallbackLng: i18nextConfig.fallbackLng,
+      ns: i18nextConfig.ns,
+      defaultNS: i18nextConfig.defaultNS,
+      debug: process.env.NODE_ENV !== 'production',
+      interpolation: {
+        escapeValue: false,
+      },
+      react: {
+        wait: false,
+      },
+      nonExplicitWhitelist: true,
+      load: 'currentOnly',
+    });
 
-    return i18n;
+  return i18n;
 }

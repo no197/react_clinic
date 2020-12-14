@@ -14,12 +14,16 @@ import {
   GET_APPOINTMENTS_SUCCESS,
   GET_APPOINTMENT_FAIL,
   GET_APPOINTMENT_SUCCESS,
+  GET_EXAMINATIONS,
+  GET_EXAMINATION_DETAIL,
+  GET_EXAMINATION_DETAIL_FAIL,
+  GET_EXAMINATION_DETAIL_SUCCESS,
 } from './constant';
 
 // GET ALL APPOINTMENT
-export const getAppointments = () => ({
+export const getAppointments = (params) => ({
   type: GET_APPOINTMENTS,
-  // payload:,
+  payload: params,
 });
 
 export const getAppointmentsSuccess = (appointments) => ({
@@ -93,5 +97,36 @@ export const createExaminationSuccess = (examination) => ({
 
 export const createExaminatonFail = (error) => ({
   type: CREATE_EXAMINATION_FAIL,
+  payload: error,
+});
+
+// GET ALL EXAMINATIONS
+export const getExaminations = () => ({
+  type: GET_EXAMINATIONS,
+});
+
+export const getExaminationsSuccess = (examinations) => ({
+  type: GET_APPOINTMENTS_SUCCESS,
+  payload: examinations,
+});
+
+export const getExaminationsFail = (error) => ({
+  type: GET_APPOINTMENTS_FAIL,
+  payload: error,
+});
+
+// GET ONE APPOINTMENT
+export const getExaminationDetail = (id) => ({
+  type: GET_EXAMINATION_DETAIL,
+  payload: id,
+});
+
+export const getExaminationDetailSuccess = (examination) => ({
+  type: GET_EXAMINATION_DETAIL_SUCCESS,
+  payload: examination,
+});
+
+export const getExaminationDetailFail = (error) => ({
+  type: GET_EXAMINATION_DETAIL_FAIL,
   payload: error,
 });

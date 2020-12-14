@@ -15,15 +15,15 @@ import { DeleteButtonConfirm } from '../../components/Confirm/DeleteButtonConfir
 import PageTitle from '../../components/PageTitle';
 
 //Import action to dispatch
-import { deleteAppointment, getAppointments } from '../../redux/examinations/actions';
+import { getExaminations } from '../../redux/examinations/actions';
 import { Link } from 'react-router-dom';
 
-const PatientList = ({ appointments, getAppointments }) => {
+const PatientList = ({ appointments, getExaminations }) => {
   // Use effect to get items
   useEffect(() => {
-    getAppointments({ status: 'Đang chờ' });
+    getExaminations();
     return () => {};
-  }, [getAppointments]);
+  }, [getExaminations]);
 
   // Destruct UI Componenet for TookitProvider
   const { SearchBar } = Search;
@@ -37,35 +37,14 @@ const PatientList = ({ appointments, getAppointments }) => {
 
   // Config action column
   const ActionColumn = (cell, row, rowIndex, formatExtraData) => {
-    const options = {
-      Icon: FeatherIcon.AlertCircle, // Icon confirm
-      headerTitle: 'Xác nhận xóa', // Header confirm
-      content: 'Hành động này sẽ xóa đăng kí khám bệnh của bệnh nhân. Bạn thật sự muốn xóa bệnh nhân đã chọn?',
-      okeBtn: {
-        text: 'Xóa đăng ký',
-        color: 'danger',
-        onClick: () => deleteAppointment(row.appointmentId), // truyền action cần dispatch
-      },
-      cancelBtn: {
-        text: 'Hủy bỏ',
-        color: 'light',
-      },
-    };
-
     return (
       <React.Fragment>
         {/* <ButtonAppointmentModal patient={row} /> */}
-        <Link
-          to={{
-            pathname: `/app/examinations/add/${row.appointmentId}`,
-            state: { patientName: row.patientName },
-          }}>
+        <Link to={`/app/examinations/${row.examinationId}`}>
           <Button className="mr-2" color="primary" onClick={() => {}}>
-            <i className=" uil-book-medical"></i>
+            <i className="uil-file-medical-alt"></i> Xem phiếu khám
           </Button>
         </Link>
-
-        <DeleteButtonConfirm {...options} />
       </React.Fragment>
     );
   };
@@ -80,7 +59,7 @@ const PatientList = ({ appointments, getAppointments }) => {
       exportCSV: false,
     },
     {
-      dataField: 'appointmentId',
+      dataField: 'examinationId',
       text: 'ID',
       sort: true,
       hidden: true,
@@ -91,16 +70,16 @@ const PatientList = ({ appointments, getAppointments }) => {
       sort: false,
     },
     {
-      dataField: 'dateOfAppointment',
-      text: 'Ngày hẹn khám',
+      dataField: 'createdDate',
+      text: 'Ngày khám',
       formatter: (cell, row, rowIndex) => {
-        return moment(new Date(row.dateOfAppointment)).format('DD/MM/YYYY'); //Format datetime
+        return moment(new Date(row.createdDate)).format('DD/MM/YYYY'); //Format datetime
       },
       sort: true,
     },
     {
-      dataField: 'status',
-      text: 'Tình trạng',
+      dataField: 'diagnose',
+      text: 'Chẩn đoán',
       sort: false,
     },
     {
@@ -115,7 +94,7 @@ const PatientList = ({ appointments, getAppointments }) => {
   //Config default sort
   const defaultSorted = [
     {
-      dataField: 'appointmentId',
+      dataField: 'examinationId',
       order: 'desc',
     },
   ];
@@ -157,7 +136,7 @@ const PatientList = ({ appointments, getAppointments }) => {
             breadCrumbItems={[
               {
                 label: 'Khám bệnh',
-                path: '/app/appointments',
+                path: '/app/examinations',
                 active: true,
               },
             ]}
@@ -185,13 +164,13 @@ const PatientList = ({ appointments, getAppointments }) => {
           <Card>
             <CardBody>
               {/* Title  */}
-              <h4 className="header-title mt-0 mb-4">Danh sách bệnh nhân</h4>
+              <h4 className="header-title mt-0 mb-4">Danh sách phiếu khám bệnh</h4>
 
               {/* Table and Tookit(Search & Export pdf) */}
               {appointments && (
                 <ToolkitProvider
                   bootstrap4
-                  keyField="appointmentId"
+                  keyField="examinationId"
                   data={items}
                   columns={columns}
                   search
@@ -216,7 +195,7 @@ const PatientList = ({ appointments, getAppointments }) => {
                       <BootstrapTable
                         striped
                         bootstrap4
-                        keyField="appointmentId"
+                        keyField="examinationId"
                         data={items}
                         columns={columns}
                         defaultSorted={defaultSorted}
@@ -240,8 +219,4 @@ const mapStateToProps = (state) => ({
   appointments: state.Examinations.appointments,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getAppointments: (params) => dispatch(getAppointments(params)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(PatientList);
+export default connect(mapStateToProps, { getExaminations })(PatientList);

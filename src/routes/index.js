@@ -64,7 +64,9 @@ const EmployeesList = React.lazy(() => import('../pages/Employees/EmployeeLists'
 
 //patients
 const AppointmentList = React.lazy(() => import('../pages/Examination/AppointmentList'));
+const ExaminationList = React.lazy(() => import('../pages/Examination/ExaminationList'));
 const NewExamination = React.lazy(() => import('../pages/Examination/NewExamination'));
+const ExaminationDetail = React.lazy(() => import('../pages/Examination/ExaminationDetail'));
 
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
@@ -177,15 +179,27 @@ const patientRoutes = {
 // };
 
 const examinationRoutes = {
-  path: '/app/examinations',
   name: 'Khám bệnh',
   icon: FeatherIcon.Grid,
   roles: ['Admin', 'Employee', 'Doctor'],
   children: [
     {
-      path: '/app/examinations',
+      path: '/app/appointments',
       name: 'Đăng ký khám bệnh',
       component: AppointmentList,
+      exact: true,
+      route: PrivateRoute,
+    },
+    {
+      path: '/app/examinations',
+      component: ExaminationList,
+      name: 'Phiếu khám bệnh',
+      exact: true,
+      route: PrivateRoute,
+    },
+    {
+      path: '/app/examinations/:examinationId',
+      component: ExaminationDetail,
       exact: true,
       route: PrivateRoute,
     },
