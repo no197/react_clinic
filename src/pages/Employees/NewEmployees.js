@@ -22,7 +22,7 @@ const NewEmployee = (props) => {
   ];
 
   const handleSubmit = (event, values) => {
-    createEmployees(values);
+    props.createEmployees(values);
     console.log(values);
   };
 
@@ -32,10 +32,10 @@ const NewEmployee = (props) => {
         <Col md={12}>
           <PageTitle
             breadCrumbItems={[
-              { label: 'Nhân viên', path: '/app/Employees' },
+              { label: 'Nhân viên', path: '/app/employees' },
               {
                 label: 'Thêm Nhân viên',
-                path: '/app/Employees/new',
+                path: '/app/employees/new',
                 active: true,
               },
             ]}
@@ -101,6 +101,11 @@ const NewEmployee = (props) => {
                     <AvInput placeholder="Số điện thoại" name="phoneNumber" required />
                     <AvFeedback>Số điện thoại của Nhân viên là bắt buộc</AvFeedback>
                   </AvGroup>
+                  <AvGroup>
+                    <Label for="position">Chức vụ</Label>
+                    <AvInput placeholder="Chức vụ" name="position" required />
+                    <AvFeedback>Chức vụ của Nhân viên là bắt buộc</AvFeedback>
+                  </AvGroup>
 
                   <Button color="primary" type="submit">
                     Submit
@@ -115,7 +120,7 @@ const NewEmployee = (props) => {
   );
 };
 const mapStateToProps = (state) => ({
-  employees: state.Employee.Employees,
+  employees: state.Employees.employees,
 });
 const mapDispatchToProps = (dispatch) => ({
  createEmployees: (params) => dispatch(createEmployees(params))

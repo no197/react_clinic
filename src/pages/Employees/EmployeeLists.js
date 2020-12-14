@@ -7,8 +7,9 @@ import { Row, Col, Button, Card, CardBody } from 'reactstrap';
 import PageTitle from '../../components/PageTitle';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
-import { getEmployees } from '../../redux/Employees/actions';
-
+import { deleteEmployees, getEmployees } from '../../redux/Employees/actions';
+import DeletePatientButton from '../../components/Confirm/DeleteButtonConfirm';
+import * as FeatherIcon from 'react-feather';
 const EmployeesList = ({ employees, getEmployees }) => {
   useEffect(() => {
     getEmployees();
@@ -22,6 +23,20 @@ const EmployeesList = ({ employees, getEmployees }) => {
 
   // Cột action
   const ActionColumn = (cell, row, rowIndex, formatExtraData) => {
+    const options = {
+      Icon: FeatherIcon.AlertCircle, // Icon confirm
+      headerTitle: 'Xác nhận xóa', // Header confirm
+      content: 'Hành động này sẽ xóa hoàn toàn nhân ra khỏi hệ thống. Bạn thật sự muốn xóa bệnh nhân đã chọn?',
+      okeBtn: {
+        text: 'Xóa nhân viên',
+        color: 'danger',
+        onClick: () => deleteEmployees(row.employeeId), // truyền action cần dispatch
+      },
+      cancelBtn: {
+        text: 'Hủy bỏ',
+        color: 'light',
+      },
+    };
     return (
       <React.Fragment>
         <Link to={`/app/employees/${row.employeeId}`}>
@@ -29,9 +44,7 @@ const EmployeesList = ({ employees, getEmployees }) => {
             <i className="uil-pen"></i>
           </Button>
         </Link>
-        <Button color="danger">
-          <i className="uil-trash-alt"></i>
-        </Button>
+        <DeletePatientButton {...options} />
       </React.Fragment>
     );
   };

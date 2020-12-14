@@ -60,7 +60,6 @@ function* getPatientDetailSaga({ payload: id }) {
 
 // CREATE PATIENT
 function* createPatientSaga({ payload }) {
-  console.log('call 1 lan ');
   try {
     const { data: resonse } = yield call(() => apiCall.post('/patients', payload));
     yield put(createPatientsSuccess(resonse));
@@ -82,7 +81,7 @@ function* createPatientSaga({ payload }) {
   }
 }
 
-// CREATE PATIENT
+// UPDATE PATIENT
 function* updatePatientSaga({ payload }) {
   const { patientId: id } = payload;
   try {
