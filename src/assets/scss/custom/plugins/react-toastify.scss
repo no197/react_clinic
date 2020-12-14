@@ -1,0 +1,20 @@
+/** Classes for the displayed toast **/
+
+.Toastify__toast--dark {
+  background-color: $dark;
+}
+.Toastify__toast--default {
+  background-color: $light;
+}
+.Toastify__toast--info {
+  background-color: $info;
+}
+.Toastify__toast--success {
+  background-color: #2ecc71;
+}
+.Toastify__toast--warning {
+  background-color: $warning;
+}
+.Toastify__toast--error {
+  background-color: #ff3655;
+}

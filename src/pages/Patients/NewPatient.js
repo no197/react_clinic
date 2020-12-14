@@ -1,18 +1,18 @@
 import AvField from 'availity-reactstrap-validation/lib/AvField';
 import AvForm from 'availity-reactstrap-validation/lib/AvForm';
-import React, { useEffect, useState } from 'react';
-import Select from 'react-select';
-import Flatpickr from 'react-flatpickr';
+import React, { useState } from 'react';
+
 import { Row, Col, Button, Card, CardBody, Label } from 'reactstrap';
 import { createPatients } from '../../redux/patients/actions';
 import PageTitle from '../../components/PageTitle';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import AvGroup from 'availity-reactstrap-validation/lib/AvGroup';
 import AVDatePicker from '../../components/Form/AVDatePicker';
 import AVSelect from '../../components/Form/AVSelect';
 import AvInput from 'availity-reactstrap-validation/lib/AvInput';
 import AvFeedback from 'availity-reactstrap-validation/lib/AvFeedback';
 
+// TODO: 12/09/20 Reflactor code
 const NewPatient = (props) => {
   const [errors, setErrors] = useState([]);
 
@@ -63,7 +63,7 @@ const NewPatient = (props) => {
                   />
 
                   <AVSelect
-                    name="Gender"
+                    name="gender"
                     label="Giới tính"
                     placeholder="Chọn giới tính bệnh nhân"
                     // defaultValue={{ value: 'Nam', label: 'Nam' }}
@@ -96,11 +96,20 @@ const NewPatient = (props) => {
                     <AvFeedback>Địa chỉ của bệnh nhân là bắt buộc</AvFeedback>
                   </AvGroup>
 
-                  <AvGroup>
-                    <Label for="phoneNumber">Số điện thoại</Label>
-                    <AvInput placeholder="Số điện thoại" name="phoneNumber" required />
-                    <AvFeedback>Số điện thoại của bệnh nhân là bắt buộc</AvFeedback>
-                  </AvGroup>
+                  <AvField
+                    name="phoneNumber"
+                    label="Số điện thoại"
+                    placeholder="Số điện thoại"
+                    validate={{
+                      required: { value: true, errorMessage: 'Số điện thoại của bệnh nhân là bắt buộc' },
+                      pattern: {
+                        value: '(09|03|07|08|05)+([0-9]{8})',
+                        errorMessage: 'Số điện thoại không phải là số điện thoại Việt Nam hợp lệ',
+                      },
+                      minLength: { value: 10, errorMessage: 'Số điện thoại chỉ phải bao gồm 10 chữ số' },
+                      maxLength: { value: 10, errorMessage: 'Số điện thoại chỉ có thể dài tối đa 10 chữ số' },
+                    }}
+                  />
 
                   <Button color="primary" type="submit">
                     Submit
@@ -118,6 +127,6 @@ const mapStateToProps = (state) => ({
   patients: state.Patient.patients,
 });
 const mapDispatchToProps = (dispatch) => ({
- createPatient: (params) => dispatch(createPatients(params))
+  createPatient: (params) => dispatch(createPatients(params)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(NewPatient);
