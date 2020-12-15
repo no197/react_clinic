@@ -13,15 +13,15 @@ import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolk
 import PageTitle from '../../components/PageTitle';
 
 //Import action to dispatch
-import { getExaminations } from '../../redux/examinations/actions';
+import { getInvoices } from '../../redux/invoices/actions';
 import { Link } from 'react-router-dom';
 
-const ExaminationList = ({ appointments, getExaminations }) => {
+const InvoiceList = ({ invoices, getInvoices }) => {
   // Use effect to get items
   useEffect(() => {
-    getExaminations();
+    getInvoices();
     return () => {};
-  }, [getExaminations]);
+  }, [getInvoices]);
 
   // Destruct UI Componenet for TookitProvider
   const { SearchBar } = Search;
@@ -29,8 +29,8 @@ const ExaminationList = ({ appointments, getExaminations }) => {
 
   // Get Items to display on table
   let items = [];
-  if (appointments) {
-    ({ items } = appointments);
+  if (invoices) {
+    ({ items } = invoices);
   }
 
   // Config action column
@@ -38,9 +38,9 @@ const ExaminationList = ({ appointments, getExaminations }) => {
     return (
       <React.Fragment>
         {/* <ButtonAppointmentModal patient={row} /> */}
-        <Link to={`/app/examinations/${row.examinationId}`}>
-          <Button className="mr-2" color="primary" onClick={() => {}}>
-            <i className="uil-file-medical-alt"></i> Xem phiếu khám
+        <Link to={`/app/invoices/${row.invoiceId}`}>
+          <Button className="mr-2" color="info" onClick={() => {}}>
+            <i className="uil-file-medical-alt"></i> Xem hóa đơn
           </Button>
         </Link>
       </React.Fragment>
@@ -57,7 +57,7 @@ const ExaminationList = ({ appointments, getExaminations }) => {
       exportCSV: false,
     },
     {
-      dataField: 'examinationId',
+      dataField: 'invoiceId',
       text: 'ID',
       sort: true,
       hidden: true,
@@ -65,6 +65,11 @@ const ExaminationList = ({ appointments, getExaminations }) => {
     {
       dataField: 'patientName',
       text: 'Tên bệnh nhân',
+      sort: false,
+    },
+    {
+      dataField: 'price',
+      text: 'Tiền hóa đơn',
       sort: false,
     },
     {
@@ -76,8 +81,8 @@ const ExaminationList = ({ appointments, getExaminations }) => {
       sort: true,
     },
     {
-      dataField: 'diagnose',
-      text: 'Chẩn đoán',
+      dataField: 'status',
+      text: 'Tình trạng',
       sort: false,
     },
     {
@@ -92,7 +97,7 @@ const ExaminationList = ({ appointments, getExaminations }) => {
   //Config default sort
   const defaultSorted = [
     {
-      dataField: 'examinationId',
+      dataField: 'invoiceId',
       order: 'desc',
     },
   ];
@@ -138,7 +143,7 @@ const ExaminationList = ({ appointments, getExaminations }) => {
                 active: true,
               },
             ]}
-            title={'Danh sách đăng ký khám bệnh'}
+            title={'Danh sách hóa đơn'}
           />
         </Col>
       </Row>
@@ -162,13 +167,13 @@ const ExaminationList = ({ appointments, getExaminations }) => {
           <Card>
             <CardBody>
               {/* Title  */}
-              <h4 className="header-title mt-0 mb-4">Danh sách phiếu khám bệnh</h4>
+              <h4 className="header-title mt-0 mb-4">Danh sách hóa đơn</h4>
 
               {/* Table and Tookit(Search & Export pdf) */}
-              {appointments && (
+              {invoices && (
                 <ToolkitProvider
                   bootstrap4
-                  keyField="examinationId"
+                  keyField="invoiceId"
                   data={items}
                   columns={columns}
                   search
@@ -193,7 +198,7 @@ const ExaminationList = ({ appointments, getExaminations }) => {
                       <BootstrapTable
                         striped
                         bootstrap4
-                        keyField="examinationId"
+                        keyField="invoiceId"
                         data={items}
                         columns={columns}
                         defaultSorted={defaultSorted}
@@ -214,7 +219,7 @@ const ExaminationList = ({ appointments, getExaminations }) => {
 };
 
 const mapStateToProps = (state) => ({
-  appointments: state.Examinations.appointments,
+  invoices: state.Invoices.invoices,
 });
 
-export default connect(mapStateToProps, { getExaminations })(ExaminationList);
+export default connect(mapStateToProps, { getInvoices })(InvoiceList);

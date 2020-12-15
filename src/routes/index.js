@@ -62,12 +62,16 @@ const EmployeesList = React.lazy(() => import('../pages/Employees/EmployeeLists'
 // const NewEmployees = React.lazy(() => import('../pages/Employees/NewPatient'));
 // const EmployeesDetail = React.lazy(() => import('../pages/Employees/PatientDetail'));
 
-//patients
+//appointment && Examination
 const AppointmentList = React.lazy(() => import('../pages/Examination/AppointmentList'));
 const ExaminationList = React.lazy(() => import('../pages/Examination/ExaminationList'));
 const NewExamination = React.lazy(() => import('../pages/Examination/NewExamination'));
 const ExaminationDetail = React.lazy(() => import('../pages/Examination/ExaminationDetail'));
 
+//Invoices
+
+const InvoiceDetail = React.lazy(() => import('../pages/Invoices/InvoiceDetail'));
+const InvoiceList = React.lazy(() => import('../pages/Invoices/InvoiceList'));
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
   <Route
@@ -213,6 +217,24 @@ const examinationRoutes = {
   ],
 };
 
+const invoiceRoutes = {
+  path: '/app/invoices',
+  name: 'Hóa đơn',
+  icon: FeatherIcon.Grid,
+  component: InvoiceList,
+  exact: true,
+  route: PrivateRoute,
+  roles: ['Admin', 'Employee'],
+};
+
+const invoiceDetailRoutes = {
+  path: '/app/invoices/:invoiceId',
+
+  component: InvoiceDetail,
+  route: PrivateRoute,
+  roles: ['Admin', 'Employee'],
+};
+
 const calendarAppRoutes = {
   path: '/apps/calendar',
   name: 'Calendar',
@@ -301,6 +323,8 @@ const taskAppRoutes = {
 const appRoutes = [
   patientRoutes,
   examinationRoutes,
+  invoiceRoutes,
+  invoiceDetailRoutes,
   calendarAppRoutes,
   emailAppRoutes,
   projectAppRoutes,

@@ -4,4 +4,7 @@
   .react-confirm-alert .react-confirm-alert-body {
     border: 1px solid $danger;
   }
+  .warning {
+    border: 1px solid $warning !important;
+  }
 }
