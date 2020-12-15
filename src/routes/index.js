@@ -64,7 +64,7 @@ const EmployeesDetail = React.lazy(() => import('../pages/Employees/EmployeesDet
 //medicin
 const MedicineLists = React.lazy(() => import('../pages/Medicines/MedicineLists'));
 const NewMedicine = React.lazy(() => import('../pages/Medicines/NewMedicine'));
-const MedicineDetail = React.lazy(() => import('../pages/Employees/EmployeesDetail'));
+const MedicineDetail = React.lazy(() => import('../pages/Medicines/MedicineDetail'));
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
   <Route
@@ -197,7 +197,7 @@ const medicineRoutes = {
     },
     {
       path: '/app/medicines/:id',
-      component: EmployeesDetail,
+      component: MedicineDetail,
       route: PrivateRoute,
     },
   ],

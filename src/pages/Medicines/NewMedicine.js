@@ -72,7 +72,7 @@ const NewMedicine = (props) => {
                     options={options}
                     errorMessage={'Đơn Vị Thuốc là bắt buộc'}
                   />
-
+               
                   <AvGroup>
                     <Label for="price">Đơn Giá</Label>
                     <AvInput placeholder="Đơn giá" name="price" required />
@@ -84,8 +84,6 @@ const NewMedicine = (props) => {
                     <AvInput placeholder="Số lượng" name="quantity" required />
                     <AvFeedback>Số lượng của Thuốc là bắt buộc</AvFeedback>
                   </AvGroup>
-                  
-
                   <Button color="primary" type="submit">
                     Submit
                   </Button>

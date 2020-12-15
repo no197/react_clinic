@@ -5,55 +5,57 @@ import AvForm from 'availity-reactstrap-validation/lib/AvForm';
 import AvGroup from 'availity-reactstrap-validation/lib/AvGroup';
 import AvInput from 'availity-reactstrap-validation/lib/AvInput';
 import { Row, Col, Button, Card, CardBody, Label } from 'reactstrap';
-import AVDatePicker from '../../components/Form/AVDatePicker';
+
 import AVSelect from '../../components/Form/AVSelect';
 
 import PageTitle from '../../components/PageTitle';
 import { connect } from 'react-redux';
-import { clearEmployeeDetail, getEmployeeDetail, updateEmployee } from '../../redux/Employees/actions';
-import Loading from '../../components/Loading/Loading';
 
-const EmployeeDetail = ({ employee, ...props }) => {
+import Loading from '../../components/Loading/Loading';
+import { clearMedicineDetail, getMedicineDetail, updateMedicine } from '../../redux/Medicines/actions';
+
+const MedicineDetail = ({ medicine, ...props }) => {
   const { id } = props.match.params;
-  const { clearEmployeeDetail, getEmployeeDetail, updateEmployee } = props;
+  const { clearMedicineDetail, getMedicineDetail, updateMedicine } = props;
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
-    getEmployeeDetail(id);
+    getMedicineDetail(id);
 
     return () => {
-      clearEmployeeDetail();
+      clearMedicineDetail();
     };
-  }, [clearEmployeeDetail, getEmployeeDetail, id]);
+  }, [clearMedicineDetail, getMedicineDetail, id]);
 
   const options = [
-    { value: 'Nam', label: 'Nam' },
-    { value: 'Nữ', label: 'Nữ' },
+    { value: 'viên', label: 'viên' },
+    { value: 'bịch', label: 'bịch' },
+    { value: 'ống', label: 'ống' },
   ];
 
-  const defaultSelect = employee ? options.find((item) => item.value === employee.gender) : null;
-  const defaultDate = employee ? employee.dateOfBirth : Date.now();
+  const defaultSelect = medicine ? options.find((item) => item.value === medicine.unit) : null;
+
 
   const handleSubmit = (event, values) => {
-    updateEmployee(values);
+    updateMedicine(values);
     console.log(values);
   };
 
-  if (!employee) return <Loading />;
+  if (!medicine) return <Loading />;
   return (
     <React.Fragment>
       <Row className="page-title">
         <Col md={12}>
           <PageTitle
             breadCrumbItems={[
-              { label: 'Nhân viên', path: '/app/employees' },
+              { label: 'Thuốc', path: '/app/medicines' },
               {
-                label: 'Chi tiết Nhân viên',
-                path: `/app/employees/${id}`,
+                label: 'Chi tiết Thuốc',
+                path: `/app/medicines/${id}`,
                 active: true,
               },
             ]}
-            title={'Chi tiết Nhân viên'}
+            title={'Chi tiết Thuốc'}
           />
         </Col>
       </Row>
@@ -71,74 +73,45 @@ const EmployeeDetail = ({ employee, ...props }) => {
                 <AvForm
                   onInvalidSubmit={(event, errors, values) => setErrors(errors)}
                   onValidSubmit={handleSubmit}
-                  model={employee}>
+                  model={medicine}>
                   <AvGroup>
-                    <AvInput name="employeeId" hidden />
+                    <AvInput name="medicineId" hidden />
                   </AvGroup>
 
                   <AvField
-                    name="fullName"
-                    label="Tên Nhân viên"
-                    placeholder="Tên Nhân viên"
+                    name="medicineName"
+                    label="Tên Thuốc"
+                    placeholder="Tên Thuốc"
                     validate={{
-                      required: { value: true, errorMessage: 'Tên Nhân viên là bắt buộc' },
-                      minLength: { value: 4, errorMessage: 'Tên Nhân viên phải có ít nhất 6 ký tự' },
-                      maxLength: { value: 30, errorMessage: 'Tên Nhân viên không thể dài quá 30 ký tự' },
+                      required: { value: true, errorMessage: 'Tên Thuốc là bắt buộc' },
+                      minLength: { value: 4, errorMessage: 'Tên Thuốc phải có ít nhất 6 ký tự' },
+                      maxLength: { value: 30, errorMessage: 'Tên Thuốc không thể dài quá 30 ký tự' },
                     }}
                   />
 
                   <AVSelect
-                    name="gender"
-                    label="Giới tính"
-                    placeholder="Chọn giới tính Nhân viên"
+                    name="unit"
+                    label="Đơn vị"
+                    placeholder="Chọn Đơn vị Thuốc"
                     defaultValue={defaultSelect}
-                    error={errors.indexOf('gender') !== -1}
+                    error={errors.indexOf('unit') !== -1}
                     options={options}
-                    errorMessage={'Giới tính Nhân viên là bắt buộc'}
+                    errorMessage={'Đơn vị Thuốc là bắt buộc'}
                   />
 
-                  <AVDatePicker
-                    name="dateOfBirth"
-                    defaultValue={defaultDate}
-                    error={errors.indexOf('dateOfBirth') !== -1}
-                    label="Ngày sinh"
-                    options={{
-                      dateFormat: 'd-m-Y', // format ngày giờ
-                      allowInput: true,
-                    }}
-                    validate={{
-                      dateRange: {
-                        start: { value: -110, units: 'years' },
-                        end: { value: 0, units: 'days' },
-                        errorMessage: 'Ngày tháng năm sinh không hợp lệ',
-                      },
-                    }}
-                  />
+                  
 
                   <AvGroup>
-                    <Label for="address">Địa chỉ</Label>
-                    <AvInput placeholder="Địa chỉ" name="address" required />
-                    <AvFeedback>Địa chỉ của Nhân viên là bắt buộc</AvFeedback>
+                    <Label for="price">Địa chỉ</Label>
+                    <AvInput placeholder="Địa chỉ" name="price" required />
+                    <AvFeedback>Địa chỉ của Thuốc là bắt buộc</AvFeedback>
                   </AvGroup>
 
-                  <AvField
-                    name="phoneNumber"
-                    label="Số điện thoại"
-                    placeholder="Số điện thoại"
-                    validate={{
-                      required: { value: true, errorMessage: 'Số điện thoại của Nhân viên là bắt buộc' },
-                      pattern: {
-                        value: '(09|03|07|08|05)+([0-9]{8})',
-                        errorMessage: 'Số điện thoại không phải là số điện thoại Việt Nam hợp lệ',
-                      },
-                      minLength: { value: 10, errorMessage: 'Số điện thoại chỉ phải bao gồm 10 chữ số' },
-                      maxLength: { value: 10, errorMessage: 'Số điện thoại chỉ có thể dài tối đa 10 chữ số' },
-                    }}
-                  />
+              
                   <AvGroup>
-                    <Label for="position">Chức vụ</Label>
-                    <AvInput placeholder="Chức vụ" name="position" required />
-                    <AvFeedback>Chức vụ của Nhân viên là bắt buộc</AvFeedback>
+                    <Label for="quantity">Chức vụ</Label>
+                    <AvInput placeholder="Chức vụ" name="quantity" required />
+                    <AvFeedback>Chức vụ của Thuốc là bắt buộc</AvFeedback>
                   </AvGroup>
 
                   <Button color="primary" type="submit">
@@ -155,12 +128,12 @@ const EmployeeDetail = ({ employee, ...props }) => {
 };
 
 const mapStateToProps = (state) => ({
-  employee: state.Employees.employee,
+  medicine: state.Medicine.medicine,
 });
 const mapDispatchToProps = (dispatch) => ({
-  getEmployeeDetail: (id) => dispatch(getEmployeeDetail(id)),
-  updateEmployee: (employee) => dispatch(updateEmployee(employee)),
-  clearEmployeeDetail: () => dispatch(clearEmployeeDetail()),
+  getMedicineDetail: (id) => dispatch(getMedicineDetail(id)),
+  updateMedicine: (medicine) => dispatch(updateMedicine(medicine)),
+  clearMedicineDetail: () => dispatch(clearMedicineDetail()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EmployeeDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(MedicineDetail);
