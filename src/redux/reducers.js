@@ -10,6 +10,7 @@ import patientReducer from './patients/reducers';
 import employeesReducer from './Employees/reducers';
 import { connectRouter } from 'connected-react-router';
 import examinationReducer from './examinations/reducers';
+import invoiceReducer from './invoices/reducers';
 
 const createRootReducer = (history) =>
   combineReducers({
@@ -21,6 +22,7 @@ const createRootReducer = (history) =>
     Patient: patientReducer,
     Employees: employeesReducer,
     Examinations: examinationReducer,
+    Invoices: invoiceReducer,
   });
 
 export default createRootReducer;
