@@ -7,6 +7,7 @@ import patientSaga from './patients/saga';
 import EmployeeSaga from './Employees/saga';
 import examinationSaga from './examinations/saga';
 import invoiceSaga from './invoices/saga';
+import statisticSaga from './statistic/saga';
 
 export default function* rootSaga(getState: any): any {
   yield all([
@@ -17,5 +18,6 @@ export default function* rootSaga(getState: any): any {
     EmployeeSaga(),
     call(examinationSaga),
     call(invoiceSaga),
+    call(statisticSaga),
   ]);
 }

@@ -9519,6 +9519,13 @@ react-loading@^2.0.3:
   resolved "https://registry.yarnpkg.com/react-loading/-/react-loading-2.0.3.tgz#e8138fb0c3e4674e481b320802ac7048ae14ffb9"
   integrity sha512-Vdqy79zq+bpeWJqC+xjltUjuGApyoItPgL0vgVfcJHhqwU7bAMKzysfGW/ADu6i0z0JiOCRJjo+IkFNkRNbA3A==
 
+react-month-picker@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-month-picker/-/react-month-picker-2.2.0.tgz#37e728056a2e2813fdda7470f86fd8e30664699e"
+  integrity sha512-nn4pwmlqA6xtOWY3/FiTpKbSJHVNvIH0iwRIvvIJVcqFSU5HrsroKtrFkKJolwFo6owhl7fiDuaoj4VWCZQpdw==
+  dependencies:
+    react-tapper "^0.1.16"
+
 react-perfect-scrollbar@^1.5.3:
   version "1.5.8"
   resolved "https://registry.yarnpkg.com/react-perfect-scrollbar/-/react-perfect-scrollbar-1.5.8.tgz#380959387a325c5c9d0268afc08b3f73ed5b3078"
@@ -9665,6 +9672,11 @@ react-sortablejs@^1.5.1:
   integrity sha512-bKIc1UVhjZt55Nb6WZFxZ8Jwyngg8CTt+w+iG1pA5k9LQsg1J0X6nLppHatSSDZDECtRZKp2z47tmmhPRJNj4g==
   dependencies:
     prop-types ">=15.0.0"
+
+react-tapper@^0.1.16:
+  version "0.1.20"
+  resolved "https://registry.yarnpkg.com/react-tapper/-/react-tapper-0.1.20.tgz#6caa95d6e5f1d1015a496593c8ebb8605e4c9dc5"
+  integrity sha512-jKfB/YMaOzrRkJ+yU99NHohFiEdz0XnVFRStVPzhc/tMq2XvwNmGE3gn4+83gZEvr6uhsI9PN4mc2st5msuPCQ==
 
 react-text-mask@^5.4.3:
   version "5.4.3"

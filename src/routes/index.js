@@ -72,6 +72,10 @@ const ExaminationDetail = React.lazy(() => import('../pages/Examination/Examinat
 
 const InvoiceDetail = React.lazy(() => import('../pages/Invoices/InvoiceDetail'));
 const InvoiceList = React.lazy(() => import('../pages/Invoices/InvoiceList'));
+
+//Statistic
+const MonthlyRevenue = React.lazy(() => import('../pages/Statistics/MonthlyRevenue'));
+
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
   <Route
@@ -229,10 +233,25 @@ const invoiceRoutes = {
 
 const invoiceDetailRoutes = {
   path: '/app/invoices/:invoiceId',
-
   component: InvoiceDetail,
   route: PrivateRoute,
   roles: ['Admin', 'Employee'],
+};
+
+const statisticRoutes = {
+  path: '/app/statistic',
+  name: 'Thống kê',
+  icon: FeatherIcon.Grid,
+  roles: ['Admin'],
+  children: [
+    {
+      path: '/app/statistic/revenue',
+      name: 'Thống kê doanh thu',
+      component: MonthlyRevenue,
+      exact: true,
+      route: PrivateRoute,
+    },
+  ],
 };
 
 const calendarAppRoutes = {
@@ -325,6 +344,7 @@ const appRoutes = [
   examinationRoutes,
   invoiceRoutes,
   invoiceDetailRoutes,
+  statisticRoutes,
   calendarAppRoutes,
   emailAppRoutes,
   projectAppRoutes,
