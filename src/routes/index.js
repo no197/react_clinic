@@ -72,6 +72,12 @@ const ExaminationDetail = React.lazy(() => import('../pages/Examination/Examinat
 
 const InvoiceDetail = React.lazy(() => import('../pages/Invoices/InvoiceDetail'));
 const InvoiceList = React.lazy(() => import('../pages/Invoices/InvoiceList'));
+const NewEmployees = React.lazy(() => import('../pages/Employees/NewEmployees'));
+const EmployeesDetail = React.lazy(() => import('../pages/Employees/EmployeesDetail'));
+//medicin
+const MedicineLists = React.lazy(() => import('../pages/Medicines/MedicineLists'));
+const NewMedicine = React.lazy(() => import('../pages/Medicines/NewMedicine'));
+const MedicineDetail = React.lazy(() => import('../pages/Medicines/MedicineDetail'));
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
   <Route
@@ -217,6 +223,62 @@ const examinationRoutes = {
   ],
 };
 
+const employeesRoutes = {
+  path: '/app/employees',
+  name: 'Nhân viên',
+  header: 'Quản lý Nhân Viên',
+  icon: FeatherIcon.Monitor,
+  roles: ['Admin', 'Employee'],
+  children: [
+    {
+      path: '/app/employees',
+      name: 'Danh sách nhân viên',
+      component: EmployeesList,
+      exact: true,
+      route: PrivateRoute,
+    },
+    {
+      path: '/app/employees/new',
+      name: 'Thêm nhân viên',
+      component: NewEmployees,
+      route: PrivateRoute,
+    },
+    {
+      path: '/app/employees/:id',
+      component: EmployeesDetail,
+      route: PrivateRoute,
+    },
+  ],
+};
+
+const medicineRoutes = {
+  path: '/app/medicines',
+  name: 'Thuốc',
+  header: 'Quản lý Thuốc',
+  icon: FeatherIcon.Briefcase,
+  roles: ['Admin', 'Employee'],
+  children: [
+    {
+      path: '/app/medicines',
+      name: 'Danh sách thuốc',
+      component: MedicineLists,
+      exact: true,
+      route: PrivateRoute,
+    },
+    {
+      path: '/app/medicines/new',
+      name: 'Thêm thuốc',
+      component: NewMedicine,
+      route: PrivateRoute,
+    },
+    {
+      path: '/app/medicines/:id',
+      component: MedicineDetail,
+      route: PrivateRoute,
+    },
+  ],
+};
+
 const invoiceRoutes = {
   path: '/app/invoices',
   name: 'Hóa đơn',
@@ -322,13 +384,11 @@ const taskAppRoutes = {
 
 const appRoutes = [
   patientRoutes,
+  employeesRoutes,
   examinationRoutes,
+  medicineRoutes,
   invoiceRoutes,
   invoiceDetailRoutes,
-  calendarAppRoutes,
-  emailAppRoutes,
-  projectAppRoutes,
-  taskAppRoutes,
 ];
 
 // pages

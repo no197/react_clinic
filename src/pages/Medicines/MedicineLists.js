@@ -7,14 +7,14 @@ import { Row, Col, Button, Card, CardBody } from 'reactstrap';
 import PageTitle from '../../components/PageTitle';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
-import { deleteEmployees, getEmployees } from '../../redux/Employees/actions';
+import { deleteMedicines, getMedicines} from '../../redux/Medicines/actions';
 import DeletePatientButton from '../../components/Confirm/DeleteButtonConfirm';
 import * as FeatherIcon from 'react-feather';
-const EmployeesList = ({ employees, getEmployees }) => {
+const MedicinesList = ({ medicines, getMedicines }) => {
   useEffect(() => {
-    getEmployees();
+    getMedicines();
     return () => {};
-  }, [getEmployees]);
+  }, [getMedicines]);
 
   let items = [];
 
@@ -26,11 +26,11 @@ const EmployeesList = ({ employees, getEmployees }) => {
     const options = {
       Icon: FeatherIcon.AlertCircle, // Icon confirm
       headerTitle: 'Xác nhận xóa', // Header confirm
-      content: 'Hành động này sẽ xóa hoàn toàn nhân ra khỏi hệ thống. Bạn thật sự muốn xóa bệnh nhân đã chọn?',
+      content: 'Hành động này sẽ xóa hoàn toàn nhân ra khỏi hệ thống. Bạn thật sự muốn xóa loại thuốc đã chọn?',
       okeBtn: {
-        text: 'Xóa nhân viên',
+        text: 'Xóa thuốc',
         color: 'danger',
-        onClick: () => deleteEmployees(row.employeeId), // truyền action cần dispatch
+        onClick: () =>  deleteMedicines(row.medicineId), // truyền action cần dispatch
       },
       cancelBtn: {
         text: 'Hủy bỏ',
@@ -39,7 +39,7 @@ const EmployeesList = ({ employees, getEmployees }) => {
     };
     return (
       <React.Fragment>
-        <Link to={`/app/employees/${row.employeeId}`}>
+        <Link to={`/app/medicines/${row.medicineId}`}>
           <Button color="warning" className="mr-2">
             <i className="uil-pen"></i>
           </Button>
@@ -49,44 +49,34 @@ const EmployeesList = ({ employees, getEmployees }) => {
     );
   };
 
-  if (employees) {
-    ({ items } = employees);
+  if (medicines) {
+    ({ items } = medicines);
   }
 
   const columns = [
     {
-      dataField: 'employeeId',
+      dataField: 'medicineId',
       text: 'ID',
       sort: true,
     },
     {
-      dataField: 'fullName',
-      text: 'Họ tên',
+      dataField: 'medicineName',
+      text: 'Tên Loại Thuốc',
       sort: true,
     },
     {
-      dataField: 'gender',
-      text: 'Giới tính',
+      dataField: 'unit',
+      text: 'Đơn Vị',
       sort: false,
     },
     {
-      dataField: 'dateOfBirth',
-      text: 'Ngày sinh',
+      dataField: 'price',
+      text: 'Đơn Giá',
       sort: true,
     },
     {
-      dataField: 'address',
-      text: 'Địa chỉ',
-      sort: false,
-    },
-    {
-      dataField: 'phoneNumber',
-      text: 'Số điện thoại',
-      sort: false,
-    },
-    {
-      dataField: 'position',
-      text: 'Chức vụ',
+      dataField: 'quantity',
+      text: 'Số Lượng',
       sort: false,
     },
     {
@@ -99,7 +89,7 @@ const EmployeesList = ({ employees, getEmployees }) => {
 
   const defaultSorted = [
     {
-      dataField: 'employeeId',
+      dataField: 'medicineId',
       order: 'asc',
     },
   ];
@@ -137,21 +127,21 @@ const EmployeesList = ({ employees, getEmployees }) => {
           <PageTitle
             breadCrumbItems={[
               {
-                label: 'Nhân viên',
-                path: '/app/employees',
+                label: 'Thuốc',
+                path: '/app/medicines',
                 active: true,
               },
             ]}
-            title={'Danh sách Nhân viên'}
+            title={'Danh sách Thuốc'}
           />
         </Col>
       </Row>
       <Row>
         <Col>
           <div className="form-group">
-            <Link to="/app/employees/new">
+            <Link to="/app/medicines/new">
               <Button color="primary mb-2">
-                <i className="uil-plus mr-1"></i>Thêm nhân viên
+                <i className="uil-plus mr-1"></i>Thêm thuốc
               </Button>
             </Link>
           </div>
@@ -161,11 +151,11 @@ const EmployeesList = ({ employees, getEmployees }) => {
         <Col>
           <Card>
             <CardBody>
-              <h4 className="header-title mt-0 mb-4">Danh sách nhân viên</h4>
-              {employees && (
+              <h4 className="header-title mt-0 mb-4">Danh sách thuốc</h4>
+              {medicines && (
                 <ToolkitProvider
                   bootstrap4
-                  keyField="employeeId"
+                  keyField="medicineId"
                   data={items}
                   columns={columns}
                   search
@@ -186,7 +176,7 @@ const EmployeesList = ({ employees, getEmployees }) => {
                       <BootstrapTable
                         striped
                         bootstrap4
-                        keyField="employeeId"
+                        keyField="medicineId"
                         data={items}
                         columns={columns}
                         defaultSorted={defaultSorted}
@@ -207,7 +197,7 @@ const EmployeesList = ({ employees, getEmployees }) => {
 };
 
 const mapStateToProps = (state) => ({
-  employees: state.Employees.employees,
+  medicines: state.Medicine.medicines,
 });
 
-export default connect(mapStateToProps, { getEmployees })(EmployeesList);
+export default connect(mapStateToProps, { getMedicines })(MedicinesList);
