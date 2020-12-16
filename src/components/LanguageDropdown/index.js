@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownMenu, DropdownToggle, UncontrolledTooltip } from 'reactstrap';
-import { withNamespaces } from 'react-i18next';
+
 import { Globe } from 'react-feather';
 
 import enFlag from './flags/us.jpg';
@@ -10,6 +10,7 @@ import germanyFlag from './flags/germany.jpg';
 import italyFlag from './flags/italy.jpg';
 import spainFlag from './flags/spain.jpg';
 import russiaFlag from './flags/russia.jpg';
+import { withTranslation } from 'react-i18next';
 
 const Languages = [
   {
@@ -102,4 +103,4 @@ class LanguageDropdown extends Component {
   }
 }
 
-export default withNamespaces('common')(LanguageDropdown);
+export default withTranslation('common')(LanguageDropdown);
