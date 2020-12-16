@@ -6,9 +6,13 @@ import MetisMenu from 'metismenujs/dist/metismenujs';
 
 import { initMenu, changeActiveMenuFromLocation } from '../redux/actions';
 import { getLoggedInUser } from '../helpers/authUtils';
+import { useTranslation } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 const MenuItemWithChildren = ({ item, linkClassNames, subMenuClassNames, activatedMenuItemIds }) => {
   const Icon = item.icon || null;
+
+  const { t } = useTranslation();
 
   return (
     <li className={classNames('side-nav-item', { 'mm-active': activatedMenuItemIds.indexOf(item.id) >= 0 })}>
@@ -18,7 +22,7 @@ const MenuItemWithChildren = ({ item, linkClassNames, subMenuClassNames, activat
         aria-expanded={activatedMenuItemIds.indexOf(item.id) >= 0}>
         {item.icon && <Icon />}
         {item.badge && <span className={`badge badge-${item.badge.variant} float-right`}>{item.badge.text}</span>}
-        <span> {item.name} </span>
+        <span> {t(item.name)} </span>
         <span className="menu-arrow"></span>
       </Link>
 
@@ -55,6 +59,7 @@ const MenuItemWithChildren = ({ item, linkClassNames, subMenuClassNames, activat
 const MenuItem = ({ item, className, linkClassName }) => {
   // TODO don't list item without name
   if (!item.name) return <React.Fragment></React.Fragment>;
+
   return (
     <li className={classNames('side-nav-item', className)}>
       <MenuItemLink item={item} className={linkClassName} />
@@ -64,13 +69,15 @@ const MenuItem = ({ item, className, linkClassName }) => {
 
 const MenuItemLink = ({ item, className }) => {
   const Icon = item.icon || null;
+  const { t } = useTranslation();
+
   return (
     <Link to={item.path} className={classNames('side-nav-link-ref', 'side-sub-nav-link', className)}>
       {item.icon && <Icon />}
       {item.badge && (
         <span className={`font-size-12 badge badge-${item.badge.variant} float-right`}>{item.badge.text}</span>
       )}
-      <span> {item.name} </span>
+      <span> {t(item.name)} </span>
     </Link>
   );
 };
@@ -126,6 +133,7 @@ class AppMenu extends Component {
   }
 
   render() {
+    const { t } = this.props;
     const isHorizontal = this.props.mode === 'horizontal';
     const activatedKeys = isHorizontal
       ? []
@@ -149,7 +157,7 @@ class AppMenu extends Component {
                 <React.Fragment key={item.id}>
                   {item.header && !isHorizontal && (
                     <li className="menu-title" key={i + '-el'}>
-                      {item.header}
+                      {t(item.header)}
                     </li>
                   )}
 
@@ -184,4 +192,5 @@ const mapStateToProps = (state) => {
     menu: state.AppMenu,
   };
 };
-export default withRouter(connect(mapStateToProps, { initMenu, changeActiveMenuFromLocation })(AppMenu));
+const I18AppMenu = withTranslation()(AppMenu);
+export default withRouter(connect(mapStateToProps, { initMenu, changeActiveMenuFromLocation })(I18AppMenu));

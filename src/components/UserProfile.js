@@ -1,5 +1,5 @@
 import React from 'react';
-import { withNamespaces } from 'react-i18next';
+
 import { Link } from 'react-router-dom';
 
 import 'react-perfect-scrollbar/dist/css/styles.css';
@@ -9,6 +9,7 @@ import * as FeatherIcon from 'react-feather';
 
 import profilePic from '../assets/images/users/avatar-7.jpg';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 
 const UserProfile = (props) => {
   const { t, user } = props;
@@ -61,4 +62,6 @@ const UserProfile = (props) => {
 
 const mapStateToProps = (state) => ({ user: state.Auth.user });
 
-export default connect(mapStateToProps, {})(withNamespaces('common')(UserProfile));
+const I18Profile = withTranslation('common')(UserProfile);
+
+export default connect(mapStateToProps, {})(I18Profile);
