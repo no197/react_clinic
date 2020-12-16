@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import MetisMenu from 'metismenujs/dist/metismenujs';
 
@@ -53,8 +53,11 @@ const MenuItemWithChildren = ({ item, linkClassNames, subMenuClassNames, activat
 };
 
 const MenuItem = ({ item, className, linkClassName }) => {
-  // TODO don't list item without name
-  if (!item.name) return <React.Fragment></React.Fragment>;
+  const role = useSelector((state) => state.Auth.user.role);
+  const isAuthorize = item.roles && item.roles.length && item.roles.indexOf(role) === -1 ? false : true;
+  // TODO don't list item without name or don't have route
+  if (!item.name || !isAuthorize) return <React.Fragment></React.Fragment>;
+
   return (
     <li className={classNames('side-nav-item', className)}>
       <MenuItemLink item={item} className={linkClassName} />

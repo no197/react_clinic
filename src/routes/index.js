@@ -88,7 +88,6 @@ const dashboardRoutes = {
     text: '1',
   },
   component: Dashboard,
-  roles: ['Admin', 'Employee', 'Doctor'],
   route: PrivateRoute,
 };
 
@@ -133,6 +132,7 @@ const examinationRoutes = {
       component: AppointmentList,
       exact: true,
       route: PrivateRoute,
+      roles: ['Admin', 'Employee', 'Doctor'],
     },
     {
       path: '/app/examinations',
@@ -140,6 +140,7 @@ const examinationRoutes = {
       name: 'Phiếu khám bệnh',
       exact: true,
       route: PrivateRoute,
+      roles: ['Admin', 'Doctor'],
     },
     {
       path: '/app/examinations/:examinationId',
@@ -160,7 +161,7 @@ const employeesRoutes = {
   path: '/app/employees',
   name: 'Nhân viên',
   icon: FeatherIcon.Monitor,
-  roles: ['Admin', 'Employee'],
+  roles: ['Admin'],
   children: [
     {
       path: '/app/employees',
@@ -187,7 +188,7 @@ const medicineRoutes = {
   path: '/app/medicines',
   name: 'Thuốc',
   icon: FeatherIcon.Briefcase,
-  roles: ['Admin', 'Employee'],
+  roles: ['Admin', 'Pharmacist'],
   children: [
     {
       path: '/app/medicines',
