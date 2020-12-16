@@ -23,7 +23,7 @@ const NewMedicine = (props) => {
   ];
 
   const handleSubmit = (event, values) => {
-    props.createMedicines(values);
+    props.createMedicines({ ...values, price: values.price * 1, quantity: values.quantity * 1 });
     console.log(values);
   };
 
@@ -72,7 +72,7 @@ const NewMedicine = (props) => {
                     options={options}
                     errorMessage={'Đơn Vị Thuốc là bắt buộc'}
                   />
-               
+
                   <AvGroup>
                     <Label for="price">Đơn Giá</Label>
                     <AvInput placeholder="Đơn giá" name="price" required />
@@ -100,6 +100,6 @@ const mapStateToProps = (state) => ({
   medicines: state.Medicine.medicines,
 });
 const mapDispatchToProps = (dispatch) => ({
-  createMedicines: (params) => dispatch(createMedicines(params))
+  createMedicines: (params) => dispatch(createMedicines(params)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(NewMedicine);

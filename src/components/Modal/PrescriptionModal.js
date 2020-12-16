@@ -222,7 +222,7 @@ let fakeMedicines = {
 
 const PrescriptionModal = ({ isOpen, toggle, onSubmit, className, size, model, onCancel }) => {
   const [errors, setErrors] = useState([]);
-  const [qtySelect, setQtySelect] = useState(999999999999999);
+  const [qtySelect, setQtySelect] = useState(Number.MAX_VALUE);
 
   const options = fakeMedicines.items.map((item) => ({
     value: item.medicineId,

@@ -17,7 +17,6 @@ import PageTitle from '../../components/PageTitle';
 
 //Import action to dispatch
 import { deletePatients, getPatients } from '../../redux/patients/actions';
-import ButtonAppointmentModal from '../../components/Modal/ButtonAppointmentModal';
 import { createAppointment } from '../../redux/examinations/actions';
 
 const PatientList = ({ patients, getPatients, createAppointment }) => {
