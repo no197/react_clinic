@@ -45,6 +45,7 @@ const MonthlyPatient = ({ monthlyPatient, getMonthlyPatient }) => {
   if (monthlyPatient) {
     ({ items } = monthlyPatient);
   }
+  console.log(items);
 
   // Config all column for table
   const columns = [
@@ -67,8 +68,8 @@ const MonthlyPatient = ({ monthlyPatient, getMonthlyPatient }) => {
       sort: true,
     },
     {
-      dataField: 'Patient',
-      text: 'Bệnh nhân',
+      dataField: 'fullName',
+      text: 'Tên bệnh nhân',
       sort: true,
     },
     {

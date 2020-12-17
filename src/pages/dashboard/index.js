@@ -9,12 +9,8 @@ import OverviewWidget from '../../components/OverviewWidget';
 
 import Statistics from './Statistics';
 import RevenueChart from './RevenueChart';
-import TargetChart from './TargetChart';
-import SalesChart from './SalesChart';
-import Orders from './Orders';
-import Performers from './Performers';
-import Tasks from './Tasks';
-import Chat from './Chat';
+import TopFiveMedicinedUsed from './TopFiveMedicineUsed';
+import TopFiveMedicineQty from './TopFiveMedicineQty';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -64,23 +60,11 @@ class Dashboard extends Component {
 
           {/* charts */}
           <Row>
-            <Col xl={5}>
-              <SalesChart />
+            <Col xl={6}>
+              <TopFiveMedicinedUsed />
             </Col>
-            <Col xl={7}>
-              <Orders />
-            </Col>
-          </Row>
-
-          <Row>
-            <Col xl={4}>
-              <Performers />
-            </Col>
-            <Col xl={4}>
-              <Tasks />
-            </Col>
-            <Col xl={4}>
-              <Chat />
+            <Col xl={6}>
+              <TopFiveMedicineQty />
             </Col>
           </Row>
         </div>

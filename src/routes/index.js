@@ -247,13 +247,6 @@ const statisticRoutes = {
   roles: ['Admin'],
   children: [
     {
-      path: '/app/statistic/general',
-      name: 'Thống kê tổng doanh thu',
-      component: MonthlyRevenue,
-      exact: true,
-      route: PrivateRoute,
-    },
-    {
       path: '/app/statistic/revenue',
       name: 'Thống kê doanh thu',
       component: MonthlyRevenue,
