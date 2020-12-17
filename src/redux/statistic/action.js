@@ -8,6 +8,12 @@ import {
   GET_REVENUE_IN_RANGE,
   GET_REVENUE_IN_RANGE_FAIL,
   GET_REVENUE_IN_RANGE_SUCCESS,
+  GET_TOP_FIVE_MEDICINE_USED,
+  GET_TOP_FIVE_MEDICINE_USED_FAIL,
+  GET_TOP_FIVE_MEDICINE_USED_SUCCESS,
+  GET_TOP_FIVE_MEDICINE_QUANTITY,
+  GET_TOP_FIVE_MEDICINE_QUANTITY_SUCCESS,
+  GET_TOP_FIVE_MEDICINE_QUANTITY_FAIL,
 } from './constant';
 
 export const getMonthlyRevenue = ({ month, year }) => ({
@@ -53,5 +59,35 @@ export const getGeneralStatisticSuccess = (generalStatistic) => ({
 
 export const getGeneralStatisticFail = (error) => ({
   type: GET_GENERAL_STATISTIC_FAIL,
+  payload: error,
+});
+
+// TOP FIVE MEDICINES USED
+export const getTopFiveMedicineUsed = () => ({
+  type: GET_TOP_FIVE_MEDICINE_USED,
+});
+
+export const getTopFiveMedicineUsedSuccess = (topFiveUsed) => ({
+  type: GET_TOP_FIVE_MEDICINE_USED_SUCCESS,
+  payload: topFiveUsed,
+});
+
+export const getTopFiveMedicineUsedFail = (error) => ({
+  type: GET_TOP_FIVE_MEDICINE_USED_FAIL,
+  payload: error,
+});
+
+// TOP FIVE MEDICINES QUANTITY
+export const getTopFiveMedicineQuantity = () => ({
+  type: GET_TOP_FIVE_MEDICINE_QUANTITY,
+});
+
+export const getTopFiveMedicineQuantitySuccess = (topFiveQuantity) => ({
+  type: GET_TOP_FIVE_MEDICINE_QUANTITY_SUCCESS,
+  payload: topFiveQuantity,
+});
+
+export const getTopFiveMedicineQuantityFail = (error) => ({
+  type: GET_TOP_FIVE_MEDICINE_QUANTITY_FAIL,
   payload: error,
 });
