@@ -2,9 +2,15 @@ import {
   GET_GENERAL_STATISTIC,
   GET_GENERAL_STATISTIC_FAIL,
   GET_GENERAL_STATISTIC_SUCCESS,
+  GET_MONTHLY_MEDICAL,
+  GET_MONTHLY_MEDICAL_FAIL,
+  GET_MONTHLY_MEDICAL_SUCCESS,
   GET_MONTHLY_REVENUE,
   GET_MONTHLY_REVENUE_FAIL,
   GET_MONTHLY_REVENUE_SUCCESS,
+  GET_MONTHLY_PATIENTS,
+  GET_MONTHLY_PATIENTS_FAIL,
+  GET_MONTHLY_PATIENTS_SUCCESS,
   GET_REVENUE_IN_RANGE,
   GET_REVENUE_IN_RANGE_FAIL,
   GET_REVENUE_IN_RANGE_SUCCESS,
@@ -53,5 +59,33 @@ export const getGeneralStatisticSuccess = (generalStatistic) => ({
 
 export const getGeneralStatisticFail = (error) => ({
   type: GET_GENERAL_STATISTIC_FAIL,
+  payload: error,
+});
+//PATIENTS STATISTIC
+export const getMonthlyPatient = ({ month, year }) => ({
+  type: GET_MONTHLY_PATIENTS,
+  payload: { month, year },
+})
+export const getMonthlyPatientSuccess = (patientStatistic) => ({
+  type: GET_MONTHLY_PATIENTS_SUCCESS,
+  payload: patientStatistic,
+});
+
+export const getMonthlyPatientFail = (error) => ({
+  type: GET_MONTHLY_PATIENTS_FAIL,
+  payload: error,
+});
+//MEDICAL STATISTIC
+export const getMonthlyMedical = ({ month, year }) => ({
+  type: GET_MONTHLY_MEDICAL,
+  payload: { month, year },
+})
+export const getMonthlyMedicalSuccess = (medicalStatistic) => ({
+  type: GET_MONTHLY_MEDICAL_SUCCESS,
+  payload: medicalStatistic,
+});
+
+export const getMonthlyMedicalFail = (error) => ({
+  type: GET_MONTHLY_MEDICAL_FAIL,
   payload: error,
 });

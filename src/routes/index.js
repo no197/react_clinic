@@ -4,6 +4,8 @@ import { Route } from 'react-router-dom';
 import * as FeatherIcon from 'react-feather';
 
 import { isUserAuthenticated, getLoggedInUser } from '../helpers/authUtils';
+import MonthlyPatinet from '../pages/Statistics/MonthlyPatinet';
+import MonthlyMedicines from '../pages/Statistics/MonthlyMedicines';
 
 // auth
 const Login = React.lazy(() => import('../pages/auth/Login'));
@@ -245,9 +247,30 @@ const statisticRoutes = {
   roles: ['Admin'],
   children: [
     {
+      path: '/app/statistic/general',
+      name: 'Thống kê tổng doanh thu',
+      component: MonthlyRevenue,
+      exact: true,
+      route: PrivateRoute,
+    },
+    {
       path: '/app/statistic/revenue',
       name: 'Thống kê doanh thu',
       component: MonthlyRevenue,
+      exact: true,
+      route: PrivateRoute,
+    },
+    {
+      path: '/app/statistic/patients',
+      name: 'Thống kê bệnh nhân',
+      component: MonthlyPatinet,
+      exact: true,
+      route: PrivateRoute,
+    },
+    {
+      path: '/app/statistic/medicines',
+      name: 'Thống kê đơn thuốc',
+      component: MonthlyMedicines,
       exact: true,
       route: PrivateRoute,
     },
