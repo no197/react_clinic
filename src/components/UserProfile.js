@@ -61,4 +61,6 @@ const UserProfile = (props) => {
 
 const mapStateToProps = (state) => ({ user: state.Auth.user });
 
-export default connect(mapStateToProps, {})(withTranslation('common')(UserProfile));
+const I18Profile = withTranslation('common')(UserProfile);
+
+export default connect(mapStateToProps, {})(I18Profile);

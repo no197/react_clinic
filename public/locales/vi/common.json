@@ -1,5 +1,27 @@
 {
-    "homePage": {
-        "hello": "Xin chào"
-    }
+  "homePage": {
+    "hello": "Xin chào"
+  },
+  "appMenu": {
+    "dashboard": "Trang chủ",
+    "appHeader": "Ứng dụng",
+
+    "patient": "Bệnh nhân",
+    "patientList": "Danh sách bệnh nhân",
+    "addPatient": "Thêm bệnh nhân",
+
+    "employee": "Nhân viên",
+    "employeeList": "Danh sách bệnh nhân",
+    "addEmployee": "Thêm bệnh nhân",
+
+    "examination": "Khám bệnh",
+    "appointmentList": "Đăng ký khám bệnh",
+    "examinationList": "Phiếu khám bệnh",
+
+    "medicine": "Thuốc",
+    "medicineList": "Danh sách thuốc",
+    "addMedicine": "Thêm thuốc",
+
+    "invoice": "Hóa đơn"
+  }
 }

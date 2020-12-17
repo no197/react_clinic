@@ -84,9 +84,9 @@ const rootRoute = {
 // dashboards
 const dashboardRoutes = {
   path: '/dashboard',
-  name: 'Trang chủ',
+  name: 'appMenu.dashboard',
   icon: FeatherIcon.Home,
-  header: 'Trang chủ',
+  header: 'appMenu.dashboard',
   badge: {
     variant: 'success',
     text: '1',
@@ -100,21 +100,21 @@ const dashboardRoutes = {
 
 const patientRoutes = {
   path: '/app/patients',
-  name: 'Bệnh nhân',
-  header: 'Ứng dụng',
+  name: 'appMenu.patient',
+  header: 'appMenu.appHeader',
   icon: FeatherIcon.UserPlus,
   roles: ['Admin', 'Employee'],
   children: [
     {
       path: '/app/patients',
-      name: 'Danh sách bệnh nhân',
+      name: 'appMenu.patientList',
       component: PatientList,
       exact: true,
       route: PrivateRoute,
     },
     {
       path: '/app/patients/new',
-      name: 'Thêm bệnh nhân',
+      name: 'appMenu.addPatient',
       component: NewPatient,
       route: PrivateRoute,
     },
@@ -127,13 +127,13 @@ const patientRoutes = {
 };
 
 const examinationRoutes = {
-  name: 'Khám bệnh',
+  name: 'appMenu.examination',
   icon: FeatherIcon.Activity,
   roles: ['Admin', 'Employee', 'Doctor'],
   children: [
     {
       path: '/app/appointments',
-      name: 'Đăng ký khám bệnh',
+      name: 'appMenu.appointmentList',
       component: AppointmentList,
       exact: true,
       route: PrivateRoute,
@@ -141,7 +141,7 @@ const examinationRoutes = {
     {
       path: '/app/examinations',
       component: ExaminationList,
-      name: 'Phiếu khám bệnh',
+      name: 'appMenu.examinationList',
       exact: true,
       route: PrivateRoute,
     },
@@ -162,20 +162,20 @@ const examinationRoutes = {
 
 const employeesRoutes = {
   path: '/app/employees',
-  name: 'Nhân viên',
+  name: 'appMenu.employee',
   icon: FeatherIcon.Monitor,
   roles: ['Admin', 'Employee'],
   children: [
     {
       path: '/app/employees',
-      name: 'Danh sách nhân viên',
+      name: 'appMenu.employeeList',
       component: EmployeesList,
       exact: true,
       route: PrivateRoute,
     },
     {
       path: '/app/employees/new',
-      name: 'Thêm nhân viên',
+      name: 'appMenu.addEmployee',
       component: NewEmployees,
       route: PrivateRoute,
     },
@@ -189,20 +189,20 @@ const employeesRoutes = {
 
 const medicineRoutes = {
   path: '/app/medicines',
-  name: 'Thuốc',
+  name: 'appMenu.medicine',
   icon: FeatherIcon.Briefcase,
   roles: ['Admin', 'Employee'],
   children: [
     {
       path: '/app/medicines',
-      name: 'Danh sách thuốc',
+      name: 'appMenu.medicineList',
       component: MedicineLists,
       exact: true,
       route: PrivateRoute,
     },
     {
       path: '/app/medicines/new',
-      name: 'Thêm thuốc',
+      name: 'appMenu.addMedicine',
       component: NewMedicine,
       route: PrivateRoute,
     },
@@ -216,7 +216,7 @@ const medicineRoutes = {
 
 const invoiceRoutes = {
   path: '/app/invoices',
-  name: 'Hóa đơn',
+  name: 'appMenu.invoice',
   icon: FeatherIcon.FileText,
   component: InvoiceList,
   exact: true,

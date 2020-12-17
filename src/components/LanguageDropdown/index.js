@@ -2,38 +2,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownMenu, DropdownToggle, UncontrolledTooltip } from 'reactstrap';
-
 import { Globe } from 'react-feather';
 
 import enFlag from './flags/us.jpg';
-import germanyFlag from './flags/germany.jpg';
-import italyFlag from './flags/italy.jpg';
-import spainFlag from './flags/spain.jpg';
-import russiaFlag from './flags/russia.jpg';
+import vietNamFlag from './flags/vietnam.png';
 import { withTranslation } from 'react-i18next';
 
 const Languages = [
   {
-    name: 'English',
-    flag: enFlag,
-    lng: 'en-US',
-  },
-  {
     name: 'Việt Nam',
-    flag: germanyFlag,
+    flag: vietNamFlag,
     lng: 'vi',
   },
   {
-    name: 'Italian',
-    flag: italyFlag,
-  },
-  {
-    name: 'Spanish',
-    flag: spainFlag,
-  },
-  {
-    name: 'Russian',
-    flag: russiaFlag,
+    name: 'English',
+    flag: enFlag,
+    lng: 'en-US',
   },
 ];
 

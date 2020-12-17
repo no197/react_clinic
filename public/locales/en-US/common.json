@@ -1,5 +1,27 @@
 {
-    "homePage": {
-        "hello": "Hello"
-    }
+  "homePage": {
+    "hello": "Hello"
+  },
+  "appMenu": {
+    "dashboard": "Dashboard",
+    "appHeader": "App",
+
+    "patient": "Patients",
+    "patientList": "Patient List",
+    "addPatient": "Add New patient",
+
+    "employee": "Employees",
+    "employeeList": "Employee List",
+    "addEmployee": "Add New patient",
+
+    "examination": "Examinations",
+    "appointmentList": "Appointment List",
+    "examinationList": "Examination List",
+
+    "medicine": "Medicines",
+    "medicineList": "Medicine List",
+    "addMedicine": "Add New Medicine",
+
+    "invoice": "Invoices"
+  }
 }
