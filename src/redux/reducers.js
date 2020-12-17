@@ -12,6 +12,7 @@ import { connectRouter } from 'connected-react-router';
 import examinationReducer from './examinations/reducers';
 import invoiceReducer from './invoices/reducers';
 import medicineReducer from './Medicines/reducer';
+import statisticReducer from './statistic/reducers';
 
 const createRootReducer = (history) =>
   combineReducers({
@@ -25,6 +26,7 @@ const createRootReducer = (history) =>
     Examinations: examinationReducer,
     Invoices: invoiceReducer,
     Medicine: medicineReducer,
+    Statistic: statisticReducer,
   });
 
 export default createRootReducer;

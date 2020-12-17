@@ -174,6 +174,7 @@ class AppMenu extends Component {
             })}
           </ul>
         )}
+        <div className="my-5"></div>
       </React.Fragment>
     );
   }

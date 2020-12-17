@@ -38,6 +38,10 @@ const InvoiceList = React.lazy(() => import('../pages/Invoices/InvoiceList'));
 const MedicineLists = React.lazy(() => import('../pages/Medicines/MedicineLists'));
 const NewMedicine = React.lazy(() => import('../pages/Medicines/NewMedicine'));
 const MedicineDetail = React.lazy(() => import('../pages/Medicines/MedicineDetail'));
+//Statistic
+const MonthlyRevenue = React.lazy(() => import('../pages/Statistics/MonthlyRevenue'));
+const MonthlyPatinet = React.lazy(() => import('../pages/Statistics/MonthlyPatinet'));
+const MonthlyMedicines = React.lazy(() => import('../pages/Statistics/MonthlyMedicines'));
 
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
@@ -228,6 +232,36 @@ const invoiceDetailRoutes = {
   roles: ['Admin', 'Employee'],
 };
 
+const statisticRoutes = {
+  path: '/app/statistic',
+  name: 'Thống kê',
+  icon: FeatherIcon.Grid,
+  roles: ['Admin'],
+  children: [
+    {
+      path: '/app/statistic/revenue',
+      name: 'Thống kê doanh thu',
+      component: MonthlyRevenue,
+      exact: true,
+      route: PrivateRoute,
+    },
+    {
+      path: '/app/statistic/patients',
+      name: 'Thống kê bệnh nhân',
+      component: MonthlyPatinet,
+      exact: true,
+      route: PrivateRoute,
+    },
+    {
+      path: '/app/statistic/medicines',
+      name: 'Thống kê thuốc',
+      component: MonthlyMedicines,
+      exact: true,
+      route: PrivateRoute,
+    },
+  ],
+};
+
 const appRoutes = [
   patientRoutes,
   employeesRoutes,
@@ -235,6 +269,7 @@ const appRoutes = [
   medicineRoutes,
   invoiceRoutes,
   invoiceDetailRoutes,
+  statisticRoutes,
 ];
 
 // auth

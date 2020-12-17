@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownMenu, DropdownToggle, UncontrolledTooltip } from 'reactstrap';
-import { withNamespaces } from 'react-i18next';
+
 import { Globe } from 'react-feather';
 
 import enFlag from './flags/us.jpg';

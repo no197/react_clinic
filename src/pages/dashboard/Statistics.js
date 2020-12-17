@@ -1,66 +1,65 @@
 // @flow
-import React from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { Row, Col } from 'reactstrap';
 
-import StatisticsChartWidget from '../../components/StatisticsChartWidget';
+import * as FeatherIcon from 'react-feather';
+import StatisticsWidget from '../../components/StatisticsWidget';
+import { useDispatch, useSelector } from 'react-redux';
+import { getGeneralStatistic } from '../../redux/statistic/action';
+import formatCash from '../../helpers/formatCash';
 
 const Statistics = () => {
-    return (
-        <React.Fragment>
-            <Row>
-                <Col md={6} xl={3}>
-                    <StatisticsChartWidget
-                        description="Today Revenue"
-                        title="$2100"
-                        data={[25, 66, 41, 85, 63, 25, 44, 12, 36, 9, 54]}
-                        trend={{
-                            textClass: 'text-success',
-                            icon: 'uil uil-arrow-up',
-                            value: '10.21%'
-                        }}></StatisticsChartWidget>
-                </Col>
+  const dispatch = useDispatch();
+  const statistics = useSelector((state) => state.Statistic.generalStatistic);
 
-                <Col md={6} xl={3}>
-                    <StatisticsChartWidget
-                        description="Product Sold"
-                        title="1065"
-                        colors={['#f77e53']}
-                        data={[25, 66, 41, 85, 63, 25, 44, 12, 36, 9, 54]}
-                        trend={{
-                            textClass: 'text-danger',
-                            icon: 'uil uil-arrow-down',
-                            value: '5.05%'
-                        }}></StatisticsChartWidget>
-                </Col>
+  useLayoutEffect(() => {
+    dispatch(getGeneralStatistic());
+    return () => {};
+  }, [dispatch]);
 
-                <Col md={6} xl={3}>
-                    <StatisticsChartWidget
-                        description="New Customers"
-                        title="11"
-                        colors={['#43d39e']}
-                        data={[25, 66, 41, 85, 63, 25, 44, 12, 36, 9, 54]}
-                        trend={{
-                            textClass: 'text-success',
-                            icon: 'uil uil-arrow-up',
-                            value: '25.16%'
-                        }}></StatisticsChartWidget>
-                </Col>
+  let numOfPatient = 0,
+    numOfExam = 0,
+    examRevenue = 0,
+    totalRevenue = 0;
 
-                <Col md={6} xl={3}>
-                    <StatisticsChartWidget
-                        description="New Visitors"
-                        title="750"
-                        colors={['#ffbe0b']}
-                        data={[25, 66, 41, 85, 63, 25, 44, 12, 36, 9, 54]}
-                        trend={{
-                            textClass: 'text-danger',
-                            icon: 'uil uil-arrow-down',
-                            value: '5.05%'
-                        }}></StatisticsChartWidget>
-                </Col>
-            </Row>
-        </React.Fragment>
-    );
+  if (statistics) {
+    ({ numOfExam, numOfPatient, examRevenue, totalRevenue } = statistics);
+  }
+
+  return (
+    <React.Fragment>
+      <Row>
+        <Col md={6} xl={3}>
+          <StatisticsWidget
+            description="Số bệnh nhân trong tháng"
+            title={numOfPatient}
+            icon={FeatherIcon.User}
+            iconClass="icon-dual-primary"></StatisticsWidget>
+        </Col>
+        <Col md={6} xl={3}>
+          <StatisticsWidget
+            description="Số khám bệnh trong tháng"
+            title={numOfExam}
+            icon={FeatherIcon.FileText}
+            iconClass="icon-dual-warning"></StatisticsWidget>
+        </Col>
+        <Col md={6} xl={3}>
+          <StatisticsWidget
+            description="Tiền khám bệnh trong tháng"
+            title={`${formatCash(examRevenue)} đ`}
+            icon={FeatherIcon.ShoppingBag}
+            iconClass="icon-dual-success"></StatisticsWidget>
+        </Col>
+        <Col md={6} xl={3}>
+          <StatisticsWidget
+            description="Tổng doanh thu trong tháng"
+            title={`${formatCash(totalRevenue)} đ`}
+            icon={FeatherIcon.Target}
+            iconClass="icon-dual-info"></StatisticsWidget>
+        </Col>
+      </Row>
+    </React.Fragment>
+  );
 };
 
 export default Statistics;
