@@ -56,24 +56,30 @@ const MonthlyMedical = ({ monthlyMedical, getMonthlyMedical }) => {
       csvFormatter: (cell, row, rowIndex) => rowIndex + 1,
     },
     {
-      dataField: 'date',
-      text: 'Ngày',
-      formatter: (cell, row, rowIndex) => {
-        return moment(new Date(row.date)).format('DD/MM/YYYY'); //Format datetime
-      },
-      csvFormatter: (cell, row, rowIndex) => {
-        return moment(new Date(row.date)).format('DD/MM/YYYY'); //Format datetime
-      },
+      dataField: 'medicineId',
+      text: 'Id',
+      hidden: true,
       sort: true,
     },
     {
-      dataField: 'Medical',
-      text: 'Thuốc',
+      dataField: 'medicineName',
+      text: 'Tên thuốc',
+
       sort: true,
     },
     {
-      dataField: 'percent',
-      text: 'Tỷ lệ',
+      dataField: 'timesUsed',
+      text: 'Số lần dùng',
+      sort: true,
+    },
+    {
+      dataField: 'qtyUsed',
+      text: 'Số lượng đã dùng',
+      sort: true,
+    },
+    {
+      dataField: 'unit',
+      text: 'Đơn vị',
       sort: true,
     },
   ];

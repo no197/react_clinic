@@ -262,7 +262,7 @@ const statisticRoutes = {
     },
     {
       path: '/app/statistic/medicines',
-      name: 'Thống kê đơn thuốc',
+      name: 'Thống kê thuốc',
       component: MonthlyMedicines,
       exact: true,
       route: PrivateRoute,

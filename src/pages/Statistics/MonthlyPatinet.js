@@ -49,33 +49,45 @@ const MonthlyPatient = ({ monthlyPatient, getMonthlyPatient }) => {
 
   // Config all column for table
   const columns = [
-    // STT column
     {
       dataField: 'stt',
       text: 'STT',
       formatter: (cell, row, rowIndex) => rowIndex + 1,
-      csvFormatter: (cell, row, rowIndex) => rowIndex + 1,
+      exportCSV: false,
     },
     {
-      dataField: 'date',
-      text: 'Ngày',
-      formatter: (cell, row, rowIndex) => {
-        return moment(new Date(row.date)).format('DD/MM/YYYY'); //Format datetime
-      },
-      csvFormatter: (cell, row, rowIndex) => {
-        return moment(new Date(row.date)).format('DD/MM/YYYY'); //Format datetime
-      },
+      dataField: 'patientId',
+      text: 'ID',
       sort: true,
+      hidden: true,
     },
     {
       dataField: 'fullName',
-      text: 'Tên bệnh nhân',
+      text: 'Họ tên',
       sort: true,
     },
     {
-      dataField: 'percent',
-      text: 'Tỷ lệ',
+      dataField: 'gender',
+      text: 'Giới tính',
+      sort: false,
+    },
+    {
+      dataField: 'dateOfBirth',
+      text: 'Ngày sinh',
+      formatter: (cell, row, rowIndex) => {
+        return moment(new Date(row.dateOfBirth)).format('DD/MM/YYYY'); //Format datetime
+      },
       sort: true,
+    },
+    {
+      dataField: 'address',
+      text: 'Địa chỉ',
+      sort: false,
+    },
+    {
+      dataField: 'phoneNumber',
+      text: 'Số điện thoại',
+      sort: false,
     },
   ];
 
@@ -127,8 +139,7 @@ const MonthlyPatient = ({ monthlyPatient, getMonthlyPatient }) => {
                   columns={columns}
                   search
                   exportCSV={{
-                    onlyExportFiltered: true,
-                    exportAll: false,
+                    exportAll: true,
                     noAutoBOM: false,
                   }}>
                   {(props) => (
