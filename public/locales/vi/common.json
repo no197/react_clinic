@@ -9,6 +9,7 @@
     "patient": "Bệnh nhân",
     "patientList": "Danh sách bệnh nhân",
     "addPatient": "Thêm bệnh nhân",
+    "patientDetail":"Chi tiết bệnh nhân",
 
     "employee": "Nhân viên",
     "employeeList": "Danh sách bệnh nhân",
@@ -23,5 +24,33 @@
     "addMedicine": "Thêm thuốc",
 
     "invoice": "Hóa đơn"
+  },
+  "patient":{
+    "newPatient":"Thêm Bệnh Nhân",
+    "newPatientTitle": "",
+    "patientName":"Họ và Tên",
+    "addPatientName":"Thêm tên bệnh nhân",
+    "patientNameRequired":"Tên bệnh nhân là bắt buộc",
+    "patientNameMinLength":"Tên bệnh nhân tối thiểu 4 ký tự",
+    "patientNameMaxLeng1h":"Tên bệnh nhân tối đa 30 ký tự",
+    "patientGender":"Giới tính",
+    "patientGenderSelect": "Chọn giới tính bệnh nhân",
+    "patientGenderRequired":"Giới tính bệnh nhân là bắt buộc",
+    "patientDOB":"Ngày sinh",
+    "patientDOBError":"Ngày sinh không hợp lệ",
+    "patientAddress":"Địa chỉ",
+    "patientAddressRequired":"Địa chỉ bệnh nhân là bắt buộc",
+    "patientPhone":"Số điện thoại",
+    "patientPhoneRequired":"Số điện thoại bệnh nhân là bắt buộc",
+    "patientPhoneErrorMessage":"Số điện thoại không hợp lệ",
+    "patientPhoneMinLength":"Hãy nhập đủ 10 số ",
+    "deletePatientHeader":"Xác nhận xóa",
+    "detelePatientTitle":"Hành động này sẽ xóa hoàn toàn bệnh nhân ra khỏi hệ thống. Bạn thật sự muốn xóa bệnh nhân đã chọn?",
+    "deletePatient":"Xóa bệnh nhân",
+    "deleteCancel":"Hủy bỏ",
+    "patientNum":"STT",
+    "patientId":"ID",
+    "patientAction":"Hành động"
   }
+
 }

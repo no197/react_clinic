@@ -19,8 +19,9 @@ import PageTitle from '../../components/PageTitle';
 import { deletePatients, getPatients } from '../../redux/patients/actions';
 import ButtonAppointmentModal from '../../components/Modal/ButtonAppointmentModal';
 import { createAppointment } from '../../redux/examinations/actions';
-
+import { useTranslation } from 'react-i18next';
 const PatientList = ({ patients, getPatients, createAppointment }) => {
+  const [t, i18n] = useTranslation();
   // Use effect to get items
   useEffect(() => {
     getPatients();
@@ -43,15 +44,15 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
 
     const options = {
       Icon: FeatherIcon.AlertCircle, // Icon confirm
-      headerTitle: 'Xác nhận xóa', // Header confirm
-      content: 'Hành động này sẽ xóa hoàn toàn bệnh nhân ra khỏi hệ thống. Bạn thật sự muốn xóa bệnh nhân đã chọn?',
+      headerTitle: `${t('patient.deletePatientHeader')}`, // Header confirm
+      content: `${t('patient.detelePatientTitle')}`,
       okeBtn: {
-        text: 'Xóa bệnh nhân',
+        text: `${t('patient.deletePatient')}`,
         color: 'danger',
         onClick: () => deletePatients(patientId), // truyền action cần dispatch
       },
       cancelBtn: {
-        text: 'Hủy bỏ',
+        text:  `${t('patient.deleteCancel')}`,
         color: 'light',
       },
     };
@@ -87,29 +88,29 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
     // STT column
     {
       dataField: 'stt',
-      text: 'STT',
+      text:  `${t('patient.patientNum')}`,
       formatter: (cell, row, rowIndex) => rowIndex + 1,
       exportCSV: false,
     },
     {
       dataField: 'patientId',
-      text: 'ID',
+      text: `${t('patient.patientId')}`,
       sort: true,
       hidden: true,
     },
     {
       dataField: 'fullName',
-      text: 'Họ tên',
+      text:  `${t('patient.patientName')}`,
       sort: true,
     },
     {
       dataField: 'gender',
-      text: 'Giới tính',
+      text: `${t('patient.patientGender')}`,
       sort: false,
     },
     {
       dataField: 'dateOfBirth',
-      text: 'Ngày sinh',
+      text:  `${t('patient.patientDOB')}`,
       formatter: (cell, row, rowIndex) => {
         return moment(new Date(row.dateOfBirth)).format('DD/MM/YYYY'); //Format datetime
       },
@@ -117,17 +118,17 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
     },
     {
       dataField: 'address',
-      text: 'Địa chỉ',
+      text:  `${t('patient.patientAddress')}`,
       sort: false,
     },
     {
       dataField: 'phoneNumber',
-      text: 'Số điện thoại',
+      text:  `${t('patient.patientPhone')}`,
       sort: false,
     },
     {
       dataField: 'action',
-      text: 'Hành động',
+      text:  `${t('patient.patientAction')}`,
       editable: false,
       formatter: ActionColumn,
       csvExport: false,
@@ -178,12 +179,12 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
           <PageTitle
             breadCrumbItems={[
               {
-                label: 'Bệnh nhân',
+                label: `${t('appMenu.patient')}`,
                 path: '/app/patients',
                 active: true,
               },
             ]}
-            title={'Danh sách bệnh nhân'}
+            title={`${t('appMenu.patientList')}`}
           />
         </Col>
       </Row>
@@ -194,7 +195,7 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
           <div className="form-group">
             <Link to="/app/patients/new">
               <Button color="primary mb-2">
-                <i className="uil-plus mr-1"></i>Thêm bệnh nhân
+                <i className="uil-plus mr-1"></i>{t('patient.newPatient')}
               </Button>
             </Link>
           </div>
@@ -207,7 +208,7 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
           <Card>
             <CardBody>
               {/* Title  */}
-              <h4 className="header-title mt-0 mb-4">Danh sách bệnh nhân</h4>
+              <h4 className="header-title mt-0 mb-4">{t('appMenu.patientList')}</h4>
 
               {/* Table and Tookit(Search & Export pdf) */}
               {patients && (
