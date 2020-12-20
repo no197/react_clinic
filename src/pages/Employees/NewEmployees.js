@@ -12,10 +12,10 @@ import AVDatePicker from '../../components/Form/AVDatePicker';
 import AVSelect from '../../components/Form/AVSelect';
 import AvInput from 'availity-reactstrap-validation/lib/AvInput';
 import AvFeedback from 'availity-reactstrap-validation/lib/AvFeedback';
-
+import { useTranslation } from 'react-i18next';
 const NewEmployee = (props) => {
   const [errors, setErrors] = useState([]);
-
+  const [t, i18n] = useTranslation();
   const options = [
     { value: 'Nam', label: 'Nam' },
     { value: 'Nữ', label: 'Nữ' },
@@ -32,14 +32,14 @@ const NewEmployee = (props) => {
         <Col md={12}>
           <PageTitle
             breadCrumbItems={[
-              { label: 'Nhân viên', path: '/app/employees' },
+              { label: `${t('appMenu.employee')}`, path: '/app/employees' },
               {
-                label: 'Thêm Nhân viên',
+                label: `${t('appMenu.addEmployee')}`,
                 path: '/app/employees/new',
                 active: true,
               },
             ]}
-            title={'Thêm Nhân viên'}
+            title={`${t('employee.newEmployee')}`}
           />
         </Col>
       </Row>
@@ -47,36 +47,36 @@ const NewEmployee = (props) => {
         <Col>
           <Card>
             <CardBody>
-              <h4 className="header-title mt-0 mb-1">Thêm Nhân viên mới</h4>
-              <p className="sub-header">Vui lòng nhập các thông tin của Nhân viên vào các ô bên dưới</p>
+              <h4 className="header-title mt-0 mb-1">{t('employee.newEmployee')}</h4>
+              <p className="sub-header">{t('employee.newEmployeeTitle')}</p>
               <Col md="8">
                 <AvForm onInvalidSubmit={(event, errors, values) => setErrors(errors)} onValidSubmit={handleSubmit}>
                   <AvField
                     name="fullName"
-                    label="Tên Nhân viên"
-                    placeholder="Tên Nhân viên"
+                    label={t('employee.EmployeeName')}
+                    placeholder={t('employee.EmployeeName')}
                     validate={{
-                      required: { value: true, errorMessage: 'Tên Nhân viên là bắt buộc' },
-                      minLength: { value: 4, errorMessage: 'Tên Nhân viên phải có ít nhất 6 ký tự' },
-                      maxLength: { value: 30, errorMessage: 'Tên Nhân viên không thể dài quá 30 ký tự' },
+                      required: { value: true, errorMessage: `${t('employee.EmployeeNameRequired')}` },
+                      minLength: { value: 4, errorMessage: `${t('employee.EmployeeNameMinLength')}` },
+                      maxLength: { value: 30, errorMessage: `${t('employee.EmployeeNameMaxLength')}` },
                     }}
                   />
 
                   <AVSelect
                     name="gender"
-                    label="Giới tính"
-                    placeholder="Chọn giới tính Nhân viên"
+                    label={t('employee.EmployeeGender')}
+                    placeholder={t('employee.EmployeeGenderSelect')}
                     // defaultValue={{ value: 'Nam', label: 'Nam' }}
                     error={errors.indexOf('gender') !== -1}
                     options={options}
-                    errorMessage={'Giới tính Nhân viên là bắt buộc'}
+                    errorMessage={`${t('employee.EmployeeGenderRequired')}`}
                   />
 
                   <AVDatePicker
                     name="dateOfBirth"
                     defaultValue={new Date()}
                     error={errors.indexOf('dateOfBirth') !== -1}
-                    label="Ngày sinh"
+                    label={t('employee.EmployeeDOB')}
                     options={{
                       dateFormat: 'd-m-Y', // format ngày giờ
                       allowInput: true,
@@ -85,26 +85,26 @@ const NewEmployee = (props) => {
                       dateRange: {
                         start: { value: -110, units: 'years' },
                         end: { value: 0, units: 'days' },
-                        errorMessage: 'Ngày tháng năm sinh không hợp lệ',
+                        errorMessage: `${t('employee.EmployeeDOBError')}`,
                       },
                     }}
                   />
 
                   <AvGroup>
-                    <Label for="address">Địa chỉ</Label>
-                    <AvInput placeholder="Địa chỉ" name="address" required />
-                    <AvFeedback>Địa chỉ của Nhân viên là bắt buộc</AvFeedback>
+                    <Label for="address">{t('employee.EmployeeAddress')}</Label>
+                    <AvInput placeholder={t('employee.EmployeeAddress')} name="address" required />
+                    <AvFeedback>{t('employee.EmployeeAddressRequired')}</AvFeedback>
                   </AvGroup>
 
                   <AvGroup>
-                    <Label for="phoneNumber">Số điện thoại</Label>
-                    <AvInput placeholder="Số điện thoại" name="phoneNumber" required />
-                    <AvFeedback>Số điện thoại của Nhân viên là bắt buộc</AvFeedback>
+                    <Label for="phoneNumber">{t('employee.EmployeePhone')}</Label>
+                    <AvInput placeholder={t('employee.EmployeePhone')} name="phoneNumber" required />
+                    <AvFeedback>{t('employee.EmployeePhoneRequired')}</AvFeedback>
                   </AvGroup>
                   <AvGroup>
-                    <Label for="position">Chức vụ</Label>
-                    <AvInput placeholder="Chức vụ" name="position" required />
-                    <AvFeedback>Chức vụ của Nhân viên là bắt buộc</AvFeedback>
+                    <Label for="position">{t('employee.EmployeePosition')}</Label>
+                    <AvInput placeholder={t('employee.EmployeePosition')} name="position" required />
+                    <AvFeedback>{t('employee.EmplyeePositionRequired')}</AvFeedback>
                   </AvGroup>
 
                   <Button color="primary" type="submit">

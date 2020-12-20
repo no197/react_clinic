@@ -32,9 +32,9 @@ const NewPatient = (props) => {
         <Col md={12}>
           <PageTitle
             breadCrumbItems={[
-              { label: `Patient`, path: '/app/patients' },
+              { label:  `${t('appMenu.patient')}`, path: '/app/patients' },
               {
-                label: `NewPatient`,
+                label:  `${t('appMenu.addPatient')}`,
                 path: '/app/patients/new',
                 active: true,
               },

@@ -47,14 +47,14 @@ const PatientDetail = ({ patient, ...props }) => {
         <Col md={12}>
           <PageTitle
             breadCrumbItems={[
-              { label: `Patient`, path: '/app/patients' },
+              { label: `${t('appMenu.patient')}`, path: '/app/patients' },
               {
-                label: `NewPatient`,
+                label: `${t('appMenu.patientDetail')}`,
                 path: '/app/patients/new',
                 active: true,
               },
             ]}
-            title={`${t('patient.newPatient')}`}
+            title={`${t('patient.patientDetail')}`}
           />
         </Col>
       </Row>
@@ -62,8 +62,8 @@ const PatientDetail = ({ patient, ...props }) => {
         <Col>
           <Card>
             <CardBody>
-              <h4 className="header-title mt-0 mb-1">{t('patient.newPatient')}</h4>
-              <p className="sub-header">{t('patient.newPatientTitle')}</p>
+              <h4 className="header-title mt-0 mb-1">{t('patient.patientDetail')}</h4>
+              <p className="sub-header">{t('patient.patientDetail')}</p>
               <Col md="8">
                 <AvForm onInvalidSubmit={(event, errors, values) => setErrors(errors)} onValidSubmit={handleSubmit} model={patient}>
                   <AvField
