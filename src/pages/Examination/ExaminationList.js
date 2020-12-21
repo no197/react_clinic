@@ -15,14 +15,14 @@ import PageTitle from '../../components/PageTitle';
 //Import action to dispatch
 import { getExaminations } from '../../redux/examinations/actions';
 import { Link } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
 const ExaminationList = ({ appointments, getExaminations }) => {
   // Use effect to get items
   useEffect(() => {
     getExaminations();
     return () => {};
   }, [getExaminations]);
-
+  const [t, i18n] = useTranslation();
   // Destruct UI Componenet for TookitProvider
   const { SearchBar } = Search;
   const { ExportCSVButton } = CSVExport;
@@ -64,12 +64,12 @@ const ExaminationList = ({ appointments, getExaminations }) => {
     },
     {
       dataField: 'patientName',
-      text: 'Tên bệnh nhân',
+      text: `${t('patient.patientName')}`,
       sort: false,
     },
     {
       dataField: 'createdDate',
-      text: 'Ngày khám',
+      text: `${t('examination.createdDate')}`,
       formatter: (cell, row, rowIndex) => {
         return moment(new Date(row.createdDate)).format('DD/MM/YYYY'); //Format datetime
       },
@@ -77,12 +77,12 @@ const ExaminationList = ({ appointments, getExaminations }) => {
     },
     {
       dataField: 'diagnose',
-      text: 'Chẩn đoán',
+      text: `${t('examination.diagnose')}`,
       sort: false,
     },
     {
       dataField: 'action',
-      text: 'Hành động',
+      text: `${t('examination.ExaminationAction')}`,
       editable: false,
       formatter: ActionColumn,
       csvExport: false,
@@ -133,12 +133,12 @@ const ExaminationList = ({ appointments, getExaminations }) => {
           <PageTitle
             breadCrumbItems={[
               {
-                label: 'Khám bệnh',
+                label: `${t('appMenu.examination')}`,
                 path: '/app/examinations',
                 active: true,
               },
             ]}
-            title={'Danh sách đăng ký khám bệnh'}
+            title={`${t('appMenu.examinationList')}`}
           />
         </Col>
       </Row>
@@ -162,7 +162,7 @@ const ExaminationList = ({ appointments, getExaminations }) => {
           <Card>
             <CardBody>
               {/* Title  */}
-              <h4 className="header-title mt-0 mb-4">Danh sách phiếu khám bệnh</h4>
+              <h4 className="header-title mt-0 mb-4">{t('appMenu.examinationList')}</h4>
 
               {/* Table and Tookit(Search & Export pdf) */}
               {appointments && (

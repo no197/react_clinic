@@ -15,14 +15,14 @@ import PageTitle from '../../components/PageTitle';
 //Import action to dispatch
 import { getInvoices } from '../../redux/invoices/actions';
 import { Link } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
 const InvoiceList = ({ invoices, getInvoices }) => {
   // Use effect to get items
   useEffect(() => {
     getInvoices();
     return () => {};
   }, [getInvoices]);
-
+  const [t, i18n] = useTranslation();
   // Destruct UI Componenet for TookitProvider
   const { SearchBar } = Search;
   const { ExportCSVButton } = CSVExport;
@@ -40,7 +40,7 @@ const InvoiceList = ({ invoices, getInvoices }) => {
         {/* <ButtonAppointmentModal patient={row} /> */}
         <Link to={`/app/invoices/${row.invoiceId}`}>
           <Button className="mr-2" color="info" onClick={() => {}}>
-            <i className="uil-file-medical-alt"></i> Xem hóa đơn
+            <i className="uil-file-medical-alt"></i> {t('invoice.readInvoice')}
           </Button>
         </Link>
       </React.Fragment>
@@ -64,17 +64,17 @@ const InvoiceList = ({ invoices, getInvoices }) => {
     },
     {
       dataField: 'patientName',
-      text: 'Tên bệnh nhân',
+      text: `${t('patient.patientName')}`,
       sort: false,
     },
     {
       dataField: 'price',
-      text: 'Tiền hóa đơn',
+      text:`${t('invoice.price')}`,
       sort: false,
     },
     {
       dataField: 'createdDate',
-      text: 'Ngày khám',
+      text: `${t('appoitment.createdDate')}`,
       formatter: (cell, row, rowIndex) => {
         return moment(new Date(row.createdDate)).format('DD/MM/YYYY'); //Format datetime
       },
@@ -82,12 +82,12 @@ const InvoiceList = ({ invoices, getInvoices }) => {
     },
     {
       dataField: 'status',
-      text: 'Tình trạng',
+      text:`${t('invoice.status')}`,
       sort: false,
     },
     {
       dataField: 'action',
-      text: 'Hành động',
+      text: `${t('invoice.action')}`,
       editable: false,
       formatter: ActionColumn,
       csvExport: false,
@@ -138,12 +138,12 @@ const InvoiceList = ({ invoices, getInvoices }) => {
           <PageTitle
             breadCrumbItems={[
               {
-                label: 'Khám bệnh',
+                label: `${t('appMenu.examination')}`,
                 path: '/app/examinations',
                 active: true,
               },
             ]}
-            title={'Danh sách hóa đơn'}
+            title={`${t('invoice.list')}`}
           />
         </Col>
       </Row>
@@ -167,7 +167,7 @@ const InvoiceList = ({ invoices, getInvoices }) => {
           <Card>
             <CardBody>
               {/* Title  */}
-              <h4 className="header-title mt-0 mb-4">Danh sách hóa đơn</h4>
+              <h4 className="header-title mt-0 mb-4">{t('invoice.list')}</h4>
 
               {/* Table and Tookit(Search & Export pdf) */}
               {invoices && (

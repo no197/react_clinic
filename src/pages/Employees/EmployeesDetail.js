@@ -12,12 +12,12 @@ import PageTitle from '../../components/PageTitle';
 import { connect } from 'react-redux';
 import { clearEmployeeDetail, getEmployeeDetail, updateEmployee } from '../../redux/Employees/actions';
 import Loading from '../../components/Loading/Loading';
-
+import { useTranslation } from 'react-i18next';
 const EmployeeDetail = ({ employee, ...props }) => {
   const { id } = props.match.params;
   const { clearEmployeeDetail, getEmployeeDetail, updateEmployee } = props;
   const [errors, setErrors] = useState([]);
-
+  const [t, i18n] = useTranslation();
   useEffect(() => {
     getEmployeeDetail(id);
 
@@ -46,14 +46,14 @@ const EmployeeDetail = ({ employee, ...props }) => {
         <Col md={12}>
           <PageTitle
             breadCrumbItems={[
-              { label: 'Nhân viên', path: '/app/employees' },
+              { label: `${t('appMenu.employee')}`, path: '/app/employees' },
               {
-                label: 'Chi tiết Nhân viên',
+                label: `${t('employee.EmployeeDetail')}`,
                 path: `/app/employees/${id}`,
                 active: true,
               },
             ]}
-            title={'Chi tiết Nhân viên'}
+            title={`${t('employee.EmployeeDetail')}`}
           />
         </Col>
       </Row>
@@ -62,10 +62,9 @@ const EmployeeDetail = ({ employee, ...props }) => {
         <Col>
           <Card>
             <CardBody>
-              <h4 className="header-title mt-0 mb-1">Bootstrap Validation - Normal</h4>
+              <h4 className="header-title mt-0 mb-1">{t('employee.EmployeeDetail')} </h4>
               <p className="sub-header">
-                Provide valuable, actionable feedback to your users with HTML5 form validation–available in all our
-                supported browsers.
+              {t('employee.EmployeeDetail')}
               </p>
               <Col md="8">
                 <AvForm
@@ -78,30 +77,30 @@ const EmployeeDetail = ({ employee, ...props }) => {
 
                   <AvField
                     name="fullName"
-                    label="Tên Nhân viên"
-                    placeholder="Tên Nhân viên"
+                    label={t('employee.EmployeeName')}
+                    placeholder={t('employee.EmployeeName')}
                     validate={{
-                      required: { value: true, errorMessage: 'Tên Nhân viên là bắt buộc' },
-                      minLength: { value: 4, errorMessage: 'Tên Nhân viên phải có ít nhất 6 ký tự' },
-                      maxLength: { value: 30, errorMessage: 'Tên Nhân viên không thể dài quá 30 ký tự' },
+                      required: { value: true, errorMessage: `${t('employee.EmployeeNameRequired')}` },
+                      minLength: { value: 4, errorMessage: `${t('employee.EmployeeNameMinLength')}` },
+                      maxLength: { value: 30, errorMessage: `${t('employee.EmployeeNameMaxLength')}` },
                     }}
                   />
 
                   <AVSelect
                     name="gender"
-                    label="Giới tính"
-                    placeholder="Chọn giới tính Nhân viên"
+                    label={t('employee.EmployeeGender')}
+                    placeholder={t('employee.EmployeeGenderSelect')}
                     defaultValue={defaultSelect}
                     error={errors.indexOf('gender') !== -1}
                     options={options}
-                    errorMessage={'Giới tính Nhân viên là bắt buộc'}
+                    errorMessage={`${t('employee.EmployeeGenderRequired')}`}
                   />
 
                   <AVDatePicker
                     name="dateOfBirth"
                     defaultValue={defaultDate}
                     error={errors.indexOf('dateOfBirth') !== -1}
-                    label="Ngày sinh"
+                    label={t('employee.EmployeeDOB')}
                     options={{
                       dateFormat: 'd-m-Y', // format ngày giờ
                       allowInput: true,
@@ -110,15 +109,15 @@ const EmployeeDetail = ({ employee, ...props }) => {
                       dateRange: {
                         start: { value: -110, units: 'years' },
                         end: { value: 0, units: 'days' },
-                        errorMessage: 'Ngày tháng năm sinh không hợp lệ',
+                        errorMessage: `${t('employee.EmployeeDOBError')}`,
                       },
                     }}
                   />
 
                   <AvGroup>
-                    <Label for="address">Địa chỉ</Label>
-                    <AvInput placeholder="Địa chỉ" name="address" required />
-                    <AvFeedback>Địa chỉ của Nhân viên là bắt buộc</AvFeedback>
+                    <Label for="address">{t('employee.EmployeeAddress')}</Label>
+                    <AvInput placeholder={t('employee.EmployeeAddress')} name="address" required />
+                    <AvFeedback>{t('employee.EmployeeAddressRequired')}</AvFeedback>
                   </AvGroup>
 
                   <AvField

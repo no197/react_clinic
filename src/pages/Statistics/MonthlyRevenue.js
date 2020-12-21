@@ -16,10 +16,10 @@ import PageTitle from '../../components/PageTitle';
 //Import action to dispatch
 import MaskedInput from 'react-text-mask';
 import { getMonthlyRevenue } from '../../redux/statistic/action';
-
+import { useTranslation } from 'react-i18next';
 const MonthlyRevenue = ({ monthlyRevenue, getMonthlyRevenue }) => {
   const [monthYear, setMonthYear] = useState(() => moment().format('MM/YYYY'));
-
+  const [t, i18n] = useTranslation();
   // Use effect to get items
   useEffect(() => {
     const [month, year] = monthYear.split('/');
@@ -57,7 +57,7 @@ const MonthlyRevenue = ({ monthlyRevenue, getMonthlyRevenue }) => {
     },
     {
       dataField: 'date',
-      text: 'Ngày',
+      text: `${t('statistic.date')}`,
       formatter: (cell, row, rowIndex) => {
         return moment(new Date(row.date)).format('DD/MM/YYYY'); //Format datetime
       },
@@ -68,12 +68,12 @@ const MonthlyRevenue = ({ monthlyRevenue, getMonthlyRevenue }) => {
     },
     {
       dataField: 'revenue',
-      text: 'Doanh thu',
+      text: `${t('statistic.revenue')}`,
       sort: true,
     },
     {
       dataField: 'percent',
-      text: 'Tỷ lệ',
+      text: `${t('statistic.percent')}`,
       sort: true,
     },
   ];
@@ -96,15 +96,15 @@ const MonthlyRevenue = ({ monthlyRevenue, getMonthlyRevenue }) => {
           <PageTitle
             breadCrumbItems={[
               {
-                label: 'Báo cáo',
+                label: `${t('statistic.report')}`,
                 active: true,
               },
               {
-                label: 'Báo cáo doanh thu',
+                label: `${t('statistic.reportRevenue')}`,
                 active: true,
               },
             ]}
-            title={'Thống kê doanh thu theo tháng'}
+            title={`${t('statistic.MonthlyReportRevenue')}`}
           />
         </Col>
       </Row>
@@ -115,7 +115,7 @@ const MonthlyRevenue = ({ monthlyRevenue, getMonthlyRevenue }) => {
           <Card>
             <CardBody>
               {/* Title  */}
-              <h4 className="header-title mt-0 mb-4">Thống kê doanh thu theo tháng</h4>
+              <h4 className="header-title mt-0 mb-4">{t('statistic.MonthlyReportRevenue')}</h4>
 
               {/* Table and Tookit(Search & Export pdf) */}
               {monthlyRevenue && (
@@ -137,12 +137,12 @@ const MonthlyRevenue = ({ monthlyRevenue, getMonthlyRevenue }) => {
                           {/* Search bar */}
                           <Col lg={6}>
                             <div className="form-group">
-                              <label>Tháng năm báo cáo</label> <br />
+                              <label>{t('statistic.monthYearReport')}</label> <br />
                               <MaskedInput
                                 mask={[/\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
                                 // placeholder="__/____"
                                 value={monthYear}
-                                placeholder="Nhập tháng năm"
+                                placeholder={t('statistic.monthYearInput')}
                                 className="form-control"
                                 onChange={handleChangeMonthYear}
                               />
@@ -153,7 +153,7 @@ const MonthlyRevenue = ({ monthlyRevenue, getMonthlyRevenue }) => {
                         {/* Export CSV */}
                         <Col className="text-right">
                           <ExportCSVButton {...props.csvProps} className="btn btn-primary d-print-none">
-                            Xuất CSV
+                          {t('statistic.exportCSV')}
                           </ExportCSVButton>
                         </Col>
                       </Row>
@@ -161,7 +161,7 @@ const MonthlyRevenue = ({ monthlyRevenue, getMonthlyRevenue }) => {
                       {/* Table */}
                       <BootstrapTable
                         striped
-                        noDataIndication={<p className="text-center">Không có doanh thu trong tháng cần thống kê</p>}
+                        noDataIndication={<p className="text-center">{t('statistic.nonRevenue')}</p>}
                         bootstrap4
                         keyField="appointmentId"
                         data={items}
@@ -180,7 +180,7 @@ const MonthlyRevenue = ({ monthlyRevenue, getMonthlyRevenue }) => {
                   onClick={(e) => {
                     window.print();
                   }}>
-                  <i className="uil uil-print mr-1"></i>In báo cáo
+                  <i className="uil uil-print mr-1"></i>{t('statistic.printReport')}
                 </Button>
               </div>
             </CardBody>

@@ -16,10 +16,10 @@ import PageTitle from '../../components/PageTitle';
 //Import action to dispatch
 import MaskedInput from 'react-text-mask';
 import { getMonthlyMedical } from '../../redux/statistic/action';
-
+import { useTranslation } from 'react-i18next';
 const MonthlyMedical = ({ monthlyMedical, getMonthlyMedical }) => {
   const [monthYear, setMonthYear] = useState(() => moment().format('MM/YYYY'));
-
+  const [t, i18n] = useTranslation();
   // Use effect to get items
   useEffect(() => {
     const [month, year] = monthYear.split('/');
@@ -63,23 +63,23 @@ const MonthlyMedical = ({ monthlyMedical, getMonthlyMedical }) => {
     },
     {
       dataField: 'medicineName',
-      text: 'Tên thuốc',
+      text: `${t('medicine.MedicineName')}`,
 
       sort: true,
     },
     {
       dataField: 'timesUsed',
-      text: 'Số lần dùng',
+      text: `${t('statistic.timesUsed')}`,
       sort: true,
     },
     {
       dataField: 'qtyUsed',
-      text: 'Số lượng đã dùng',
+      text: `${t('statistic.qtyUsed')}`,
       sort: true,
     },
     {
       dataField: 'unit',
-      text: 'Đơn vị',
+      text:  `${t('medicine.unit')}`,
       sort: true,
     },
   ];
@@ -102,15 +102,15 @@ const MonthlyMedical = ({ monthlyMedical, getMonthlyMedical }) => {
           <PageTitle
             breadCrumbItems={[
               {
-                label: 'Báo cáo',
+                label: `${t('statistic.report')}`,
                 active: true,
               },
               {
-                label: 'Báo cáo thuốc',
+                label: `${t('statistic.medicine')}`,
                 active: true,
               },
             ]}
-            title={'Thống kê thuốc theo tháng'}
+            title={ `${t('statistic.monthlyMedicine')}`}
           />
         </Col>
       </Row>
@@ -121,7 +121,7 @@ const MonthlyMedical = ({ monthlyMedical, getMonthlyMedical }) => {
           <Card>
             <CardBody>
               {/* Title  */}
-              <h4 className="header-title mt-0 mb-4">Thống kê thuốc theo tháng</h4>
+              <h4 className="header-title mt-0 mb-4">{t('statistic.monthlyMedicine')}</h4>
 
               {/* Table and Tookit(Search & Export pdf) */}
               {monthlyMedical && (
@@ -143,12 +143,12 @@ const MonthlyMedical = ({ monthlyMedical, getMonthlyMedical }) => {
                           {/* Search bar */}
                           <Col lg={6}>
                             <div className="form-group">
-                              <label>Tháng năm báo cáo</label> <br />
+                              <label>{t('statistic.monthYearReport')}</label> <br />
                               <MaskedInput
                                 mask={[/\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
                                 // placeholder="__/____"
                                 value={monthYear}
-                                placeholder="Nhập tháng năm"
+                                placeholder={t('statistic.monthYearInput')}
                                 className="form-control"
                                 onChange={handleChangeMonthYear}
                               />
@@ -159,7 +159,7 @@ const MonthlyMedical = ({ monthlyMedical, getMonthlyMedical }) => {
                         {/* Export CSV */}
                         <Col className="text-right">
                           <ExportCSVButton {...props.csvProps} className="btn btn-primary d-print-none">
-                            Xuất CSV
+                          {t('statistic.exportCSV')}
                           </ExportCSVButton>
                         </Col>
                       </Row>
@@ -167,7 +167,7 @@ const MonthlyMedical = ({ monthlyMedical, getMonthlyMedical }) => {
                       {/* Table */}
                       <BootstrapTable
                         striped
-                        noDataIndication={<p className="text-center">Không có thuốc trong tháng cần thống kê</p>}
+                        noDataIndication={<p className="text-center">{t('statistic.nonMedicine')}</p>}
                         bootstrap4
                         keyField="medicineId"
                         data={items}
@@ -186,7 +186,7 @@ const MonthlyMedical = ({ monthlyMedical, getMonthlyMedical }) => {
                   onClick={(e) => {
                     window.print();
                   }}>
-                  <i className="uil uil-print mr-1"></i>In báo cáo
+                  <i className="uil uil-print mr-1"></i>{t('statistic.printReport')}
                 </Button>
               </div>
             </CardBody>

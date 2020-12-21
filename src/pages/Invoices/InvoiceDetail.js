@@ -13,13 +13,13 @@ import { getInvoiceDetail, updateInvoice } from '../../redux/invoices/actions';
 import formatCash from '../../helpers/formatCash';
 import * as FeatherIcon from 'react-feather';
 import PrintButtonConfirm from '../../components/Confirm/PrintButtonConfirm';
-
+import { useTranslation } from 'react-i18next';
 const InvoiceDetail = (props) => {
   const { invoiceId } = props.match.params;
   const invoiceDetail = useSelector((state) => state.Invoices.invoice);
   const loading = useSelector((state) => state.Invoices.loading);
   const dispatch = useDispatch();
-
+  const [t, i18n] = useTranslation();
   useEffect(() => {
     dispatch(getInvoiceDetail(invoiceId));
     return () => {};
@@ -31,16 +31,16 @@ const InvoiceDetail = (props) => {
 
   const options = {
     Icon: FeatherIcon.AlertCircle, // Icon confirm
-    headerTitle: 'Xác nhận in', // Header confirm
+    headerTitle: `${t('invoice.printInvoiceHeader')}`, // Header confirm
     content:
-      'Việc in hóa đơn chỉ được thực hiện khi tiến hành thu tiền hóa đơn của bệnh nhân. Hãy chắc chắn bạn thật sự muốn thực hiện!',
+    `${t('invoice.printInvoiceTitle')}`,
     okeBtn: {
-      text: 'Tiếp tục',
+      text: `${t('invoice.printInvoice')}`,
       color: 'warning',
-      onClick: () => updateInvoice({ ...invoiceDetail, status: 'Đã thanh toán' }), // truyền action cần dispatch
+      onClick: () => updateInvoice({ ...invoiceDetail, status: `${t('invoice.paid')}` }), // truyền action cần dispatch
     },
     cancelBtn: {
-      text: 'Hủy bỏ',
+      text:  `${t('invoice.cancel')}`,
       color: 'light',
     },
     type: 'warning',
@@ -57,10 +57,10 @@ const InvoiceDetail = (props) => {
         <Col md={12}>
           <PageTitle
             breadCrumbItems={[
-              { label: 'Khám bệnh', path: '/app/examinations' },
-              { label: 'Chi tiết phiếu khám bệnh', path: '/app/examinations', active: true },
+              { label: `${t('appMenu.examination')}`, path: '/app/examinations' },
+              { label: `${t('examination.detail')}`, path: '/app/examinations', active: true },
             ]}
-            title={'Chi tiết phiếu khám bệnh'}
+            title={`${t('examination.detail')}`}
           />
         </Col>
       </Row>
@@ -135,10 +135,10 @@ const InvoiceDetail = (props) => {
                         <thead className="thead-dark">
                           <tr>
                             <th>STT</th>
-                            <th>Tên thuốc</th>
-                            <th>Số lượng</th>
-                            <th>Giá</th>
-                            <th>Thành tiền</th>
+                            <th>{t('medicine.MedicineName')}</th>
+                            <th>{t('medicine.quantity')}</th>
+                            <th>{t('medicine.price')}</th>
+                            <th>{t('invoice.money')}</th>
                           </tr>
                         </thead>
                         <tbody className="table-striped">
@@ -159,7 +159,7 @@ const InvoiceDetail = (props) => {
                           {!prescriptionDetailsPrice.length && (
                             <tr>
                               <td colSpan="5" className="text-center">
-                                Không có thuốc theo kèm
+                              {t('examination.nonMedical')}
                               </td>
                             </tr>
                           )}
