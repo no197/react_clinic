@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import MetisMenu from 'metismenujs/dist/metismenujs';
 
-import { initMenu, changeActiveMenuFromLocation } from '../redux/actions';
+import { initMenu, changeActiveMenuFromLocation, showRightSidebar } from '../redux/actions';
+
 import { getLoggedInUser } from '../helpers/authUtils';
 import { useTranslation } from 'react-i18next';
 import { withTranslation } from 'react-i18next';
+import { Settings } from 'react-feather';
 
 const MenuItemWithChildren = ({ item, linkClassNames, subMenuClassNames, activatedMenuItemIds }) => {
   const Icon = item.icon || null;
@@ -180,6 +182,18 @@ class AppMenu extends Component {
                 </React.Fragment>
               );
             })}
+            {!isHorizontal && (
+              <React.Fragment>
+                <li className="menu-title">Cài đặt</li>
+
+                <li className={classNames('side-nav-item')} onClick={this.props.showRightSidebar}>
+                  <Link to="#" className={classNames('side-nav-link-ref', 'side-sub-nav-link')}>
+                    <Settings />
+                    <span> Cài đặt </span>
+                  </Link>
+                </li>
+              </React.Fragment>
+            )}
           </ul>
         )}
         <div className="my-5"></div>
@@ -194,4 +208,6 @@ const mapStateToProps = (state) => {
   };
 };
 const I18AppMenu = withTranslation()(AppMenu);
-export default withRouter(connect(mapStateToProps, { initMenu, changeActiveMenuFromLocation })(I18AppMenu));
+export default withRouter(
+  connect(mapStateToProps, { initMenu, changeActiveMenuFromLocation, showRightSidebar })(I18AppMenu)
+);
