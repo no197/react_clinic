@@ -12,11 +12,11 @@ import Loading from '../../components/Loading/Loading';
 import PrescriptionModal from '../../components/Modal/PrescriptionModal';
 import PageTitle from '../../components/PageTitle';
 import { createExamination, getAppointment } from '../../redux/examinations/actions';
-
+import { useTranslation } from 'react-i18next';
 const NewExamination = (props) => {
   //Get appointmentId from params
   const { appointId } = props.match.params;
-
+  const [t, i18n] = useTranslation();
   // List prescription
   const [prescriptionDetails, setprescriptionDetails] = useState([]);
 
@@ -109,22 +109,21 @@ const NewExamination = (props) => {
 
   return (
     <React.Fragment>
-      Thêm phiếu khám bệnh cho bệnh nhân {appointment.patientName}
       {/* BeadCrumb */}
       <Row className="page-title">
         <Col>
           <PageTitle
             breadCrumbItems={[
               {
-                label: 'Khám bệnh',
+                label: `${t('appMenu.examination')}`,
                 path: '/app/examinations',
               },
               {
-                label: 'Thêm phiếu khám bệnh',
+                label: `${t('examination.newExam')}`,
                 active: true,
               },
             ]}
-            title={'Thêm phiếu khám bệnh'}
+            title={`${t('examination.newExam')}`}
           />
         </Col>
       </Row>
@@ -135,31 +134,31 @@ const NewExamination = (props) => {
             <Card>
               <CardBody>
                 {/* Title  */}
-                <h4 className="header-title mt-0 mb-4">Phiếu khám bệnh của bệnh nhân</h4>
-                <p className="sub-header">Vui lòng nhập các thông tin của bệnh nhân vào các ô bên dưới</p>
+                <h4 className="header-title mt-0 mb-4">{t('examination.newExamHeader')}</h4>
+                <p className="sub-header">{t('examination.newExamTitle')}</p>
                 <Col md="8">
                   <AvInput name="appointmentId" value={appointId} hidden />
 
                   <AvGroup>
-                    <Label for="patientName">Tên bệnh nhân</Label>
+                    <Label for="patientName">{t('examination.patientName')}</Label>
                     <AvInput name="patientName" value={appointment.patientName} readOnly />
                   </AvGroup>
 
                   <AvField
                     name="symptom"
-                    label="Triệu chứng"
-                    placeholder="Triệu chứng"
+                    label={t('examination.symptom')}
+                    placeholder={t('examination.symptom')}
                     validate={{
-                      required: { value: true, errorMessage: 'Triệu chứng là bắt buộc' },
-                      minLength: { value: 6, errorMessage: 'Triệu chứng phải có ít nhất 6 ký tự' },
-                      maxLength: { value: 200, errorMessage: 'Triệu chứng không thể dài quá 200 ký tự' },
+                      required: { value: true, errorMessage: `${t('examination.symptomRequired')}` },
+                      minLength: { value: 6, errorMessage: `${t('examination.symptomMinLength')}` },
+                      maxLength: { value: 200, errorMessage: `${t('examination.symptomMaxLength')}` },
                     }}
                   />
 
                   <AvGroup>
-                    <Label for="diagnose">Chẩn đoán</Label>
-                    <AvInput placeholder="Chuẩn đoán" name="diagnose" required />
-                    <AvFeedback>Chẩn đoán là bắt buộc</AvFeedback>
+                    <Label for="diagnose">{t('examination.diagnose')}</Label>
+                    <AvInput placeholder={t('examination.diagnose')} name="diagnose" required />
+                    <AvFeedback>{t('examination.diagnoseRequired')}</AvFeedback>
                   </AvGroup>
                 </Col>
               </CardBody>
@@ -171,20 +170,20 @@ const NewExamination = (props) => {
           <Col>
             <Card>
               <CardBody>
-                <h4 className="header-title mt-0 mb-4">Chi tiết đơn thuốc</h4>
+                <h4 className="header-title mt-0 mb-4">{t('examination.detail')}</h4>
 
                 <Button className="mr-2 mb-4" color="secondary" type="button" onClick={toggle}>
-                  <i className="uil-plus"></i> Thêm chi tiết
+                  <i className="uil-plus"></i> {t('examination.newDetail')}
                 </Button>
 
                 <Table className="mb-5" striped bordered hover>
                   <thead>
                     <tr>
-                      <th>STT</th>
-                      <th>Tên thuốc</th>
-                      <th>Số lượng</th>
-                      <th>Cách sử dụng</th>
-                      <th>Hành động</th>
+                      <th>{t('examination.ExaminationNum')}</th>
+                      <th>T{t('medicine.MedicineName')}</th>
+                      <th>{t('medicine.quantity')}</th>
+                      <th>{t('examination.using')}</th>
+                      <th>{t('examination.ExaminationAction')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -217,7 +216,7 @@ const NewExamination = (props) => {
                     {!prescriptionDetails.length && (
                       <tr>
                         <td colSpan="5" className="text-center">
-                          Chưa có chi tiết đơn thuốc nào
+                          {t('examination.nonMedical')}
                         </td>
                       </tr>
                     )}
@@ -225,7 +224,7 @@ const NewExamination = (props) => {
                 </Table>
                 <div className="float-right">
                   <Button color="primary" type="submit">
-                    Thêm phiếu khám
+                    {t('examination.newExamination')}
                   </Button>
                 </div>
               </CardBody>

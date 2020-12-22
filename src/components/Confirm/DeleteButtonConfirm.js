@@ -1,13 +1,16 @@
-import React from 'react';
-import { confirmAlert } from 'react-confirm-alert';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useRef } from 'react';
+import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'reactstrap';
 import { Confirm } from './Confirm';
 
 export const DeleteButtonConfirm = ({ ...options }) => {
+  const lng = useSelector((state) => state.i18next.lng);
+  const lngRef = useRef(lng);
   const dispatch = useDispatch();
   const { Icon, headerTitle, content, okeBtn, cancelBtn } = options;
 
+  console.log(lng, lngRef.current);
   const optionProps = {
     Icon,
     headerTitle,

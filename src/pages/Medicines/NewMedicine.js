@@ -12,10 +12,10 @@ import AVSelect from '../../components/Form/AVSelect';
 import AvInput from 'availity-reactstrap-validation/lib/AvInput';
 import AvFeedback from 'availity-reactstrap-validation/lib/AvFeedback';
 import { createMedicines } from '../../redux/Medicines/actions';
-
+import { useTranslation } from 'react-i18next';
 const NewMedicine = (props) => {
   const [errors, setErrors] = useState([]);
-
+  const [t, i18n] = useTranslation();
   const options = [
     { value: 'viên', label: 'viên' },
     { value: 'ống', label: 'ống' },
@@ -33,59 +33,80 @@ const NewMedicine = (props) => {
         <Col md={12}>
           <PageTitle
             breadCrumbItems={[
-              { label: 'Thuốc', path: '/app/medicines' },
+              { label: `${t('appMenu.medicine')}`, path: '/app/medicines' },
               {
-                label: 'Thêm Thuốc',
-                path: '/app/medicines/new',
+                label: `${t('medicine.MedicineDetail')}`,
+                path: `/app/medicines/new`,
                 active: true,
               },
             ]}
-            title={'Thêm Thuốc'}
+            title={`${t('medicine.MedicineDetail')}`}
           />
         </Col>
       </Row>
+
       <Row>
         <Col>
           <Card>
             <CardBody>
-              <h4 className="header-title mt-0 mb-1">Thêm Thuốc mới</h4>
-              <p className="sub-header">Vui lòng nhập các thông tin của Thuốc vào các ô bên dưới</p>
+              <h4 className="header-title mt-0 mb-1">{t('medicine.MedicineDetail')}</h4>
+              <p className="sub-header">{t('medicine.MedicineDetail')}</p>
               <Col md="8">
                 <AvForm onInvalidSubmit={(event, errors, values) => setErrors(errors)} onValidSubmit={handleSubmit}>
                   <AvField
                     name="medicineName"
-                    label="Tên Thuốc"
-                    placeholder="Tên Thuốc"
+                    label={t('medicine.MedicineName')}
+                    placeholder={t('medicine.MedicineName')}
                     validate={{
-                      required: { value: true, errorMessage: 'Tên Thuốc là bắt buộc' },
-                      minLength: { value: 4, errorMessage: 'Tên Thuốc phải có ít nhất 6 ký tự' },
-                      maxLength: { value: 30, errorMessage: 'Tên Thuốc không thể dài quá 30 ký tự' },
+                      required: { value: true, errorMessage: `${t('medicine.MedicineNameRequired')}` },
+                      minLength: { value: 4, errorMessage: `${t('medicine.MedicineNameMinLength')}` },
+                      maxLength: { value: 30, errorMessage: `${t('medicine.MedicineNameMaxLength')}` },
                     }}
                   />
 
                   <AVSelect
                     name="unit"
-                    label="Đơn Vị"
-                    placeholder="Chọn Đơn Vị Thuốc"
-                    // defaultValue={{ value: 'Nam', label: 'Nam' }}
+                    label={t('medicine.unit')}
+                    placeholder={t('medicine.selectUnit')}
                     error={errors.indexOf('unit') !== -1}
                     options={options}
-                    errorMessage={'Đơn Vị Thuốc là bắt buộc'}
+                    errorMessage={`${t('medicine.unitRequired')}`}
                   />
 
-                  <AvGroup>
-                    <Label for="price">Đơn Giá</Label>
-                    <AvInput placeholder="Đơn giá" name="price" required />
-                    <AvFeedback>Đơn giá của Thuốc là bắt buộc</AvFeedback>
-                  </AvGroup>
+                  <AvField
+                    name="price"
+                    label={t('medicine.price')}
+                    placeholder={t('medicine.price')}
+                    type="number"
+                    validate={{
+                      required: { value: true, errorMessage: t('medicine.priceRequired') },
+                      min: { value: 1, errorMessage: t('medicine.minPrice') },
 
-                  <AvGroup>
-                    <Label for="quantity">Số lượng</Label>
-                    <AvInput placeholder="Số lượng" name="quantity" required />
-                    <AvFeedback>Số lượng của Thuốc là bắt buộc</AvFeedback>
-                  </AvGroup>
+                      max: {
+                        value: Number.MAX_SAFE_INTEGER,
+                        errorMessage: t('medicine.maxPrice'),
+                      },
+                    }}
+                  />
+
+                  <AvField
+                    name="quantity"
+                    label={t('medicine.quantity')}
+                    placeholder={t('medicine.quantity')}
+                    type="number"
+                    validate={{
+                      required: { value: true, errorMessage: t('medicine.quantityRequired') },
+                      min: { value: 1, errorMessage: t('medicine.minQuantity') },
+
+                      max: {
+                        value: Number.MAX_SAFE_INTEGER,
+                        errorMessage: t('medicine.maxQuantity'),
+                      },
+                    }}
+                  />
+
                   <Button color="primary" type="submit">
-                    Submit
+                    {t('general.submit')}
                   </Button>
                 </AvForm>
               </Col>

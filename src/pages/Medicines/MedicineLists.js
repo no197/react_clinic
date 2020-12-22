@@ -3,11 +3,11 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Row, Col, Button, Card, CardBody } from 'reactstrap';
-
+import { useTranslation } from 'react-i18next';
 import PageTitle from '../../components/PageTitle';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
-import { deleteMedicines, getMedicines} from '../../redux/Medicines/actions';
+import { deleteMedicines, getMedicines } from '../../redux/Medicines/actions';
 import DeletePatientButton from '../../components/Confirm/DeleteButtonConfirm';
 import * as FeatherIcon from 'react-feather';
 const MedicinesList = ({ medicines, getMedicines }) => {
@@ -15,7 +15,7 @@ const MedicinesList = ({ medicines, getMedicines }) => {
     getMedicines();
     return () => {};
   }, [getMedicines]);
-
+  const [t, i18n] = useTranslation();
   let items = [];
 
   const { SearchBar } = Search;
@@ -25,15 +25,15 @@ const MedicinesList = ({ medicines, getMedicines }) => {
   const ActionColumn = (cell, row, rowIndex, formatExtraData) => {
     const options = {
       Icon: FeatherIcon.AlertCircle, // Icon confirm
-      headerTitle: 'Xác nhận xóa', // Header confirm
-      content: 'Hành động này sẽ xóa hoàn toàn nhân ra khỏi hệ thống. Bạn thật sự muốn xóa loại thuốc đã chọn?',
+      headerTitle: `${t('medicine.deleteMedicineHeader')}`, // Header confirm
+      content: `${t('medicine.deteleMedicineTitle')}`,
       okeBtn: {
-        text: 'Xóa thuốc',
+        text: `${t('medicine.deleteMedicine')}`,
         color: 'danger',
-        onClick: () =>  deleteMedicines(row.medicineId), // truyền action cần dispatch
+        onClick: () => deleteMedicines(row.medicineId), // truyền action cần dispatch
       },
       cancelBtn: {
-        text: 'Hủy bỏ',
+        text: `${t('medicine.deleteCancel')}`,
         color: 'light',
       },
     };
@@ -55,33 +55,40 @@ const MedicinesList = ({ medicines, getMedicines }) => {
 
   const columns = [
     {
+      dataField: 'stt',
+      text: 'STT',
+      formatter: (cell, row, rowIndex) => rowIndex + 1,
+      exportCSV: false,
+    },
+    {
       dataField: 'medicineId',
       text: 'ID',
       sort: true,
+      hidden: true,
     },
     {
       dataField: 'medicineName',
-      text: 'Tên Loại Thuốc',
+      text: `${t('medicine.MedicineName')}`,
       sort: true,
     },
     {
       dataField: 'unit',
-      text: 'Đơn Vị',
+      text: `${t('medicine.unit')}`,
       sort: false,
     },
     {
       dataField: 'price',
-      text: 'Đơn Giá',
+      text: `${t('medicine.price')}`,
       sort: true,
     },
     {
       dataField: 'quantity',
-      text: 'Số Lượng',
+      text: `${t('medicine.quantity')}`,
       sort: false,
     },
     {
       dataField: 'action',
-      text: 'Hành động',
+      text: `${t('medicine.MedicineAction')}`,
       formatter: ActionColumn,
       csvExport: false,
     },
@@ -90,22 +97,23 @@ const MedicinesList = ({ medicines, getMedicines }) => {
   const defaultSorted = [
     {
       dataField: 'medicineId',
-      order: 'asc',
+      order: 'desc',
     },
   ];
 
   const paginationOptions = {
     paginationSize: 5,
     pageStartIndex: 1,
-    firstPageText: 'First',
-    prePageText: 'Back',
-    nextPageText: 'Next',
-    lastPageText: 'Last',
+    firstPageText: t('table.first'),
+    prePageText: t('table.back'),
+    nextPageText: t('table.next'),
+    lastPageText: t('table.last'),
     nextPageTitle: 'First page',
     prePageTitle: 'Pre page',
     firstPageTitle: 'Next page',
     lastPageTitle: 'Last page',
     showTotal: true,
+
     // paginationTotalRenderer: customTotal,
     // sizePerPageRenderer: sizePerPageRenderer,
     sizePerPageList: [
@@ -127,12 +135,12 @@ const MedicinesList = ({ medicines, getMedicines }) => {
           <PageTitle
             breadCrumbItems={[
               {
-                label: 'Thuốc',
+                label: `${t('appMenu.medicine')}`,
                 path: '/app/medicines',
                 active: true,
               },
             ]}
-            title={'Danh sách Thuốc'}
+            title={`${t('appMenu.medicineList')}`}
           />
         </Col>
       </Row>
@@ -141,7 +149,8 @@ const MedicinesList = ({ medicines, getMedicines }) => {
           <div className="form-group">
             <Link to="/app/medicines/new">
               <Button color="primary mb-2">
-                <i className="uil-plus mr-1"></i>Thêm thuốc
+                <i className="uil-plus mr-1"></i>
+                {t('medicine.newMedicine')}
               </Button>
             </Link>
           </div>
@@ -151,7 +160,7 @@ const MedicinesList = ({ medicines, getMedicines }) => {
         <Col>
           <Card>
             <CardBody>
-              <h4 className="header-title mt-0 mb-4">Danh sách thuốc</h4>
+              <h4 className="header-title mt-0 mb-4">{t('appMenu.medicineList')}</h4>
               {medicines && (
                 <ToolkitProvider
                   bootstrap4
@@ -164,11 +173,11 @@ const MedicinesList = ({ medicines, getMedicines }) => {
                     <React.Fragment>
                       <Row>
                         <Col>
-                          <SearchBar {...props.searchProps} />
+                          <SearchBar {...props.searchProps} placeholder={t('table.search')} />
                         </Col>
                         <Col className="text-right">
                           <ExportCSVButton {...props.csvProps} className="btn btn-primary">
-                            Export CSV
+                            {t('table.exportCSV')}
                           </ExportCSVButton>
                         </Col>
                       </Row>

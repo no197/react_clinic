@@ -13,12 +13,12 @@ import { connect } from 'react-redux';
 
 import Loading from '../../components/Loading/Loading';
 import { clearMedicineDetail, getMedicineDetail, updateMedicine } from '../../redux/Medicines/actions';
-
+import { useTranslation } from 'react-i18next';
 const MedicineDetail = ({ medicine, ...props }) => {
   const { id } = props.match.params;
   const { clearMedicineDetail, getMedicineDetail, updateMedicine } = props;
   const [errors, setErrors] = useState([]);
-
+  const [t, i18n] = useTranslation();
   useEffect(() => {
     getMedicineDetail(id);
 
@@ -28,16 +28,15 @@ const MedicineDetail = ({ medicine, ...props }) => {
   }, [clearMedicineDetail, getMedicineDetail, id]);
 
   const options = [
-    { value: 'viên', label: 'viên' },
-    { value: 'bịch', label: 'bịch' },
-    { value: 'ống', label: 'ống' },
+    { value: `${t('medicine.pill')}`, label: `${t('medicine.pill')}` },
+    { value: `${t('medicine.pack')}`, label: `${t('medicine.pack')}` },
+    { value: `${t('medicine.pipe')}`, label: `${t('medicine.pipe')}` },
   ];
 
   const defaultSelect = medicine ? options.find((item) => item.value === medicine.unit) : null;
 
-
   const handleSubmit = (event, values) => {
-    updateMedicine(values);
+    updateMedicine({ ...values, price: values.price * 1, quantity: values.quantity * 1 });
     console.log(values);
   };
 
@@ -48,14 +47,14 @@ const MedicineDetail = ({ medicine, ...props }) => {
         <Col md={12}>
           <PageTitle
             breadCrumbItems={[
-              { label: 'Thuốc', path: '/app/medicines' },
+              { label: `${t('appMenu.medicine')}`, path: '/app/medicines' },
               {
-                label: 'Chi tiết Thuốc',
+                label: `${t('medicine.MedicineDetail')}`,
                 path: `/app/medicines/${id}`,
                 active: true,
               },
             ]}
-            title={'Chi tiết Thuốc'}
+            title={`${t('medicine.MedicineDetail')}`}
           />
         </Col>
       </Row>
@@ -64,11 +63,8 @@ const MedicineDetail = ({ medicine, ...props }) => {
         <Col>
           <Card>
             <CardBody>
-              <h4 className="header-title mt-0 mb-1">Bootstrap Validation - Normal</h4>
-              <p className="sub-header">
-                Provide valuable, actionable feedback to your users with HTML5 form validation–available in all our
-                supported browsers.
-              </p>
+              <h4 className="header-title mt-0 mb-1">{t('medicine.MedicineDetail')}</h4>
+              <p className="sub-header">{t('medicine.MedicineDetail')}</p>
               <Col md="8">
                 <AvForm
                   onInvalidSubmit={(event, errors, values) => setErrors(errors)}
@@ -80,42 +76,59 @@ const MedicineDetail = ({ medicine, ...props }) => {
 
                   <AvField
                     name="medicineName"
-                    label="Tên Thuốc"
-                    placeholder="Tên Thuốc"
+                    label={t('medicine.MedicineName')}
+                    placeholder={t('medicine.MedicineName')}
                     validate={{
-                      required: { value: true, errorMessage: 'Tên Thuốc là bắt buộc' },
-                      minLength: { value: 4, errorMessage: 'Tên Thuốc phải có ít nhất 6 ký tự' },
-                      maxLength: { value: 30, errorMessage: 'Tên Thuốc không thể dài quá 30 ký tự' },
+                      required: { value: true, errorMessage: `${t('medicine.MedicineRequired')}` },
+                      minLength: { value: 4, errorMessage: `${t('medicine.MedicineNameMinLength')}` },
+                      maxLength: { value: 30, errorMessage: `${t('medicine.MedicineNameMaxLength')}` },
                     }}
                   />
 
                   <AVSelect
                     name="unit"
-                    label="Đơn vị"
-                    placeholder="Chọn Đơn vị Thuốc"
+                    label={t('medicine.unit')}
+                    placeholder={t('medicine.selectUnit')}
                     defaultValue={defaultSelect}
                     error={errors.indexOf('unit') !== -1}
                     options={options}
-                    errorMessage={'Đơn vị Thuốc là bắt buộc'}
+                    errorMessage={`${t('medicine.unitRequired')}`}
                   />
 
-                  
+                  <AvField
+                    name="price"
+                    label={t('medicine.price')}
+                    placeholder={t('medicine.price')}
+                    type="number"
+                    validate={{
+                      required: { value: true, errorMessage: t('medicine.priceRequired') },
+                      min: { value: 1, errorMessage: t('medicine.minPrice') },
 
-                  <AvGroup>
-                    <Label for="price">Địa chỉ</Label>
-                    <AvInput placeholder="Địa chỉ" name="price" required />
-                    <AvFeedback>Địa chỉ của Thuốc là bắt buộc</AvFeedback>
-                  </AvGroup>
+                      max: {
+                        value: Number.MAX_SAFE_INTEGER,
+                        errorMessage: t('medicine.maxPrice'),
+                      },
+                    }}
+                  />
 
-              
-                  <AvGroup>
-                    <Label for="quantity">Chức vụ</Label>
-                    <AvInput placeholder="Chức vụ" name="quantity" required />
-                    <AvFeedback>Chức vụ của Thuốc là bắt buộc</AvFeedback>
-                  </AvGroup>
+                  <AvField
+                    name="quantity"
+                    label={t('medicine.quantity')}
+                    placeholder={t('medicine.quantity')}
+                    type="number"
+                    validate={{
+                      required: { value: true, errorMessage: t('medicine.quantityRequired') },
+                      min: { value: 1, errorMessage: t('medicine.minQuantity') },
+
+                      max: {
+                        value: Number.MAX_SAFE_INTEGER,
+                        errorMessage: t('medicine.maxQuantity'),
+                      },
+                    }}
+                  />
 
                   <Button color="primary" type="submit">
-                    Submit
+                    {t('general.submit')}
                   </Button>
                 </AvForm>
               </Col>

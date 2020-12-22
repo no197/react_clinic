@@ -7,11 +7,11 @@ import StatisticsWidget from '../../components/StatisticsWidget';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGeneralStatistic } from '../../redux/statistic/action';
 import formatCash from '../../helpers/formatCash';
-
+import { useTranslation } from 'react-i18next';
 const Statistics = () => {
   const dispatch = useDispatch();
   const statistics = useSelector((state) => state.Statistic.generalStatistic);
-
+  const [t, i18n] = useTranslation();
   useLayoutEffect(() => {
     dispatch(getGeneralStatistic());
     return () => {};
@@ -31,28 +31,28 @@ const Statistics = () => {
       <Row>
         <Col md={6} xl={3}>
           <StatisticsWidget
-            description="Số bệnh nhân trong tháng"
+            description={t('dashboard.monthlyPatient')}
             title={numOfPatient}
             icon={FeatherIcon.User}
             iconClass="icon-dual-primary"></StatisticsWidget>
         </Col>
         <Col md={6} xl={3}>
           <StatisticsWidget
-            description="Số khám bệnh trong tháng"
+            description={t('dashboard.monthlyExam')}
             title={numOfExam}
             icon={FeatherIcon.FileText}
             iconClass="icon-dual-warning"></StatisticsWidget>
         </Col>
         <Col md={6} xl={3}>
           <StatisticsWidget
-            description="Tiền khám bệnh trong tháng"
+            description={t('dashboard.monthlyMoneyExam')}
             title={`${formatCash(examRevenue)} đ`}
             icon={FeatherIcon.ShoppingBag}
             iconClass="icon-dual-success"></StatisticsWidget>
         </Col>
         <Col md={6} xl={3}>
           <StatisticsWidget
-            description="Tổng doanh thu trong tháng"
+            description={t('dashboard.totalRevenue')}
             title={`${formatCash(totalRevenue)} đ`}
             icon={FeatherIcon.Target}
             iconClass="icon-dual-info"></StatisticsWidget>

@@ -17,14 +17,14 @@ import PageTitle from '../../components/PageTitle';
 //Import action to dispatch
 import { deleteAppointment, getAppointments } from '../../redux/examinations/actions';
 import { Link } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
 const PatientList = ({ appointments, getAppointments }) => {
   // Use effect to get items
   useEffect(() => {
     getAppointments({ status: 'Đang chờ' });
     return () => {};
   }, [getAppointments]);
-
+  const [t, i18n] = useTranslation();
   // Destruct UI Componenet for TookitProvider
   const { SearchBar } = Search;
   const { ExportCSVButton } = CSVExport;
@@ -39,15 +39,15 @@ const PatientList = ({ appointments, getAppointments }) => {
   const ActionColumn = (cell, row, rowIndex, formatExtraData) => {
     const options = {
       Icon: FeatherIcon.AlertCircle, // Icon confirm
-      headerTitle: 'Xác nhận xóa', // Header confirm
-      content: 'Hành động này sẽ xóa đăng kí khám bệnh của bệnh nhân. Bạn thật sự muốn xóa bệnh nhân đã chọn?',
+      headerTitle: `${t('examination.deleteExaminationHeader')}`, // Header confirm
+      content: `${t('examination.deteleExaminationTitle')}`,
       okeBtn: {
-        text: 'Xóa đăng ký',
+        text: `${t('examination.deleteExamination')}`,
         color: 'danger',
         onClick: () => deleteAppointment(row.appointmentId), // truyền action cần dispatch
       },
       cancelBtn: {
-        text: 'Hủy bỏ',
+        text: `${t('examination.deleteCancel')}`,
         color: 'light',
       },
     };
@@ -87,12 +87,12 @@ const PatientList = ({ appointments, getAppointments }) => {
     },
     {
       dataField: 'patientName',
-      text: 'Tên bệnh nhân',
+      text: `${t('patient.patientName')}`,
       sort: false,
     },
     {
       dataField: 'dateOfAppointment',
-      text: 'Ngày hẹn khám',
+      text: `${t('appoitment.createdDate')}`,
       formatter: (cell, row, rowIndex) => {
         return moment(new Date(row.dateOfAppointment)).format('DD/MM/YYYY'); //Format datetime
       },
@@ -120,19 +120,19 @@ const PatientList = ({ appointments, getAppointments }) => {
     },
   ];
 
-  // Config pagination
   const paginationOptions = {
     paginationSize: 5,
     pageStartIndex: 1,
-    firstPageText: 'First',
-    prePageText: 'Back',
-    nextPageText: 'Next',
-    lastPageText: 'Last',
+    firstPageText: t('table.first'),
+    prePageText: t('table.back'),
+    nextPageText: t('table.next'),
+    lastPageText: t('table.last'),
     nextPageTitle: 'First page',
     prePageTitle: 'Pre page',
     firstPageTitle: 'Next page',
     lastPageTitle: 'Last page',
     showTotal: true,
+
     // paginationTotalRenderer: customTotal,
     // sizePerPageRenderer: sizePerPageRenderer,
     sizePerPageList: [
@@ -156,12 +156,12 @@ const PatientList = ({ appointments, getAppointments }) => {
           <PageTitle
             breadCrumbItems={[
               {
-                label: 'Khám bệnh',
+                label: `${t('appMenu.appointmentList')}`,
                 path: '/app/appointments',
                 active: true,
               },
             ]}
-            title={'Danh sách đăng ký khám bệnh'}
+            title={`${t('appoitment.list')}`}
           />
         </Col>
       </Row>
@@ -185,7 +185,7 @@ const PatientList = ({ appointments, getAppointments }) => {
           <Card>
             <CardBody>
               {/* Title  */}
-              <h4 className="header-title mt-0 mb-4">Danh sách bệnh nhân</h4>
+              <h4 className="header-title mt-0 mb-4">{t('appMenu.patientList')}</h4>
 
               {/* Table and Tookit(Search & Export pdf) */}
               {appointments && (
@@ -201,7 +201,7 @@ const PatientList = ({ appointments, getAppointments }) => {
                       <Row>
                         <Col>
                           {/* Search bar */}
-                          <SearchBar {...props.searchProps} placeholder="Tìm kiếm" />
+                          <SearchBar {...props.searchProps} placeholder={t('appMenu.search')} />
                         </Col>
 
                         {/* Export CSV */}

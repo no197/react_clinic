@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardBody, Media } from 'reactstrap';
 import classNames from 'classnames';
-
+import { useTranslation } from 'react-i18next';
 
 const OverviewWidget = (props) => {
 
@@ -10,7 +10,7 @@ const OverviewWidget = (props) => {
     const bodyClass = props.bodyClass || "px-3 py-4";
     const totalItems = items.length;
     const cardBodyClass = props.cardBodyClass || "p-0";
-
+    const [t, i18n] = useTranslation();
     return (
 
         <Card className={classNames(props.bgClass)}>

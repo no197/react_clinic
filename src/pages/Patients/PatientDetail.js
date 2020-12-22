@@ -13,12 +13,12 @@ import { connect } from 'react-redux';
 import { clearPatientDetail, getPatientDetail, updatePatient } from '../../redux/patients/actions';
 import Loading from '../../components/Loading/Loading';
 import PreLoaderWidget from '../../components/Loader';
-
+import { useTranslation } from 'react-i18next';
 const PatientDetail = ({ patient, ...props }) => {
   const { id } = props.match.params;
   const { clearPatientDetail, getPatientDetail, updatePatient } = props;
   const [errors, setErrors] = useState([]);
-
+  const [t, i18n] = useTranslation();
   useEffect(() => {
     getPatientDetail(id);
 
@@ -47,62 +47,55 @@ const PatientDetail = ({ patient, ...props }) => {
         <Col md={12}>
           <PageTitle
             breadCrumbItems={[
-              { label: 'Bệnh nhân', path: '/app/patients' },
+              { label: `${t('appMenu.patient')}`, path: '/app/patients' },
               {
-                label: 'Chi tiết bệnh nhân',
-                path: `/app/patients/${id}`,
+                label: `${t('appMenu.patientDetail')}`,
+                path: '/app/patients/new',
                 active: true,
               },
             ]}
-            title={'Chi tiết bệnh nhân'}
+            title={`${t('patient.patientDetail')}`}
           />
         </Col>
       </Row>
-
       <Row>
         <Col>
           <Card>
             <CardBody>
-              <h4 className="header-title mt-0 mb-1">Bootstrap Validation - Normal</h4>
-              <p className="sub-header">
-                Provide valuable, actionable feedback to your users with HTML5 form validation–available in all our
-                supported browsers.
-              </p>
+              <h4 className="header-title mt-0 mb-1">{t('patient.patientDetail')}</h4>
+              <p className="sub-header">{t('patient.patientDetail')}</p>
               <Col md="8">
                 <AvForm
                   onInvalidSubmit={(event, errors, values) => setErrors(errors)}
                   onValidSubmit={handleSubmit}
                   model={patient}>
-                  <AvGroup>
-                    <AvInput name="patientId" hidden />
-                  </AvGroup>
-
+                  <AvField name="patientId" hidden />
                   <AvField
                     name="fullName"
-                    label="Tên bệnh nhân"
-                    placeholder="Tên bệnh nhân"
+                    label={t('patient.patientName')}
+                    placeholder={t('patient.addPatientName')}
                     validate={{
-                      required: { value: true, errorMessage: 'Tên bệnh nhân là bắt buộc' },
-                      minLength: { value: 4, errorMessage: 'Tên bệnh nhân phải có ít nhất 6 ký tự' },
-                      maxLength: { value: 30, errorMessage: 'Tên bệnh nhân không thể dài quá 30 ký tự' },
+                      required: { value: true, errorMessage: `${t('patient.patientNameRequired')}` },
+                      minLength: { value: 4, errorMessage: `${t('patient.patientNameMinLength')}` },
+                      maxLength: { value: 30, errorMessage: `${t('patient.patientNameMaxLength')}` },
                     }}
                   />
 
                   <AVSelect
                     name="gender"
-                    label="Giới tính"
-                    placeholder="Chọn giới tính bệnh nhân"
-                    defaultValue={defaultSelect}
+                    label={t('patient.patientGender')}
+                    placeholder={t('patient.patientGenderSelect')}
+                    // defaultValue={{ value: 'Nam', label: 'Nam' }}
                     error={errors.indexOf('gender') !== -1}
                     options={options}
-                    errorMessage={'Giới tính bệnh nhân là bắt buộc'}
+                    errorMessage={`${t('patient.patientGenderRequired')}`}
                   />
 
                   <AVDatePicker
                     name="dateOfBirth"
-                    defaultValue={defaultDate}
+                    defaultValue={new Date()}
                     error={errors.indexOf('dateOfBirth') !== -1}
-                    label="Ngày sinh"
+                    label={t('patient.patientDOB')}
                     options={{
                       dateFormat: 'd-m-Y', // format ngày giờ
                       allowInput: true,
@@ -111,29 +104,29 @@ const PatientDetail = ({ patient, ...props }) => {
                       dateRange: {
                         start: { value: -110, units: 'years' },
                         end: { value: 0, units: 'days' },
-                        errorMessage: 'Ngày tháng năm sinh không hợp lệ',
+                        errorMessage: `${t('patient.patientDOBError')}`,
                       },
                     }}
                   />
 
                   <AvGroup>
-                    <Label for="address">Địa chỉ</Label>
-                    <AvInput placeholder="Địa chỉ" name="address" required />
-                    <AvFeedback>Địa chỉ của bệnh nhân là bắt buộc</AvFeedback>
+                    <Label for="address">{t('patient.patientAddress')}</Label>
+                    <AvInput placeholder={t('patient.patientAddress')} name="address" required />
+                    <AvFeedback>{t('patient.patientAddressRequired')}</AvFeedback>
                   </AvGroup>
 
                   <AvField
                     name="phoneNumber"
-                    label="Số điện thoại"
-                    placeholder="Số điện thoại"
+                    label={t('patient.patientPhone')}
+                    placeholder={t('patient.patientPhone')}
                     validate={{
-                      required: { value: true, errorMessage: 'Số điện thoại của bệnh nhân là bắt buộc' },
+                      required: { value: true, errorMessage: `${t('patient.patientPhoneRequired')}` },
                       pattern: {
                         value: '(09|03|07|08|05)+([0-9]{8})',
-                        errorMessage: 'Số điện thoại không phải là số điện thoại Việt Nam hợp lệ',
+                        errorMessage: `${t('patient.patientPhoneErrorMessage')}`,
                       },
-                      minLength: { value: 10, errorMessage: 'Số điện thoại chỉ phải bao gồm 10 chữ số' },
-                      maxLength: { value: 10, errorMessage: 'Số điện thoại chỉ có thể dài tối đa 10 chữ số' },
+                      minLength: { value: 10, errorMessage: `${t('patient.patientPhoneMinLength')}` },
+                      maxLength: { value: 10, errorMessage: `${t('patient.patientPhoneMaxLength')}` },
                     }}
                   />
 

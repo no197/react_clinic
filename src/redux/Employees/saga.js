@@ -79,12 +79,12 @@ function* createEmployeeSaga({ payload }) {
 }
 //update employee
 function* updateEmployeeSaga({ payload }) {
-  const { EmployeeId: id } = payload;
+  const { employeeId: id } = payload;
   try {
     const { data: resonse } = yield call(() => apiCall.put(`/employees/${id}`, payload));
     yield put(updateEmployeeSuccess(resonse));
     yield put(push('/app/employees'));
-    toast.success('Cập nhật thành công thông tin nhân viê');
+    toast.success('Cập nhật thành công thông tin nhân viên');
   } catch (error) {
     console.log(error);
     let message;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
+import { withTranslation } from 'react-i18next';
 
 import {
   Container,
@@ -31,8 +32,8 @@ class Login extends Component {
 
     this.handleValidSubmit = this.handleValidSubmit.bind(this);
     this.state = {
-      username: 'test',
-      password: 'test',
+      username: 'admin@nhanviet.com',
+      password: '123456789',
     };
   }
 
@@ -66,6 +67,7 @@ class Login extends Component {
 
   render() {
     const isAuthTokenValid = isUserAuthenticated();
+    const { t } = this.props;
     return (
       <React.Fragment>
         {this.renderRedirectToRoot()}
@@ -85,14 +87,12 @@ class Login extends Component {
                           <div className="mx-auto mb-5">
                             <a href="/">
                               <img src={logo} alt="" height="24" />
-                              <h3 className="d-inline align-middle ml-1 text-logo">Shreyu</h3>
+                              <h3 className="d-inline align-middle ml-1 text-logo">Nhân việt</h3>
                             </a>
                           </div>
 
-                          <h6 className="h5 mb-0 mt-4">Welcome back!</h6>
-                          <p className="text-muted mt-1 mb-4">
-                            Enter your email address and password to access admin panel.
-                          </p>
+                          <h6 className="h5 mb-0 mt-4">{t('login.welcome')}</h6>
+                          <p className="text-muted mt-1 mb-4">{t('login.require')}</p>
 
                           {this.props.error && (
                             <Alert color="danger" isOpen={this.props.error ? true : false}>
@@ -102,7 +102,7 @@ class Login extends Component {
 
                           <AvForm onValidSubmit={this.handleValidSubmit} className="authentication-form">
                             <AvGroup className="">
-                              <Label for="username">Username</Label>
+                              <Label for="username">Email</Label>
                               <InputGroup>
                                 <InputGroupAddon addonType="prepend">
                                   <span className="input-group-text">
@@ -113,7 +113,7 @@ class Login extends Component {
                                   type="text"
                                   name="username"
                                   id="username"
-                                  placeholder="hello@coderthemes.com"
+                                  placeholder="hello@nhanviet.com"
                                   value={this.state.username}
                                   required
                                 />
@@ -123,12 +123,12 @@ class Login extends Component {
                             </AvGroup>
 
                             <AvGroup className="mb-3">
-                              <Label for="password">Password</Label>
-                              <Link
+                              <Label for="password">{t('login.password')}</Label>
+                              {/* <Link
                                 to="/account/forget-password"
                                 className="float-right text-muted text-unline-dashed ml-1">
                                 Forgot your password?
-                              </Link>
+                              </Link> */}
                               <InputGroup>
                                 <InputGroupAddon addonType="prepend">
                                   <span className="input-group-text">
@@ -149,13 +149,9 @@ class Login extends Component {
 
                             <FormGroup className="form-group mb-0 text-center">
                               <Button color="primary" className="btn-block">
-                                Log In
+                                {t('login.loginBtn')}
                               </Button>
                             </FormGroup>
-
-                            <p className="mt-3">
-                              <strong>Username:</strong> test &nbsp;&nbsp; <strong>Password:</strong> test
-                            </p>
                           </AvForm>
                         </Col>
 
@@ -163,9 +159,9 @@ class Login extends Component {
                           <div className="auth-page-sidebar">
                             <div className="overlay"></div>
                             <div className="auth-user-testimonial">
-                              <p className="font-size-24 font-weight-bold text-white mb-1">I simply love it!</p>
-                              <p className="lead">"It's a elegent templete. I love it very much!"</p>
-                              <p>- Admin User</p>
+                              <p className="font-size-24 font-weight-bold text-white mb-1">{t('login.lifeQuote')}</p>
+                              <p className="lead">{t('login.quoteContent')}</p>
+                              <p>- Seneca</p>
                             </div>
                           </div>
                         </Col>
@@ -175,7 +171,7 @@ class Login extends Component {
                 </Col>
               </Row>
 
-              <Row className="mt-3">
+              {/* <Row className="mt-3">
                 <Col className="col-12 text-center">
                   <p className="text-muted">
                     Don't have an account?{' '}
@@ -184,7 +180,7 @@ class Login extends Component {
                     </Link>
                   </p>
                 </Col>
-              </Row>
+              </Row> */}
             </Container>
           </div>
         )}
@@ -197,5 +193,5 @@ const mapStateToProps = (state) => {
   const { user, loading, error } = state.Auth;
   return { user, loading, error };
 };
-
-export default connect(mapStateToProps, { loginUser })(Login);
+const I18nLogin = withTranslation()(Login);
+export default connect(mapStateToProps, { loginUser })(I18nLogin);

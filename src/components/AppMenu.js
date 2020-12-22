@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import MetisMenu from 'metismenujs/dist/metismenujs';
 
-import { initMenu, changeActiveMenuFromLocation } from '../redux/actions';
+import { initMenu, changeActiveMenuFromLocation, showRightSidebar } from '../redux/actions';
+
 import { getLoggedInUser } from '../helpers/authUtils';
 import { useTranslation } from 'react-i18next';
 import { withTranslation } from 'react-i18next';
+import { Settings } from 'react-feather';
 
 const MenuItemWithChildren = ({ item, linkClassNames, subMenuClassNames, activatedMenuItemIds }) => {
   const Icon = item.icon || null;
@@ -57,8 +59,10 @@ const MenuItemWithChildren = ({ item, linkClassNames, subMenuClassNames, activat
 };
 
 const MenuItem = ({ item, className, linkClassName }) => {
-  // TODO don't list item without name
-  if (!item.name) return <React.Fragment></React.Fragment>;
+  const role = useSelector((state) => state.Auth.user.role);
+  const isAuthorize = item.roles && item.roles.length && item.roles.indexOf(role) === -1 ? false : true;
+  // TODO don't list item without name or don't have route
+  if (!item.name || !isAuthorize) return <React.Fragment></React.Fragment>;
 
   return (
     <li className={classNames('side-nav-item', className)}>
@@ -180,6 +184,18 @@ class AppMenu extends Component {
                 </React.Fragment>
               );
             })}
+            {!isHorizontal && (
+              <React.Fragment>
+                <li className="menu-title">{t('appMenu.setting')}</li>
+
+                <li className={classNames('side-nav-item')} onClick={this.props.showRightSidebar}>
+                  <Link to="#" className={classNames('side-nav-link-ref', 'side-sub-nav-link')}>
+                    <Settings />
+                    <span> {t('appMenu.setting')} </span>
+                  </Link>
+                </li>
+              </React.Fragment>
+            )}
           </ul>
         )}
         <div className="my-5"></div>
@@ -194,4 +210,6 @@ const mapStateToProps = (state) => {
   };
 };
 const I18AppMenu = withTranslation()(AppMenu);
-export default withRouter(connect(mapStateToProps, { initMenu, changeActiveMenuFromLocation })(I18AppMenu));
+export default withRouter(
+  connect(mapStateToProps, { initMenu, changeActiveMenuFromLocation, showRightSidebar })(I18AppMenu)
+);

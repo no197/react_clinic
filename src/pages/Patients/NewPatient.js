@@ -11,11 +11,11 @@ import AVDatePicker from '../../components/Form/AVDatePicker';
 import AVSelect from '../../components/Form/AVSelect';
 import AvInput from 'availity-reactstrap-validation/lib/AvInput';
 import AvFeedback from 'availity-reactstrap-validation/lib/AvFeedback';
-
+import { useTranslation } from 'react-i18next';
 // TODO: 12/09/20 Reflactor code
 const NewPatient = (props) => {
   const [errors, setErrors] = useState([]);
-
+  const [t, i18n] = useTranslation();
   const options = [
     { value: 'Nam', label: 'Nam' },
     { value: 'Nữ', label: 'Nữ' },
@@ -32,14 +32,14 @@ const NewPatient = (props) => {
         <Col md={12}>
           <PageTitle
             breadCrumbItems={[
-              { label: 'Bệnh nhân', path: '/app/patients' },
+              { label:  `${t('appMenu.patient')}`, path: '/app/patients' },
               {
-                label: 'Thêm bệnh nhân',
+                label:  `${t('appMenu.addPatient')}`,
                 path: '/app/patients/new',
                 active: true,
               },
             ]}
-            title={'Thêm bệnh nhân'}
+            title={`${t('patient.newPatient')}`}
           />
         </Col>
       </Row>
@@ -47,36 +47,36 @@ const NewPatient = (props) => {
         <Col>
           <Card>
             <CardBody>
-              <h4 className="header-title mt-0 mb-1">Thêm bệnh nhân mới</h4>
-              <p className="sub-header">Vui lòng nhập các thông tin của bệnh nhân vào các ô bên dưới</p>
+              <h4 className="header-title mt-0 mb-1">{t('patient.newPatient')}</h4>
+              <p className="sub-header">{t('patient.newPatientTitle')}</p>
               <Col md="8">
                 <AvForm onInvalidSubmit={(event, errors, values) => setErrors(errors)} onValidSubmit={handleSubmit}>
                   <AvField
                     name="fullName"
-                    label="Tên bệnh nhân"
-                    placeholder="Tên bệnh nhân"
+                    label= {t('patient.patientName')}
+                    placeholder={t('patient.addPatientName')}
                     validate={{
-                      required: { value: true, errorMessage: 'Tên bệnh nhân là bắt buộc' },
-                      minLength: { value: 4, errorMessage: 'Tên bệnh nhân phải có ít nhất 6 ký tự' },
-                      maxLength: { value: 30, errorMessage: 'Tên bệnh nhân không thể dài quá 30 ký tự' },
+                      required: { value: true, errorMessage: `${t('patient.patientNameRequired')}` },
+                      minLength: { value: 4, errorMessage: `${t('patient.patientNameMinLength')}` },
+                      maxLength: { value: 30, errorMessage: `${t('patient.patientNameMaxLength')}` },
                     }}
                   />
 
                   <AVSelect
                     name="gender"
-                    label="Giới tính"
-                    placeholder="Chọn giới tính bệnh nhân"
+                    label={t('patient.patientGender')}
+                    placeholder={t('patient.patientGenderSelect')}
                     // defaultValue={{ value: 'Nam', label: 'Nam' }}
                     error={errors.indexOf('gender') !== -1}
                     options={options}
-                    errorMessage={'Giới tính bệnh nhân là bắt buộc'}
+                    errorMessage={`${t('patient.patientGenderRequired')}`}
                   />
 
                   <AVDatePicker
                     name="dateOfBirth"
                     defaultValue={new Date()}
                     error={errors.indexOf('dateOfBirth') !== -1}
-                    label="Ngày sinh"
+                    label={t('patient.patientDOB')}
                     options={{
                       dateFormat: 'd-m-Y', // format ngày giờ
                       allowInput: true,
@@ -85,29 +85,29 @@ const NewPatient = (props) => {
                       dateRange: {
                         start: { value: -110, units: 'years' },
                         end: { value: 0, units: 'days' },
-                        errorMessage: 'Ngày tháng năm sinh không hợp lệ',
+                        errorMessage: `${t('patient.patientDOBError')}`,
                       },
                     }}
                   />
 
                   <AvGroup>
-                    <Label for="address">Địa chỉ</Label>
-                    <AvInput placeholder="Địa chỉ" name="address" required />
-                    <AvFeedback>Địa chỉ của bệnh nhân là bắt buộc</AvFeedback>
+                    <Label for="address">{t('patient.patientAddress')}</Label>
+                    <AvInput placeholder={t('patient.patientAddress')} name="address" required />
+                    <AvFeedback>{t('patient.patientAddressRequired')}</AvFeedback>
                   </AvGroup>
 
                   <AvField
                     name="phoneNumber"
-                    label="Số điện thoại"
-                    placeholder="Số điện thoại"
+                    label={t('patient.patientPhone')}
+                    placeholder={t('patient.patientPhone')}
                     validate={{
-                      required: { value: true, errorMessage: 'Số điện thoại của bệnh nhân là bắt buộc' },
+                      required: { value: true, errorMessage: `${t('patient.patientPhoneRequired')}` },
                       pattern: {
                         value: '(09|03|07|08|05)+([0-9]{8})',
-                        errorMessage: 'Số điện thoại không phải là số điện thoại Việt Nam hợp lệ',
+                        errorMessage: `${t('patient.patientPhoneErrorMessage')}`,
                       },
-                      minLength: { value: 10, errorMessage: 'Số điện thoại chỉ phải bao gồm 10 chữ số' },
-                      maxLength: { value: 10, errorMessage: 'Số điện thoại chỉ có thể dài tối đa 10 chữ số' },
+                      minLength: { value: 10, errorMessage: `${t('patient.patientPhoneMinLength')}` },
+                      maxLength: { value: 10, errorMessage: `${t('patient.patientPhoneMaxLength')}` },
                     }}
                   />
 

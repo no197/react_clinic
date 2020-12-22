@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, CardBody, Table } from 'reactstrap';
 import { getTopFiveMedicineQuantity } from '../../redux/statistic/action';
-
+import { useTranslation } from 'react-i18next';
 const TopFiveMedicineQty = () => {
   const dispatch = useDispatch();
   const topFiveQty = useSelector((state) => state.Statistic.topFiveQty);
-
+  const [t, i18n] = useTranslation();
   let topFive = new Array(5).fill({});
 
   useEffect(() => {
@@ -21,23 +21,23 @@ const TopFiveMedicineQty = () => {
   return (
     <Card>
       <CardBody className="pb-0">
-        <h5 className="card-title mt-0 mb-0 header-title">Top thuốc có số lần dùng nhiều nhất</h5>
+        <h5 className="card-title mt-0 mb-0 header-title">{t('dashboard.topMedicineQty')}</h5>
 
         <Table hover responsive className="mt-4">
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Tên thuốc</th>
-              <th scope="col">Số lần dùng</th>
+              <th scope="col">{t('medicine.MedicineName')}</th>
+              <th scope="col">{t('statistic.timesUsed')}</th>
               <th scope="col" className="text-danger font-weight-bold">
-                Số lượng dùng
+                {t('statistic.qtyUsed')}
               </th>
-              <th scope="col">Đơn vị</th>
+              <th scope="col">{t('medicine.unit')}</th>
             </tr>
           </thead>
           <tbody>
             {topFive.map((item, idx) => (
-              <tr>
+              <tr key={idx}>
                 <td>{idx + 1}</td>
                 <td>{item.medicineName}</td>
                 <td>{item.timesUsed}</td>
