@@ -180,6 +180,15 @@
     "qtyUsed":"Amount"
   },
   "dashboard":{
-    
+    "waitPatient":"Patient waiting for examination",
+    "waitInvoice":"Invoice awaiting payment",
+    "waitMedicine":"Medicines need to be added",
+    "monthlyPatient":"Number of patients per month",
+    "monthlyExam":"Number of cases per month",
+    "monthlyMoneyExam":"Pre-medical examination in the month",
+    "totalRevenue":"Total revenue by month",
+    "revenue":"Revenue",
+    "revenue7day":"Turnover the last 7 days",
+    "topMedicine":"Top drugs with the most number of uses"
   }
 }

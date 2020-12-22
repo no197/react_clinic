@@ -5,11 +5,11 @@ import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRevenueInRange } from '../../redux/statistic/action';
 import formatCash from '../../helpers/formatCash';
-
+import { useTranslation } from 'react-i18next';
 const RevenueChart = () => {
   const revenueInRange = useSelector((state) => state.Statistic.revenueInRange);
   const dispatch = useDispatch();
-
+  const [t, i18n] = useTranslation();
   const numOfDate = 7;
   const chartData = Array(numOfDate).fill(0);
 
@@ -107,7 +107,7 @@ const RevenueChart = () => {
 
   const apexLineChartWithLablesData = [
     {
-      name: 'Doanh thu',
+      name: `${t('dashboard.revenue')}`,
       data: chartData,
     },
   ];
@@ -115,7 +115,7 @@ const RevenueChart = () => {
   return (
     <Card>
       <CardBody className="pb-0">
-        <h5 className="card-title mb-0 header-title">Doanh thu 7 ngày gần nhất</h5>
+        <h5 className="card-title mb-0 header-title">{t('dashboard.revenue7day')}</h5>
 
         <Chart
           options={apexLineChartWithLables}

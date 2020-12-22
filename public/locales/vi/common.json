@@ -184,6 +184,12 @@
   "dashboard":{
     "waitPatient":"Bệnh nhân chờ khám",
     "waitInvoice":"Hóa đơn chờ thanh toán",
-    "waitMedicine":"Loại thuốc cần nhập thêm"
+    "waitMedicine":"Loại thuốc cần nhập thêm",
+    "monthlyPatient":"Số bệnh nhân trong tháng",
+    "monthlyExam":"Số ca bệnh trong tháng",
+    "monthlyMoneyExam":"Tiền khám bệnh trong tháng",
+    "totalRevenue":"Tổng doanh thu theo tháng",
+    "revenue":"Doanh thu",
+    "revenue7day":"Doanh thu 7 ngày gần nhất"
   }
 }
