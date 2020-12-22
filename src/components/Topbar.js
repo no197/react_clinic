@@ -136,8 +136,8 @@ class Topbar extends Component {
               <ProfileDropdown
                 profilePic={profilePic}
                 menuItems={ProfileMenus}
-                username={'Shreyu N'}
-                description="Administrator"
+                username={this.props.user.fullName}
+                description={this.props.user.position}
               />
             </ul>
           </Container>
@@ -146,5 +146,8 @@ class Topbar extends Component {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  user: state.Auth.user,
+});
 
-export default connect(null, { showRightSidebar })(Topbar);
+export default connect(mapStateToProps, { showRightSidebar })(Topbar);

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 
 //Import UI Components and Icon
-import { Row, Col, Button, Card, CardBody } from 'reactstrap';
+import { Row, Col, Button, Card, CardBody, Badge } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
@@ -16,6 +16,7 @@ import PageTitle from '../../components/PageTitle';
 import { getInvoices } from '../../redux/invoices/actions';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import formatCash from '../../helpers/formatCash';
 const InvoiceList = ({ invoices, getInvoices }) => {
   // Use effect to get items
   useEffect(() => {
@@ -69,7 +70,10 @@ const InvoiceList = ({ invoices, getInvoices }) => {
     },
     {
       dataField: 'price',
-      text:`${t('invoice.price')}`,
+      text: `${t('invoice.price')}`,
+      formatter: (cell, row, rowIndex) => {
+        return formatCash(row.price);
+      },
       sort: false,
     },
     {
@@ -82,7 +86,14 @@ const InvoiceList = ({ invoices, getInvoices }) => {
     },
     {
       dataField: 'status',
-      text:`${t('invoice.status')}`,
+      text: `${t('invoice.status')}`,
+      formatter: (cell, row, rowIndex) => {
+        return (
+          <Badge color={row.status === 'Chưa thanh toán' ? 'warning' : 'success'} pill className="mr-1">
+            {row.status}
+          </Badge>
+        );
+      },
       sort: false,
     },
     {
@@ -102,19 +113,19 @@ const InvoiceList = ({ invoices, getInvoices }) => {
     },
   ];
 
-  // Config pagination
   const paginationOptions = {
     paginationSize: 5,
     pageStartIndex: 1,
-    firstPageText: 'First',
-    prePageText: 'Back',
-    nextPageText: 'Next',
-    lastPageText: 'Last',
+    firstPageText: t('table.first'),
+    prePageText: t('table.back'),
+    nextPageText: t('table.next'),
+    lastPageText: t('table.last'),
     nextPageTitle: 'First page',
     prePageTitle: 'Pre page',
     firstPageTitle: 'Next page',
     lastPageTitle: 'Last page',
     showTotal: true,
+
     // paginationTotalRenderer: customTotal,
     // sizePerPageRenderer: sizePerPageRenderer,
     sizePerPageList: [

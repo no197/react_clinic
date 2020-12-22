@@ -92,7 +92,7 @@ const PatientList = ({ appointments, getAppointments }) => {
     },
     {
       dataField: 'dateOfAppointment',
-      text:`${t('appoitment.createdDate')}`,
+      text: `${t('appoitment.createdDate')}`,
       formatter: (cell, row, rowIndex) => {
         return moment(new Date(row.dateOfAppointment)).format('DD/MM/YYYY'); //Format datetime
       },
@@ -120,19 +120,19 @@ const PatientList = ({ appointments, getAppointments }) => {
     },
   ];
 
-  // Config pagination
   const paginationOptions = {
     paginationSize: 5,
     pageStartIndex: 1,
-    firstPageText: 'First',
-    prePageText: 'Back',
-    nextPageText: 'Next',
-    lastPageText: 'Last',
+    firstPageText: t('table.first'),
+    prePageText: t('table.back'),
+    nextPageText: t('table.next'),
+    lastPageText: t('table.last'),
     nextPageTitle: 'First page',
     prePageTitle: 'Pre page',
     firstPageTitle: 'Next page',
     lastPageTitle: 'Last page',
     showTotal: true,
+
     // paginationTotalRenderer: customTotal,
     // sizePerPageRenderer: sizePerPageRenderer,
     sizePerPageList: [

@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 const NewExamination = (props) => {
   //Get appointmentId from params
   const { appointId } = props.match.params;
-  const [t, i18n] = useTranslation()
+  const [t, i18n] = useTranslation();
   // List prescription
   const [prescriptionDetails, setprescriptionDetails] = useState([]);
 
@@ -109,7 +109,6 @@ const NewExamination = (props) => {
 
   return (
     <React.Fragment>
-      {t('examination.newExam')} {appointment.patientName}
       {/* BeadCrumb */}
       <Row className="page-title">
         <Col>
@@ -141,25 +140,25 @@ const NewExamination = (props) => {
                   <AvInput name="appointmentId" value={appointId} hidden />
 
                   <AvGroup>
-                    <Label for="patientName">{t('patient.PatientName')}</Label>
+                    <Label for="patientName">{t('examination.patientName')}</Label>
                     <AvInput name="patientName" value={appointment.patientName} readOnly />
                   </AvGroup>
 
                   <AvField
                     name="symptom"
-                    label={t('patient.symptom')}
-                    placeholder={t('patient.symptom')}
+                    label={t('examination.symptom')}
+                    placeholder={t('examination.symptom')}
                     validate={{
-                      required: { value: true, errorMessage: `${t('patient.symptomRequired')}` },
-                      minLength: { value: 6, errorMessage: `${t('patient.symptomMinLength')}` },
-                      maxLength: { value: 200, errorMessage: `${t('patient.symptomMaxLength')}` },
+                      required: { value: true, errorMessage: `${t('examination.symptomRequired')}` },
+                      minLength: { value: 6, errorMessage: `${t('examination.symptomMinLength')}` },
+                      maxLength: { value: 200, errorMessage: `${t('examination.symptomMaxLength')}` },
                     }}
                   />
 
                   <AvGroup>
-                    <Label for="diagnose">{t('patient.diagnose')}</Label>
-                    <AvInput placeholder={t('patient.diagnose')} name="diagnose" required />
-                    <AvFeedback>{t('patient.diagnoseRequired')}</AvFeedback>
+                    <Label for="diagnose">{t('examination.diagnose')}</Label>
+                    <AvInput placeholder={t('examination.diagnose')} name="diagnose" required />
+                    <AvFeedback>{t('examination.diagnoseRequired')}</AvFeedback>
                   </AvGroup>
                 </Col>
               </CardBody>
@@ -217,7 +216,7 @@ const NewExamination = (props) => {
                     {!prescriptionDetails.length && (
                       <tr>
                         <td colSpan="5" className="text-center">
-                        {t('examination.NonDetail')}
+                          {t('examination.nonMedical')}
                         </td>
                       </tr>
                     )}
@@ -225,7 +224,7 @@ const NewExamination = (props) => {
                 </Table>
                 <div className="float-right">
                   <Button color="primary" type="submit">
-                  {t('examination.newExamination')}
+                    {t('examination.newExamination')}
                   </Button>
                 </div>
               </CardBody>

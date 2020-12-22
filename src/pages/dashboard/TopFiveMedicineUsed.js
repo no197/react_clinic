@@ -29,7 +29,7 @@ const TopFiveMedicinedUsed = () => {
               <th scope="col">#</th>
               <th scope="col">{t('medicine.MedicineName')}</th>
               <th scope="col" className="text-danger font-weight-bold">
-              {t('statistic.timesUsed')}
+                {t('statistic.timesUsed')}
               </th>
               <th scope="col">{t('statistic.qtyUsed')}</th>
               <th scope="col">{t('medicine.unit')}</th>
@@ -37,7 +37,7 @@ const TopFiveMedicinedUsed = () => {
           </thead>
           <tbody>
             {topFive.map((item, idx) => (
-              <tr>
+              <tr key={idx}>
                 <td>{idx + 1}</td>
                 <td>{item.medicineName}</td>
                 <td className="text-danger font-weight-bold">{item.timesUsed}</td>

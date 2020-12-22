@@ -37,7 +37,7 @@ const TopFiveMedicineQty = () => {
           </thead>
           <tbody>
             {topFive.map((item, idx) => (
-              <tr>
+              <tr key={idx}>
                 <td>{idx + 1}</td>
                 <td>{item.medicineName}</td>
                 <td>{item.timesUsed}</td>

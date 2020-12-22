@@ -2,6 +2,9 @@
   "homePage": {
     "hello": "Hello"
   },
+  "general": {
+    "submit": "Submit"
+  },
   "login": {
     "welcome": "Welcome back!",
     "require": "Enter your email address and password to access app.",
@@ -31,7 +34,14 @@
     "medicineList": "Medicine List",
     "addMedicine": "Add New Medicine",
 
-    "invoice": "Invoices"
+    "invoice": "Invoices",
+
+    "statistic": "Statistic",
+    "monthlyRenenue": "Revenue Statistic",
+    "monthlyPatient": "Patient Statistic",
+    "monthlyMedicine": "Medicine Statistic",
+
+    "setting": "Setting"
   },
   "table": {
     "search": "Search",
@@ -88,7 +98,7 @@
     "EmployeeDOBError": "Invalid date of birth",
     "EmployeeAddress": "Address",
     "EmployeeAddressRequired": "The employee's address is required",
-    "EmployeePhone": "phone number",
+    "EmployeePhone": "Phone number",
     "EmployeePhoneRequired": "Employee phone number is required",
     "EmployeePosition": "Position",
     "EmplyeePositionRequired": "Staff position is required",
@@ -109,7 +119,7 @@
     "newMedicineTitle": "Please fill out the medicin information below",
     "MedicineName": "Drug name",
     "addMedicineName": "Add Drug Name",
-    "MedicineNameRequired": "Medication name is required",
+    "MedicineNameRequired": "Medicine name is required",
     "MedicineNameMinLength": "Drug name minimum 4 characters",
     "MedicineNameMaxLength": "Drug names up to 30 characters",
     "pill": "pill",
@@ -117,11 +127,11 @@
     "pipe": "pipe",
     "unit": "Unit",
     "selectUnit": "Select a drug unit",
-    "unitRequried": "Drug unit is required",
+    "unitRequired": "Drug unit is required",
     "price": "Price",
     "priceRequired": "The price of the drug is required",
     "quantity": "Quantity",
-    "quantityRequired": "Medication quantity is required",
+    "quantityRequired": "Medicine quantity is required",
     "deleteMedicineHeader": "Confirm deletion",
     "deteleMedicineTitle": "This action will completely remove the drug from the system. Do you really want to delete the selected drug?",
     "deleteMedicine": "Delete drug",
@@ -129,11 +139,15 @@
     "MedicineNum": "STT",
     "MedicineId": "ID",
     "MedicineAction": "Action",
-    "MedicineDetail": "Medicine Detail"
+    "MedicineDetail": "Medicine Detail",
+    "minQuantity": "Medicine has min quantity is one",
+    "maxQuantity": "Quantity is greater than max quantity",
+    "minPrice": "Medicine has min price is 10 đ",
+    "maxPrice": "Medicine price is greater than max price"
   },
   "examination": {
     "newExamination": "New Examination",
-    "newExaminationTitle": "Please fill out the exam information below",
+    "newExamTitle": "Please fill out the exam information below",
     "detail": "Detail Examination",
     "address": "Address",
     "phone": "Phone Number",
@@ -160,7 +174,11 @@
     "ExaminationId": "ID",
     "ExaminationAction": "Action",
     "newExam": "Add a medical checklist",
-    "nonMedical": "No medication attached"
+    "nonMedical": "No Medicine attached",
+    "patientName": "Full Name",
+    "newDetail": "Add Medicine",
+    "symptomRequired": "Symptom is required",
+    "diagnoseRequired": "Diagnose is required"
   },
   "appoitment": {
     "list": "List of medical registration",
@@ -180,7 +198,9 @@
     "money": "Into money",
     "price": "Bill money",
     "list": "Invoice list",
-    "readInvoice": "See the bill"
+    "readInvoice": "See the bill",
+    "status": "Status",
+    "action": "Action"
   },
   "statistic": {
     "MonthlyReportRevenue": "Monthly revenue statistics",
@@ -188,16 +208,18 @@
     "revenue": "Revenue",
     "percent": "Percent",
     "printReport": "Print report",
-    "monthYearReport": "Month year repot",
+    "monthYearReport": "Month Year Report",
     "exportCSV": "Export CSV",
     "monthlyPatientReport": "Statistics of patients by month",
     "monthlyMedicine": "Drug statistics by month",
     "report": "Report",
-    "medicine": "Medication Report",
+    "medicine": "Medicine Report",
     "reportRevenue": "Sales report",
     "patientReport": "Patient reporting",
     "timesUsed": "Number of uses",
-    "qtyUsed": "Amount"
+    "qtyUsed": "Amount",
+    "monthYearInput": "MM/YYYY",
+    "nonRevenue": "No revenue in this month"
   },
   "dashboard": {
     "waitPatient": "Patient waiting for exam",
@@ -212,5 +234,21 @@
     "todolist": "Todo List",
     "topMedicineQty": "Top drugs with the most quantity of uses",
     "topMedicine": "Top drugs with the most number of uses"
+  },
+  "setting": {
+    "customize": "Customize",
+    "titleContent": "Customize the layout, sidebar menu, etc",
+    "layout": "Layout",
+    "vertical": "Vertical Layout (Default)",
+    "horizontal": "Horizontal Layout",
+    "width": "Width",
+    "fluid": "Fluid",
+    "boxed": "Boxed",
+    "leftSidebar": "Left Sidebar",
+    "default": "Default",
+    "dark": "Dark",
+    "fixed": "Fixed (Default)",
+    "condensed": "Condensed",
+    "scrollable": "Scrollable"
   }
 }

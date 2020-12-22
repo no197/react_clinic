@@ -31,7 +31,15 @@ const EmployeeDetail = ({ employee, ...props }) => {
     { value: 'Nữ', label: 'Nữ' },
   ];
 
+  const positions = [
+    { value: 'Nhân viên', label: 'Nhân viên' },
+    { value: 'Bác sĩ', label: 'Bác sĩ' },
+    { value: 'Dược sĩ', label: 'Dược sĩ' },
+    { value: 'Quản lý', label: 'Quản lý' },
+  ];
+
   const defaultSelect = employee ? options.find((item) => item.value === employee.gender) : null;
+  const defaultPos = employee ? positions.find((item) => item.value === employee.position) : null;
   const defaultDate = employee ? employee.dateOfBirth : Date.now();
 
   const handleSubmit = (event, values) => {
@@ -63,9 +71,7 @@ const EmployeeDetail = ({ employee, ...props }) => {
           <Card>
             <CardBody>
               <h4 className="header-title mt-0 mb-1">{t('employee.EmployeeDetail')} </h4>
-              <p className="sub-header">
-              {t('employee.EmployeeDetail')}
-              </p>
+              <p className="sub-header">{t('employee.EmployeeDetail')}</p>
               <Col md="8">
                 <AvForm
                   onInvalidSubmit={(event, errors, values) => setErrors(errors)}
@@ -74,6 +80,8 @@ const EmployeeDetail = ({ employee, ...props }) => {
                   <AvGroup>
                     <AvInput name="employeeId" hidden />
                   </AvGroup>
+
+                  <AvField name="employeeId" hidden />
 
                   <AvField
                     name="fullName"
@@ -120,28 +128,18 @@ const EmployeeDetail = ({ employee, ...props }) => {
                     <AvFeedback>{t('employee.EmployeeAddressRequired')}</AvFeedback>
                   </AvGroup>
 
-                  <AvField
-                    name="phoneNumber"
-                    label="Số điện thoại"
-                    placeholder="Số điện thoại"
-                    validate={{
-                      required: { value: true, errorMessage: 'Số điện thoại của Nhân viên là bắt buộc' },
-                      pattern: {
-                        value: '(09|03|07|08|05)+([0-9]{8})',
-                        errorMessage: 'Số điện thoại không phải là số điện thoại Việt Nam hợp lệ',
-                      },
-                      minLength: { value: 10, errorMessage: 'Số điện thoại chỉ phải bao gồm 10 chữ số' },
-                      maxLength: { value: 10, errorMessage: 'Số điện thoại chỉ có thể dài tối đa 10 chữ số' },
-                    }}
+                  <AVSelect
+                    name="position"
+                    label={t('employee.EmployeePosition')}
+                    placeholder={t('employee.EmployeePosition')}
+                    defaultValue={defaultPos}
+                    error={errors.indexOf('position') !== -1}
+                    options={positions}
+                    errorMessage={t('employee.EmplyeePositionRequired')}
                   />
-                  <AvGroup>
-                    <Label for="position">Chức vụ</Label>
-                    <AvInput placeholder="Chức vụ" name="position" required />
-                    <AvFeedback>Chức vụ của Nhân viên là bắt buộc</AvFeedback>
-                  </AvGroup>
 
                   <Button color="primary" type="submit">
-                    Submit
+                    {t('general.submit')}
                   </Button>
                 </AvForm>
               </Col>

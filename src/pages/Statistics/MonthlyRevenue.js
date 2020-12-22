@@ -121,7 +121,7 @@ const MonthlyRevenue = ({ monthlyRevenue, getMonthlyRevenue }) => {
               {monthlyRevenue && (
                 <ToolkitProvider
                   bootstrap4
-                  keyField="appointmentId"
+                  keyField="date"
                   data={items}
                   columns={columns}
                   search
@@ -153,7 +153,7 @@ const MonthlyRevenue = ({ monthlyRevenue, getMonthlyRevenue }) => {
                         {/* Export CSV */}
                         <Col className="text-right">
                           <ExportCSVButton {...props.csvProps} className="btn btn-primary d-print-none">
-                          {t('statistic.exportCSV')}
+                            {t('statistic.exportCSV')}
                           </ExportCSVButton>
                         </Col>
                       </Row>
@@ -163,7 +163,7 @@ const MonthlyRevenue = ({ monthlyRevenue, getMonthlyRevenue }) => {
                         striped
                         noDataIndication={<p className="text-center">{t('statistic.nonRevenue')}</p>}
                         bootstrap4
-                        keyField="appointmentId"
+                        keyField="date"
                         data={items}
                         columns={columns}
                         defaultSorted={defaultSorted}
@@ -180,7 +180,8 @@ const MonthlyRevenue = ({ monthlyRevenue, getMonthlyRevenue }) => {
                   onClick={(e) => {
                     window.print();
                   }}>
-                  <i className="uil uil-print mr-1"></i>{t('statistic.printReport')}
+                  <i className="uil uil-print mr-1"></i>
+                  {t('statistic.printReport')}
                 </Button>
               </div>
             </CardBody>

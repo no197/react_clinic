@@ -15,10 +15,17 @@ import AvFeedback from 'availity-reactstrap-validation/lib/AvFeedback';
 import { useTranslation } from 'react-i18next';
 const NewEmployee = (props) => {
   const [errors, setErrors] = useState([]);
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   const options = [
     { value: 'Nam', label: 'Nam' },
     { value: 'Nữ', label: 'Nữ' },
+  ];
+
+  const positions = [
+    { value: 'Nhân viên', label: 'Nhân viên' },
+    { value: 'Bác sĩ', label: 'Bác sĩ' },
+    { value: 'Dược sĩ', label: 'Dược sĩ' },
+    { value: 'Quản lý', label: 'Quản lý' },
   ];
 
   const handleSubmit = (event, values) => {
@@ -96,19 +103,18 @@ const NewEmployee = (props) => {
                     <AvFeedback>{t('employee.EmployeeAddressRequired')}</AvFeedback>
                   </AvGroup>
 
-                  <AvGroup>
-                    <Label for="phoneNumber">{t('employee.EmployeePhone')}</Label>
-                    <AvInput placeholder={t('employee.EmployeePhone')} name="phoneNumber" required />
-                    <AvFeedback>{t('employee.EmployeePhoneRequired')}</AvFeedback>
-                  </AvGroup>
-                  <AvGroup>
-                    <Label for="position">{t('employee.EmployeePosition')}</Label>
-                    <AvInput placeholder={t('employee.EmployeePosition')} name="position" required />
-                    <AvFeedback>{t('employee.EmplyeePositionRequired')}</AvFeedback>
-                  </AvGroup>
+                  <AVSelect
+                    name="position"
+                    label={t('employee.EmployeePosition')}
+                    placeholder={t('employee.EmployeePosition')}
+                    // defaultValue={{ value: 'Nam', label: 'Nam' }}
+                    error={errors.indexOf('position') !== -1}
+                    options={positions}
+                    errorMessage={t('employee.EmplyeePositionRequired')}
+                  />
 
                   <Button color="primary" type="submit">
-                    Submit
+                    {t('general.submit')}
                   </Button>
                 </AvForm>
               </Col>
@@ -123,6 +129,6 @@ const mapStateToProps = (state) => ({
   employees: state.Employees.employees,
 });
 const mapDispatchToProps = (dispatch) => ({
- createEmployees: (params) => dispatch(createEmployees(params))
+  createEmployees: (params) => dispatch(createEmployees(params)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(NewEmployee);

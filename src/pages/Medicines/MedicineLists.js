@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import PageTitle from '../../components/PageTitle';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
-import { deleteMedicines, getMedicines} from '../../redux/Medicines/actions';
+import { deleteMedicines, getMedicines } from '../../redux/Medicines/actions';
 import DeletePatientButton from '../../components/Confirm/DeleteButtonConfirm';
 import * as FeatherIcon from 'react-feather';
 const MedicinesList = ({ medicines, getMedicines }) => {
@@ -25,12 +25,12 @@ const MedicinesList = ({ medicines, getMedicines }) => {
   const ActionColumn = (cell, row, rowIndex, formatExtraData) => {
     const options = {
       Icon: FeatherIcon.AlertCircle, // Icon confirm
-      headerTitle: `${t('medicine.deleteMedicineHeader')}` , // Header confirm
-      content: `${t('medicine.deteleMedicineTitle')}` ,
+      headerTitle: `${t('medicine.deleteMedicineHeader')}`, // Header confirm
+      content: `${t('medicine.deteleMedicineTitle')}`,
       okeBtn: {
         text: `${t('medicine.deleteMedicine')}`,
         color: 'danger',
-        onClick: () =>  deleteMedicines(row.medicineId), // truyền action cần dispatch
+        onClick: () => deleteMedicines(row.medicineId), // truyền action cần dispatch
       },
       cancelBtn: {
         text: `${t('medicine.deleteCancel')}`,
@@ -55,9 +55,16 @@ const MedicinesList = ({ medicines, getMedicines }) => {
 
   const columns = [
     {
+      dataField: 'stt',
+      text: 'STT',
+      formatter: (cell, row, rowIndex) => rowIndex + 1,
+      exportCSV: false,
+    },
+    {
       dataField: 'medicineId',
       text: 'ID',
       sort: true,
+      hidden: true,
     },
     {
       dataField: 'medicineName',
@@ -90,22 +97,23 @@ const MedicinesList = ({ medicines, getMedicines }) => {
   const defaultSorted = [
     {
       dataField: 'medicineId',
-      order: 'asc',
+      order: 'desc',
     },
   ];
 
   const paginationOptions = {
     paginationSize: 5,
     pageStartIndex: 1,
-    firstPageText: 'First',
-    prePageText: 'Back',
-    nextPageText: 'Next',
-    lastPageText: 'Last',
+    firstPageText: t('table.first'),
+    prePageText: t('table.back'),
+    nextPageText: t('table.next'),
+    lastPageText: t('table.last'),
     nextPageTitle: 'First page',
     prePageTitle: 'Pre page',
     firstPageTitle: 'Next page',
     lastPageTitle: 'Last page',
     showTotal: true,
+
     // paginationTotalRenderer: customTotal,
     // sizePerPageRenderer: sizePerPageRenderer,
     sizePerPageList: [
@@ -132,7 +140,7 @@ const MedicinesList = ({ medicines, getMedicines }) => {
                 active: true,
               },
             ]}
-            title={ `${t('appMenu.medicineList')}`}
+            title={`${t('appMenu.medicineList')}`}
           />
         </Col>
       </Row>
@@ -141,7 +149,8 @@ const MedicinesList = ({ medicines, getMedicines }) => {
           <div className="form-group">
             <Link to="/app/medicines/new">
               <Button color="primary mb-2">
-                <i className="uil-plus mr-1"></i>{t('medicine.newMedicine')}
+                <i className="uil-plus mr-1"></i>
+                {t('medicine.newMedicine')}
               </Button>
             </Link>
           </div>
@@ -164,11 +173,11 @@ const MedicinesList = ({ medicines, getMedicines }) => {
                     <React.Fragment>
                       <Row>
                         <Col>
-                          <SearchBar {...props.searchProps} />
+                          <SearchBar {...props.searchProps} placeholder={t('table.search')} />
                         </Col>
                         <Col className="text-right">
                           <ExportCSVButton {...props.csvProps} className="btn btn-primary">
-                            Export CSV
+                            {t('table.exportCSV')}
                           </ExportCSVButton>
                         </Col>
                       </Row>

@@ -11,6 +11,7 @@ import { deleteEmployees, getEmployees } from '../../redux/Employees/actions';
 import DeletePatientButton from '../../components/Confirm/DeleteButtonConfirm';
 import * as FeatherIcon from 'react-feather';
 import { useTranslation } from 'react-i18next';
+import moment from 'moment';
 const EmployeesList = ({ employees, getEmployees }) => {
   useEffect(() => {
     getEmployees();
@@ -56,9 +57,16 @@ const EmployeesList = ({ employees, getEmployees }) => {
 
   const columns = [
     {
+      dataField: 'stt',
+      text: 'STT',
+      formatter: (cell, row, rowIndex) => rowIndex + 1,
+      exportCSV: false,
+    },
+    {
       dataField: 'employeeId',
       text: 'ID',
       sort: true,
+      hidden: true,
     },
     {
       dataField: 'fullName',
@@ -73,16 +81,14 @@ const EmployeesList = ({ employees, getEmployees }) => {
     {
       dataField: 'dateOfBirth',
       text: `${t('employee.EmployeeDOB')}`,
+      formatter: (cell, row, rowIndex) => {
+        return moment(new Date(row.dateOfBirth)).format('DD/MM/YYYY'); //Format datetime
+      },
       sort: true,
     },
     {
       dataField: 'address',
       text: `${t('employee.EmployeeAddress')}`,
-      sort: false,
-    },
-    {
-      dataField: 'phoneNumber',
-      text:  `${t('employee.EmployeePhone')}`,
       sort: false,
     },
     {
@@ -101,22 +107,23 @@ const EmployeesList = ({ employees, getEmployees }) => {
   const defaultSorted = [
     {
       dataField: 'employeeId',
-      order: 'asc',
+      order: 'desc',
     },
   ];
 
   const paginationOptions = {
     paginationSize: 5,
     pageStartIndex: 1,
-    firstPageText: 'First',
-    prePageText: 'Back',
-    nextPageText: 'Next',
-    lastPageText: 'Last',
+    firstPageText: t('table.first'),
+    prePageText: t('table.back'),
+    nextPageText: t('table.next'),
+    lastPageText: t('table.last'),
     nextPageTitle: 'First page',
     prePageTitle: 'Pre page',
     firstPageTitle: 'Next page',
     lastPageTitle: 'Last page',
     showTotal: true,
+
     // paginationTotalRenderer: customTotal,
     // sizePerPageRenderer: sizePerPageRenderer,
     sizePerPageList: [
@@ -152,7 +159,8 @@ const EmployeesList = ({ employees, getEmployees }) => {
           <div className="form-group">
             <Link to="/app/employees/new">
               <Button color="primary mb-2">
-                <i className="uil-plus mr-1"></i>{t('employee.newEmployee')}
+                <i className="uil-plus mr-1"></i>
+                {t('employee.newEmployee')}
               </Button>
             </Link>
           </div>
@@ -175,11 +183,11 @@ const EmployeesList = ({ employees, getEmployees }) => {
                     <React.Fragment>
                       <Row>
                         <Col>
-                          <SearchBar {...props.searchProps} />
+                          <SearchBar {...props.searchProps} placeholder={t('table.search')} />
                         </Col>
                         <Col className="text-right">
                           <ExportCSVButton {...props.csvProps} className="btn btn-primary">
-                            Export CSV
+                            {t('table.exportCSV')}
                           </ExportCSVButton>
                         </Col>
                       </Row>

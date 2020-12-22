@@ -40,7 +40,7 @@ const NewMedicine = (props) => {
                 active: true,
               },
             ]}
-            title={ `${t('medicine.MedicineDetail')}`}
+            title={`${t('medicine.MedicineDetail')}`}
           />
         </Col>
       </Row>
@@ -50,18 +50,9 @@ const NewMedicine = (props) => {
           <Card>
             <CardBody>
               <h4 className="header-title mt-0 mb-1">{t('medicine.MedicineDetail')}</h4>
-              <p className="sub-header">
-              {t('medicine.MedicineDetail')}
-              </p>
+              <p className="sub-header">{t('medicine.MedicineDetail')}</p>
               <Col md="8">
-                <AvForm
-                  onInvalidSubmit={(event, errors, values) => setErrors(errors)}
-                  onValidSubmit={handleSubmit}
-                  >
-                  <AvGroup>
-                    <AvInput name="medicineId" hidden />
-                  </AvGroup>
-
+                <AvForm onInvalidSubmit={(event, errors, values) => setErrors(errors)} onValidSubmit={handleSubmit}>
                   <AvField
                     name="medicineName"
                     label={t('medicine.MedicineName')}
@@ -77,29 +68,45 @@ const NewMedicine = (props) => {
                     name="unit"
                     label={t('medicine.unit')}
                     placeholder={t('medicine.selectUnit')}
-                    
                     error={errors.indexOf('unit') !== -1}
                     options={options}
                     errorMessage={`${t('medicine.unitRequired')}`}
                   />
 
-                  
+                  <AvField
+                    name="price"
+                    label={t('medicine.price')}
+                    placeholder={t('medicine.price')}
+                    type="number"
+                    validate={{
+                      required: { value: true, errorMessage: t('medicine.priceRequired') },
+                      min: { value: 1, errorMessage: t('medicine.minPrice') },
 
-                  <AvGroup>
-                    <Label for="price">{t('medicine.price')}</Label>
-                    <AvInput placeholder={t('medicine.price')} name="price" required />
-                    <AvFeedback>{t('medicine.priceRequired')}</AvFeedback>
-                  </AvGroup>
+                      max: {
+                        value: Number.MAX_SAFE_INTEGER,
+                        errorMessage: t('medicine.maxPrice'),
+                      },
+                    }}
+                  />
 
-              
-                  <AvGroup>
-                    <Label for="quantity">{t('medicine.quantity')}</Label>
-                    <AvInput placeholder={t('medicine.quantity')} name="quantity" required />
-                    <AvFeedback>{t('medicine.quantityRequired')}</AvFeedback>
-                  </AvGroup>
+                  <AvField
+                    name="quantity"
+                    label={t('medicine.quantity')}
+                    placeholder={t('medicine.quantity')}
+                    type="number"
+                    validate={{
+                      required: { value: true, errorMessage: t('medicine.quantityRequired') },
+                      min: { value: 1, errorMessage: t('medicine.minQuantity') },
+
+                      max: {
+                        value: Number.MAX_SAFE_INTEGER,
+                        errorMessage: t('medicine.maxQuantity'),
+                      },
+                    }}
+                  />
 
                   <Button color="primary" type="submit">
-                    Submit
+                    {t('general.submit')}
                   </Button>
                 </AvForm>
               </Col>

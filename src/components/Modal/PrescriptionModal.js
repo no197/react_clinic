@@ -282,7 +282,7 @@ const PrescriptionModal = ({ isOpen, toggle, onSubmit, className, size, model, o
 
           <AvField
             name="instruction"
-            label="Các sử dụng"
+            label="Cách sử dụng"
             type="text"
             validate={{
               required: { value: true, errorMessage: 'Cách dùng thuốc là bắt buộc' },

@@ -234,27 +234,27 @@ const invoiceDetailRoutes = {
 
 const statisticRoutes = {
   path: '/app/statistic',
-  name: 'Thống kê',
+  name: 'appMenu.statistic',
   icon: FeatherIcon.Grid,
   roles: ['Admin'],
   children: [
     {
       path: '/app/statistic/revenue',
-      name: 'Thống kê doanh thu',
+      name: 'appMenu.monthlyRenenue',
       component: MonthlyRevenue,
       exact: true,
       route: PrivateRoute,
     },
     {
       path: '/app/statistic/patients',
-      name: 'Thống kê bệnh nhân',
+      name: 'appMenu.monthlyPatient',
       component: MonthlyPatinet,
       exact: true,
       route: PrivateRoute,
     },
     {
       path: '/app/statistic/medicines',
-      name: 'Thống kê thuốc',
+      name: 'appMenu.monthlyMedicine',
       component: MonthlyMedicines,
       exact: true,
       route: PrivateRoute,

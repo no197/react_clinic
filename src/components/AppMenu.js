@@ -184,12 +184,12 @@ class AppMenu extends Component {
             })}
             {!isHorizontal && (
               <React.Fragment>
-                <li className="menu-title">Cài đặt</li>
+                <li className="menu-title">{t('appMenu.setting')}</li>
 
                 <li className={classNames('side-nav-item')} onClick={this.props.showRightSidebar}>
                   <Link to="#" className={classNames('side-nav-link-ref', 'side-sub-nav-link')}>
                     <Settings />
-                    <span> Cài đặt </span>
+                    <span> {t('appMenu.setting')} </span>
                   </Link>
                 </li>
               </React.Fragment>

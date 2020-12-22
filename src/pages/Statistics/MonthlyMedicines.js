@@ -79,7 +79,7 @@ const MonthlyMedical = ({ monthlyMedical, getMonthlyMedical }) => {
     },
     {
       dataField: 'unit',
-      text:  `${t('medicine.unit')}`,
+      text: `${t('medicine.unit')}`,
       sort: true,
     },
   ];
@@ -110,7 +110,7 @@ const MonthlyMedical = ({ monthlyMedical, getMonthlyMedical }) => {
                 active: true,
               },
             ]}
-            title={ `${t('statistic.monthlyMedicine')}`}
+            title={`${t('statistic.monthlyMedicine')}`}
           />
         </Col>
       </Row>
@@ -127,7 +127,7 @@ const MonthlyMedical = ({ monthlyMedical, getMonthlyMedical }) => {
               {monthlyMedical && (
                 <ToolkitProvider
                   bootstrap4
-                  keyField="medicineId"
+                  keyField="medicineName"
                   data={items}
                   columns={columns}
                   search
@@ -159,7 +159,7 @@ const MonthlyMedical = ({ monthlyMedical, getMonthlyMedical }) => {
                         {/* Export CSV */}
                         <Col className="text-right">
                           <ExportCSVButton {...props.csvProps} className="btn btn-primary d-print-none">
-                          {t('statistic.exportCSV')}
+                            {t('statistic.exportCSV')}
                           </ExportCSVButton>
                         </Col>
                       </Row>
@@ -169,7 +169,7 @@ const MonthlyMedical = ({ monthlyMedical, getMonthlyMedical }) => {
                         striped
                         noDataIndication={<p className="text-center">{t('statistic.nonMedicine')}</p>}
                         bootstrap4
-                        keyField="medicineId"
+                        keyField="medicineName"
                         data={items}
                         columns={columns}
                         defaultSorted={defaultSorted}
@@ -186,7 +186,8 @@ const MonthlyMedical = ({ monthlyMedical, getMonthlyMedical }) => {
                   onClick={(e) => {
                     window.print();
                   }}>
-                  <i className="uil uil-print mr-1"></i>{t('statistic.printReport')}
+                  <i className="uil uil-print mr-1"></i>
+                  {t('statistic.printReport')}
                 </Button>
               </div>
             </CardBody>
