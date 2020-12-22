@@ -50,7 +50,7 @@ const UserProfile = (props) => {
             {/* <DropdownItem divider /> */}
             <Link to="/account/logout" className="dropdown-item notify-item">
               <FeatherIcon.LogOut className="icon-dual icon-xs mr-2" />
-              <span>t("general.logout")</span>
+              <span>{t('general.logout')}</span>
             </Link>
           </DropdownMenu>
         </UncontrolledDropdown>
