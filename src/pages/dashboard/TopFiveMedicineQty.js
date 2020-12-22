@@ -21,7 +21,7 @@ const TopFiveMedicineQty = () => {
   return (
     <Card>
       <CardBody className="pb-0">
-        <h5 className="card-title mt-0 mb-0 header-title">{t('dashboard.topMedicine')}</h5>
+        <h5 className="card-title mt-0 mb-0 header-title">{t('dashboard.topMedicineQty')}</h5>
 
         <Table hover responsive className="mt-4">
           <thead>
@@ -30,7 +30,7 @@ const TopFiveMedicineQty = () => {
               <th scope="col">{t('medicine.MedicineName')}</th>
               <th scope="col">{t('statistic.timesUsed')}</th>
               <th scope="col" className="text-danger font-weight-bold">
-              {t('statistic.qtyUsed')}
+                {t('statistic.qtyUsed')}
               </th>
               <th scope="col">{t('medicine.unit')}</th>
             </tr>
