@@ -13,6 +13,7 @@
   "appMenu": {
     "dashboard": "Trang chủ",
     "appHeader": "Ứng dụng",
+    "homePage": "Trang chủ",
 
     "patient": "Bệnh nhân",
     "patientList": "Danh sách bệnh nhân",
@@ -33,6 +34,17 @@
 
     "invoice": "Hóa đơn",
     "search": "Tìm kiếm"
+  },
+  "table": {
+    "search": "Tìm kiếm",
+    "exportCSV": "Xuất CSV",
+    "showPagination": " Hiển thị dòng số",
+    "to": "đến",
+    "of": "trong",
+    "back": "Trước",
+    "next": "Sau",
+    "first": "Đầu",
+    "last": "Cuối"
   },
   "patient": {
     "newPatient": "Thêm Bệnh Nhân",

@@ -42,7 +42,7 @@ const PatientDetail = ({ patient, ...props }) => {
 
   if (!patient) return <PreLoaderWidget />;
   return (
-<React.Fragment>
+    <React.Fragment>
       <Row className="page-title">
         <Col md={12}>
           <PageTitle
@@ -65,10 +65,14 @@ const PatientDetail = ({ patient, ...props }) => {
               <h4 className="header-title mt-0 mb-1">{t('patient.patientDetail')}</h4>
               <p className="sub-header">{t('patient.patientDetail')}</p>
               <Col md="8">
-                <AvForm onInvalidSubmit={(event, errors, values) => setErrors(errors)} onValidSubmit={handleSubmit} model={patient}>
+                <AvForm
+                  onInvalidSubmit={(event, errors, values) => setErrors(errors)}
+                  onValidSubmit={handleSubmit}
+                  model={patient}>
+                  <AvField name="patientId" hidden />
                   <AvField
                     name="fullName"
-                    label= {t('patient.patientName')}
+                    label={t('patient.patientName')}
                     placeholder={t('patient.addPatientName')}
                     validate={{
                       required: { value: true, errorMessage: `${t('patient.patientNameRequired')}` },

@@ -13,6 +13,7 @@
   "appMenu": {
     "dashboard": "Dashboard",
     "appHeader": "App",
+    "homePage": "Home Page",
 
     "patient": "Patients",
     "patientList": "Patient List",
@@ -31,6 +32,17 @@
     "addMedicine": "Add New Medicine",
 
     "invoice": "Invoices"
+  },
+  "table": {
+    "search": "Search",
+    "exportCSV": "Export CSV",
+    "showPagination": " Showing rows",
+    "to": "to",
+    "of": "of",
+    "back": "Back",
+    "next": "Next",
+    "first": "First",
+    "last": "Last"
   },
   "patient": {
     "newPatient": "Add New Patient",

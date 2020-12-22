@@ -25,7 +25,7 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
     getPatients();
     return () => {};
   }, [getPatients]);
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   // Destruct UI Componenet for TookitProvider
   const { SearchBar } = Search;
   const { ExportCSVButton } = CSVExport;
@@ -116,7 +116,7 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
     },
     {
       dataField: 'address',
-      text:`${t('patient.patientAddress')}`,
+      text: `${t('patient.patientAddress')}`,
       sort: false,
     },
     {
@@ -145,15 +145,16 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
   const paginationOptions = {
     paginationSize: 5,
     pageStartIndex: 1,
-    firstPageText: 'First',
-    prePageText: 'Back',
-    nextPageText: 'Next',
-    lastPageText: 'Last',
+    firstPageText: t('table.first'),
+    prePageText: t('table.back'),
+    nextPageText: t('table.next'),
+    lastPageText: t('table.last'),
     nextPageTitle: 'First page',
     prePageTitle: 'Pre page',
     firstPageTitle: 'Next page',
     lastPageTitle: 'Last page',
     showTotal: true,
+
     // paginationTotalRenderer: customTotal,
     // sizePerPageRenderer: sizePerPageRenderer,
     sizePerPageList: [
@@ -193,7 +194,8 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
           <div className="form-group">
             <Link to="/app/patients/new">
               <Button color="primary mb-2">
-                <i className="uil-plus mr-1"></i>{t('patient.newPatient')}
+                <i className="uil-plus mr-1"></i>
+                {t('patient.newPatient')}
               </Button>
             </Link>
           </div>
@@ -222,13 +224,13 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
                       <Row>
                         <Col>
                           {/* Search bar */}
-                          <SearchBar {...props.searchProps} />
+                          <SearchBar {...props.searchProps} placeholder={t('table.search')} />
                         </Col>
 
                         {/* Export CSV */}
                         <Col className="text-right">
                           <ExportCSVButton {...props.csvProps} className="btn btn-primary">
-                            Export CSV
+                            {t('table.exportCSV')}
                           </ExportCSVButton>
                         </Col>
                       </Row>
