@@ -1,21 +1,19 @@
 import AvField from 'availity-reactstrap-validation/lib/AvField';
 import AvForm from 'availity-reactstrap-validation/lib/AvForm';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-import { Row, Col, Button, Card, CardBody, Label } from 'reactstrap';
+import { Row, Col, Button, Card, CardBody } from 'reactstrap';
 
 import PageTitle from '../../components/PageTitle';
-import { connect, useDispatch } from 'react-redux';
-import AvGroup from 'availity-reactstrap-validation/lib/AvGroup';
-import AVDatePicker from '../../components/Form/AVDatePicker';
+import { connect } from 'react-redux';
+
 import AVSelect from '../../components/Form/AVSelect';
-import AvInput from 'availity-reactstrap-validation/lib/AvInput';
-import AvFeedback from 'availity-reactstrap-validation/lib/AvFeedback';
+
 import { createMedicines } from '../../redux/Medicines/actions';
 import { useTranslation } from 'react-i18next';
 const NewMedicine = (props) => {
   const [errors, setErrors] = useState([]);
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   const options = [
     { value: 'viên', label: 'viên' },
     { value: 'ống', label: 'ống' },

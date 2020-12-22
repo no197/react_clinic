@@ -1,12 +1,11 @@
 import AvField from 'availity-reactstrap-validation/lib/AvField';
 import AvForm from 'availity-reactstrap-validation/lib/AvForm';
-import React, { useEffect, useState } from 'react';
-import Select from 'react-select';
-import Flatpickr from 'react-flatpickr';
+import React, { useState } from 'react';
+
 import { Row, Col, Button, Card, CardBody, Label } from 'reactstrap';
 import { createEmployees } from '../../redux/Employees/actions';
 import PageTitle from '../../components/PageTitle';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import AvGroup from 'availity-reactstrap-validation/lib/AvGroup';
 import AVDatePicker from '../../components/Form/AVDatePicker';
 import AVSelect from '../../components/Form/AVSelect';

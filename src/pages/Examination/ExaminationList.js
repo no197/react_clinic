@@ -22,7 +22,7 @@ const ExaminationList = ({ appointments, getExaminations }) => {
     getExaminations();
     return () => {};
   }, [getExaminations]);
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   // Destruct UI Componenet for TookitProvider
   const { SearchBar } = Search;
   const { ExportCSVButton } = CSVExport;

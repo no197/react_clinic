@@ -18,13 +18,13 @@ import PageTitle from '../../components/PageTitle';
 import { deleteAppointment, getAppointments } from '../../redux/examinations/actions';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-const PatientList = ({ appointments, getAppointments }) => {
+const PatientList = ({ appointments, role, getAppointments }) => {
   // Use effect to get items
   useEffect(() => {
     getAppointments({ status: 'Đang chờ' });
     return () => {};
   }, [getAppointments]);
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   // Destruct UI Componenet for TookitProvider
   const { SearchBar } = Search;
   const { ExportCSVButton } = CSVExport;
@@ -55,17 +55,18 @@ const PatientList = ({ appointments, getAppointments }) => {
     return (
       <React.Fragment>
         {/* <ButtonAppointmentModal patient={row} /> */}
-        <Link
-          to={{
-            pathname: `/app/examinations/add/${row.appointmentId}`,
-            state: { patientName: row.patientName },
-          }}>
-          <Button className="mr-2" color="primary" onClick={() => {}}>
-            <i className=" uil-book-medical"></i>
-          </Button>
-        </Link>
-
-        <DeleteButtonConfirm {...options} />
+        {['Doctor', 'Admin'].indexOf(role) !== -1 && (
+          <Link
+            to={{
+              pathname: `/app/examinations/add/${row.appointmentId}`,
+              state: { patientName: row.patientName },
+            }}>
+            <Button className="mr-2" color="primary" onClick={() => {}}>
+              <i className=" uil-book-medical"></i>
+            </Button>
+          </Link>
+        )}
+        {['Employee', 'Admin'].indexOf(role) !== -1 && <DeleteButtonConfirm {...options} />}
       </React.Fragment>
     );
   };
@@ -238,6 +239,7 @@ const PatientList = ({ appointments, getAppointments }) => {
 
 const mapStateToProps = (state) => ({
   appointments: state.Examinations.appointments,
+  role: state.Auth.user.role,
 });
 
 const mapDispatchToProps = (dispatch) => ({

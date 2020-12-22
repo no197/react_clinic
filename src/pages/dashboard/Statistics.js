@@ -1,5 +1,5 @@
 // @flow
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Row, Col } from 'reactstrap';
 
 import * as FeatherIcon from 'react-feather';
@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 const Statistics = () => {
   const dispatch = useDispatch();
   const statistics = useSelector((state) => state.Statistic.generalStatistic);
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   useLayoutEffect(() => {
     dispatch(getGeneralStatistic());
     return () => {};

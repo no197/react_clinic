@@ -17,7 +17,7 @@ const EmployeesList = ({ employees, getEmployees }) => {
     getEmployees();
     return () => {};
   }, [getEmployees]);
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   let items = [];
 
   const { SearchBar } = Search;

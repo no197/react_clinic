@@ -3,7 +3,12 @@
     "hello": "Hello"
   },
   "general": {
-    "submit": "Submit"
+    "submit": "Submit",
+    "logout": "Log out",
+    "Quản lý": "Manager",
+    "Nhân viên": "Employee",
+    "Bác sĩ": "Doctor",
+    "Dược sĩ": "Pharmacist"
   },
   "login": {
     "welcome": "Welcome back!",

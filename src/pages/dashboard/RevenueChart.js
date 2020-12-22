@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Chart from 'react-apexcharts';
-import { Card, CardBody, Nav, NavItem, NavLink } from 'reactstrap';
+import { Card, CardBody } from 'reactstrap';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRevenueInRange } from '../../redux/statistic/action';
@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 const RevenueChart = () => {
   const revenueInRange = useSelector((state) => state.Statistic.revenueInRange);
   const dispatch = useDispatch();
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   const numOfDate = 7;
   const chartData = Array(numOfDate).fill(0);
 

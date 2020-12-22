@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 const NewExamination = (props) => {
   //Get appointmentId from params
   const { appointId } = props.match.params;
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   // List prescription
   const [prescriptionDetails, setprescriptionDetails] = useState([]);
 

@@ -19,7 +19,7 @@ import { getMonthlyMedical } from '../../redux/statistic/action';
 import { useTranslation } from 'react-i18next';
 const MonthlyMedical = ({ monthlyMedical, getMonthlyMedical }) => {
   const [monthYear, setMonthYear] = useState(() => moment().format('MM/YYYY'));
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   // Use effect to get items
   useEffect(() => {
     const [month, year] = monthYear.split('/');

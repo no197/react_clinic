@@ -19,7 +19,7 @@ import { getMonthlyPatient } from '../../redux/statistic/action';
 import { useTranslation } from 'react-i18next';
 const MonthlyPatient = ({ monthlyPatient, getMonthlyPatient }) => {
   const [monthYear, setMonthYear] = useState(() => moment().format('MM/YYYY'));
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   // Use effect to get items
   useEffect(() => {
     const [month, year] = monthYear.split('/');
@@ -81,7 +81,7 @@ const MonthlyPatient = ({ monthlyPatient, getMonthlyPatient }) => {
     },
     {
       dataField: 'address',
-      text:`${t('patient.patientAddress')}`,
+      text: `${t('patient.patientAddress')}`,
       sort: false,
     },
     {
@@ -109,7 +109,7 @@ const MonthlyPatient = ({ monthlyPatient, getMonthlyPatient }) => {
           <PageTitle
             breadCrumbItems={[
               {
-                label:`${t('statistic.report')}`,
+                label: `${t('statistic.report')}`,
                 active: true,
               },
               {
@@ -117,7 +117,7 @@ const MonthlyPatient = ({ monthlyPatient, getMonthlyPatient }) => {
                 active: true,
               },
             ]}
-            title={ `${t('statistic.monthlyPatientReport')}`}
+            title={`${t('statistic.monthlyPatientReport')}`}
           />
         </Col>
       </Row>
@@ -165,7 +165,7 @@ const MonthlyPatient = ({ monthlyPatient, getMonthlyPatient }) => {
                         {/* Export CSV */}
                         <Col className="text-right">
                           <ExportCSVButton {...props.csvProps} className="btn btn-primary d-print-none">
-                          {t('statistic.exportCSV')}
+                            {t('statistic.exportCSV')}
                           </ExportCSVButton>
                         </Col>
                       </Row>
@@ -192,7 +192,8 @@ const MonthlyPatient = ({ monthlyPatient, getMonthlyPatient }) => {
                   onClick={(e) => {
                     window.print();
                   }}>
-                  <i className="uil uil-print mr-1"></i>{t('statistic.printReport')}
+                  <i className="uil uil-print mr-1"></i>
+                  {t('statistic.printReport')}
                 </Button>
               </div>
             </CardBody>

@@ -15,7 +15,7 @@ const MedicinesList = ({ medicines, getMedicines }) => {
     getMedicines();
     return () => {};
   }, [getMedicines]);
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   let items = [];
 
   const { SearchBar } = Search;

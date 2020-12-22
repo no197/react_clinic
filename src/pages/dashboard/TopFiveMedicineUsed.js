@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 const TopFiveMedicinedUsed = () => {
   const dispatch = useDispatch();
   const topFiveUsed = useSelector((state) => state.Statistic.topFiveUsed);
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   let topFive = new Array(5).fill({});
 
   useEffect(() => {

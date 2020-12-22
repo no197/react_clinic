@@ -3,7 +3,12 @@
     "hello": "Xin chào"
   },
   "general": {
-    "submit": "Lưu lại"
+    "submit": "Lưu lại",
+    "logout": "Đăng xuất",
+    "Quản lý": "Quản lý",
+    "Nhân viên": "Nhân viên",
+    "Bác sĩ": "Bác sĩ",
+    "Dược sĩ": "Dược sĩ"
   },
   "login": {
     "welcome": "Chào mừng quay lại!",

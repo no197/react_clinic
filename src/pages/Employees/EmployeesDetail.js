@@ -17,7 +17,7 @@ const EmployeeDetail = ({ employee, ...props }) => {
   const { id } = props.match.params;
   const { clearEmployeeDetail, getEmployeeDetail, updateEmployee } = props;
   const [errors, setErrors] = useState([]);
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   useEffect(() => {
     getEmployeeDetail(id);
 

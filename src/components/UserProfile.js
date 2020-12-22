@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
-import { UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
+import { UncontrolledDropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import * as FeatherIcon from 'react-feather';
 
 import profilePic from '../assets/images/users/avatar-7.jpg';
@@ -23,7 +23,7 @@ const UserProfile = (props) => {
           <h6 className="pro-user-name mt-0 mb-0">
             {t(a)} {!!user && user.fullName}
           </h6>
-          <span className="pro-user-desc">{!!user && user.position}</span>
+          <span className="pro-user-desc">{!!user && t(`general.${user.position}`)}</span>
         </div>
 
         <UncontrolledDropdown className="align-self-center profile-dropdown-menu">
@@ -50,7 +50,7 @@ const UserProfile = (props) => {
             {/* <DropdownItem divider /> */}
             <Link to="/account/logout" className="dropdown-item notify-item">
               <FeatherIcon.LogOut className="icon-dual icon-xs mr-2" />
-              <span>Logout</span>
+              <span>t("general.logout")</span>
             </Link>
           </DropdownMenu>
         </UncontrolledDropdown>

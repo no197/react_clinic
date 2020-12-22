@@ -1,11 +1,7 @@
 import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
-import React from 'react';
-
 import apiCall from '../../helpers/apiCall';
-
 import { push } from 'connected-react-router';
-import { toast } from 'react-toastify';
-import ToastifyLink from '../../components/Toastify/ToastifyLink';
+
 import {
   getInvoiceDetailFail,
   getInvoiceDetailSuccess,

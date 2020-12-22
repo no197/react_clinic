@@ -9,7 +9,7 @@ import * as layoutConstants from '../constants/layout';
 import { allFlattenRoutes as routes } from './index';
 
 import { ConnectedRouter } from 'connected-react-router';
-import Loading from '../components/Loading/Loading';
+
 import { ToastContainer } from 'react-toastify';
 import PreLoaderWidget from '../components/Loader';
 

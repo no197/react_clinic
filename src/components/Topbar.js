@@ -2,46 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container } from 'reactstrap';
-import { Menu, X, Search, Settings, User, HelpCircle, Lock, LogOut } from 'react-feather';
+import { Menu, X, Search, Settings, LogOut } from 'react-feather';
+import { withTranslation } from 'react-i18next';
 
 import { showRightSidebar } from '../redux/actions';
-import NotificationDropdown from './NotificationDropdown';
+
 import ProfileDropdown from './ProfileDropdown';
 import LanguageDropdown from './LanguageDropdown';
 
 import logo from '../assets/images/logo.png';
 import profilePic from '../assets/images/users/avatar-7.jpg';
-
-const Notifications = [
-  {
-    id: 1,
-    text: 'New user registered',
-    subText: '1 min ago',
-    icon: 'uil uil-user-plus',
-    bgColor: 'primary',
-  },
-  {
-    id: 2,
-    text: 'Karen Robinson',
-    subText: 'Wow ! this admin looks good and awesome design',
-    icon: 'uil uil-comment-message',
-    bgColor: 'success',
-  },
-  {
-    id: 3,
-    text: 'Cristina Pride',
-    subText: 'Hi, How are you? What about our next meeting',
-    icon: 'uil uil-comment-message',
-    bgColor: 'danger',
-  },
-  {
-    id: 4,
-    text: 'New user registered',
-    subText: '1 day ago',
-    icon: 'uil uil-user-plus',
-    bgColor: 'info',
-  },
-];
 
 const ProfileMenus = [
   // {
@@ -65,7 +35,7 @@ const ProfileMenus = [
   //   redirectTo: '/',
   // },
   {
-    label: 'Logout',
+    label: 'Đăng xuất',
     icon: LogOut,
     redirectTo: '/account/logout',
     hasDivider: true,
@@ -87,6 +57,7 @@ class Topbar extends Component {
   };
 
   render() {
+    const { t } = this.props;
     return (
       <React.Fragment>
         <div className="navbar navbar-expand flex-column flex-md-row navbar-custom">
@@ -137,7 +108,7 @@ class Topbar extends Component {
                 profilePic={profilePic}
                 menuItems={ProfileMenus}
                 username={this.props.user.fullName}
-                description={this.props.user.position}
+                description={t(`general.${this.props.user.position}`)}
               />
             </ul>
           </Container>
@@ -150,4 +121,6 @@ const mapStateToProps = (state) => ({
   user: state.Auth.user,
 });
 
-export default connect(mapStateToProps, { showRightSidebar })(Topbar);
+const I18nTopbar = withTranslation()(Topbar);
+
+export default connect(mapStateToProps, { showRightSidebar })(I18nTopbar);

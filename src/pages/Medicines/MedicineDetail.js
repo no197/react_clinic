@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import AvFeedback from 'availity-reactstrap-validation/lib/AvFeedback';
+
 import AvField from 'availity-reactstrap-validation/lib/AvField';
 import AvForm from 'availity-reactstrap-validation/lib/AvForm';
 import AvGroup from 'availity-reactstrap-validation/lib/AvGroup';
 import AvInput from 'availity-reactstrap-validation/lib/AvInput';
-import { Row, Col, Button, Card, CardBody, Label } from 'reactstrap';
+import { Row, Col, Button, Card, CardBody } from 'reactstrap';
 
 import AVSelect from '../../components/Form/AVSelect';
 
@@ -18,7 +18,7 @@ const MedicineDetail = ({ medicine, ...props }) => {
   const { id } = props.match.params;
   const { clearMedicineDetail, getMedicineDetail, updateMedicine } = props;
   const [errors, setErrors] = useState([]);
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   useEffect(() => {
     getMedicineDetail(id);
 

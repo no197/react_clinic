@@ -7,7 +7,6 @@ import { changeSidebarTheme, changeSidebarType } from '../redux/actions';
 import * as layoutConstants from '../constants/layout';
 
 import ThemeCustomizer from '../components/ThemeCustomizer';
-import Loading from '../components/Loading/Loading';
 import PreLoaderWidget from '../components/Loader';
 
 // code splitting and lazy loading

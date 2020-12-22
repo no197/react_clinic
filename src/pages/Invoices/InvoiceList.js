@@ -23,7 +23,7 @@ const InvoiceList = ({ invoices, getInvoices }) => {
     getInvoices();
     return () => {};
   }, [getInvoices]);
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   // Destruct UI Componenet for TookitProvider
   const { SearchBar } = Search;
   const { ExportCSVButton } = CSVExport;

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Routes from './routes/Routes';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-import { toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 

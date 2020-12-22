@@ -6,7 +6,7 @@ import { changeLayout } from '../redux/actions';
 import * as layoutConstants from '../constants/layout';
 
 import ThemeCustomizer from '../components/ThemeCustomizer';
-import Loading from 'react-loading';
+
 import PreLoaderWidget from '../components/Loader';
 
 // code splitting and lazy loading

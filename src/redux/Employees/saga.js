@@ -1,4 +1,4 @@
-import { all, call, fork, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { CREATE_EMPLOYEES, DELETE_EMPLOYEES, GET_EMPLOYEES, GET_EMPLOYEE_DETAIL, UPDATE_EMPLOYEE } from './constant';
 import apiCall from '../../helpers/apiCall';
 import {

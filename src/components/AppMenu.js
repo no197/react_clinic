@@ -154,9 +154,7 @@ class AppMenu extends Component {
             {this.props.menu.menuItems.map((item, i) => {
               //Chặn render theo role
               if (!!(item.roles && item.roles.indexOf(loggedInUser.role) === -1)) return null;
-              {
-                /* console.log(item); */
-              }
+
               return (
                 <React.Fragment key={item.id}>
                   {item.header && !isHorizontal && (

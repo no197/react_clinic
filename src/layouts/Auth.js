@@ -1,7 +1,6 @@
 import React, { Component, Suspense } from 'react';
 import { connect } from 'react-redux';
 import PreLoaderWidget from '../components/Loader';
-import Loading from '../components/Loading/Loading';
 
 // code splitting and lazy loading
 // https://blog.logrocket.com/lazy-loading-components-in-react-16-6-6cea535c0b52

@@ -19,7 +19,7 @@ const InvoiceDetail = (props) => {
   const invoiceDetail = useSelector((state) => state.Invoices.invoice);
   const loading = useSelector((state) => state.Invoices.loading);
   const dispatch = useDispatch();
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   useEffect(() => {
     dispatch(getInvoiceDetail(invoiceId));
     return () => {};
@@ -32,15 +32,14 @@ const InvoiceDetail = (props) => {
   const options = {
     Icon: FeatherIcon.AlertCircle, // Icon confirm
     headerTitle: `${t('invoice.printInvoiceHeader')}`, // Header confirm
-    content:
-    `${t('invoice.printInvoiceTitle')}`,
+    content: `${t('invoice.printInvoiceTitle')}`,
     okeBtn: {
       text: `${t('invoice.printInvoice')}`,
       color: 'warning',
       onClick: () => updateInvoice({ ...invoiceDetail, status: `${t('invoice.paid')}` }), // truyền action cần dispatch
     },
     cancelBtn: {
-      text:  `${t('invoice.cancel')}`,
+      text: `${t('invoice.cancel')}`,
       color: 'light',
     },
     type: 'warning',
@@ -159,7 +158,7 @@ const InvoiceDetail = (props) => {
                           {!prescriptionDetailsPrice.length && (
                             <tr>
                               <td colSpan="5" className="text-center">
-                              {t('examination.nonMedical')}
+                                {t('examination.nonMedical')}
                               </td>
                             </tr>
                           )}

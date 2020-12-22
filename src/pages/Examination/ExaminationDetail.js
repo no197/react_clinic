@@ -15,7 +15,7 @@ const ExaminationDetail = (props) => {
   const examinationDetail = useSelector((state) => state.Examinations.examination);
   const loading = useSelector((state) => state.Examinations.loading);
   const dispatch = useDispatch();
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   useEffect(() => {
     dispatch(getExaminationDetail(examinationId));
     return () => {};
@@ -51,7 +51,8 @@ const ExaminationDetail = (props) => {
                   </div>
                   <div className="float-sm-right">
                     <address className="pl-2 mt-2">
-                      <span className="font-weight-bold"> {t('examination.address')}: </span> 189 Lê Văn Việt, Hiệp Phú, Quận 9,
+                      <span className="font-weight-bold"> {t('examination.address')}: </span> 189 Lê Văn Việt, Hiệp Phú,
+                      Quận 9,
                       <br />
                       Thành phố Hồ Chí Minh
                       <br />
@@ -72,31 +73,34 @@ const ExaminationDetail = (props) => {
                 <Row className="mt-4">
                   <Col md={5} className="offset-md-1">
                     <h6 className="font-weight-normal">
-                    {t('patient.patientName')}: <b>{patient.fullName}</b>
+                      {t('patient.patientName')}: <b>{patient.fullName}</b>
                     </h6>
                     <h6 className="font-weight-normal">
-                    {t('patient.patientAddress')}: <b>{patient.address}</b>
+                      {t('patient.patientAddress')}: <b>{patient.address}</b>
                     </h6>
                     <h6 className="font-weight-normal">
-                    {t('patient.patientPhone')}: <b>{patient.phoneNumber}</b>{' '}
+                      {t('patient.patientPhone')}: <b>{patient.phoneNumber}</b>{' '}
                     </h6>
                     <h6 className="font-weight-normal">
-                    {t('examination.symptom')}: <b>{examinationDetail.symptom}</b>
+                      {t('examination.symptom')}: <b>{examinationDetail.symptom}</b>
                     </h6>
-                    <h6 className="font-weight-normal">{t('examination.diagnose')}: {examinationDetail.diagnose}</h6>
+                    <h6 className="font-weight-normal">
+                      {t('examination.diagnose')}: {examinationDetail.diagnose}
+                    </h6>
                   </Col>
 
                   <Col md={4}>
                     <div className="offset-md-2">
                       {/* text-md-right */}
                       <h6 className="font-weight-normal">
-                      {t('examination.examinationId')}: <b>{examinationDetail.examinationId}</b>
+                        {t('examination.examinationId')}: <b>{examinationDetail.examinationId}</b>
                       </h6>
                       <h6 className="font-weight-normal">
-                      {t('examination.employeeName')}: <b>{examinationDetail.employeeName}</b>
+                        {t('examination.employeeName')}: <b>{examinationDetail.employeeName}</b>
                       </h6>
                       <h6 className="font-weight-normal">
-                      {t('examination.createdDate')}: <b>{moment(new Date(examinationDetail.createdDate)).format('DD/MM/YYYY')}</b>
+                        {t('examination.createdDate')}:{' '}
+                        <b>{moment(new Date(examinationDetail.createdDate)).format('DD/MM/YYYY')}</b>
                       </h6>
                     </div>
                   </Col>
@@ -138,7 +142,7 @@ const ExaminationDetail = (props) => {
                           {!prescriptionDetails.length && (
                             <tr>
                               <td colSpan="5" className="text-center">
-                              {t('examination.nonMedical')}
+                                {t('examination.nonMedical')}
                               </td>
                             </tr>
                           )}
@@ -156,7 +160,8 @@ const ExaminationDetail = (props) => {
 
                   <Col sm={6} className="col-6 text-center">
                     <p className="m-0">
-                    {t('examination.HCMcity')}, {t('examination.date')} {moment(examinationDetail.createdDate).format('DD')} {t('examination.month')}{' '}
+                      {t('examination.HCMcity')}, {t('examination.date')}{' '}
+                      {moment(examinationDetail.createdDate).format('DD')} {t('examination.month')}{' '}
                       {moment(examinationDetail.createdDate).format('MM')} {t('examination.year')}{' '}
                       {moment(examinationDetail.createdDate).format('YYYY')}
                     </p>
@@ -172,11 +177,12 @@ const ExaminationDetail = (props) => {
                       onClick={(e) => {
                         window.print();
                       }}>
-                      <i className="uil uil-print mr-1"></i>{t('examination.print')}
+                      <i className="uil uil-print mr-1"></i>
+                      {t('examination.print')}
                     </Button>
                     <Link to="/app/examinations">
                       <Button color="light" className=" ml-1">
-                      {t('examination.back')}
+                        {t('examination.back')}
                       </Button>
                     </Link>
                   </div>

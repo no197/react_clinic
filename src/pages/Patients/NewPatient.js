@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 // TODO: 12/09/20 Reflactor code
 const NewPatient = (props) => {
   const [errors, setErrors] = useState([]);
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   const options = [
     { value: 'Nam', label: 'Nam' },
     { value: 'Nữ', label: 'Nữ' },
@@ -32,9 +32,9 @@ const NewPatient = (props) => {
         <Col md={12}>
           <PageTitle
             breadCrumbItems={[
-              { label:  `${t('appMenu.patient')}`, path: '/app/patients' },
+              { label: `${t('appMenu.patient')}`, path: '/app/patients' },
               {
-                label:  `${t('appMenu.addPatient')}`,
+                label: `${t('appMenu.addPatient')}`,
                 path: '/app/patients/new',
                 active: true,
               },
@@ -53,7 +53,7 @@ const NewPatient = (props) => {
                 <AvForm onInvalidSubmit={(event, errors, values) => setErrors(errors)} onValidSubmit={handleSubmit}>
                   <AvField
                     name="fullName"
-                    label= {t('patient.patientName')}
+                    label={t('patient.patientName')}
                     placeholder={t('patient.addPatientName')}
                     validate={{
                       required: { value: true, errorMessage: `${t('patient.patientNameRequired')}` },
@@ -112,7 +112,7 @@ const NewPatient = (props) => {
                   />
 
                   <Button color="primary" type="submit">
-                    Submit
+                    {t('general.submit')}
                   </Button>
                 </AvForm>
               </Col>

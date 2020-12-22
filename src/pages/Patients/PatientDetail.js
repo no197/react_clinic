@@ -11,14 +11,14 @@ import AVSelect from '../../components/Form/AVSelect';
 import PageTitle from '../../components/PageTitle';
 import { connect } from 'react-redux';
 import { clearPatientDetail, getPatientDetail, updatePatient } from '../../redux/patients/actions';
-import Loading from '../../components/Loading/Loading';
+
 import PreLoaderWidget from '../../components/Loader';
 import { useTranslation } from 'react-i18next';
 const PatientDetail = ({ patient, ...props }) => {
   const { id } = props.match.params;
   const { clearPatientDetail, getPatientDetail, updatePatient } = props;
   const [errors, setErrors] = useState([]);
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   useEffect(() => {
     getPatientDetail(id);
 
@@ -85,7 +85,7 @@ const PatientDetail = ({ patient, ...props }) => {
                     name="gender"
                     label={t('patient.patientGender')}
                     placeholder={t('patient.patientGenderSelect')}
-                    // defaultValue={{ value: 'Nam', label: 'Nam' }}
+                    defaultValue={defaultSelect}
                     error={errors.indexOf('gender') !== -1}
                     options={options}
                     errorMessage={`${t('patient.patientGenderRequired')}`}
@@ -93,7 +93,7 @@ const PatientDetail = ({ patient, ...props }) => {
 
                   <AVDatePicker
                     name="dateOfBirth"
-                    defaultValue={new Date()}
+                    defaultValue={defaultDate}
                     error={errors.indexOf('dateOfBirth') !== -1}
                     label={t('patient.patientDOB')}
                     options={{
@@ -131,7 +131,7 @@ const PatientDetail = ({ patient, ...props }) => {
                   />
 
                   <Button color="primary" type="submit">
-                    Submit
+                    {t('general.submit')}
                   </Button>
                 </AvForm>
               </Col>

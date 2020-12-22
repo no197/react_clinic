@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
+import React, { useRef } from 'react';
+import { confirmAlert } from 'react-confirm-alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'reactstrap';
 import { Confirm } from './Confirm';
