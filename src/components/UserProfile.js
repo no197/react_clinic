@@ -31,7 +31,7 @@ const UserProfile = (props) => {
             <FeatherIcon.ChevronDown />
           </DropdownToggle>
           <DropdownMenu right className="topbar-dropdown-menu profile-dropdown-items">
-            <Link to="/" className="dropdown-item notify-item">
+            {/* <Link to="/" className="dropdown-item notify-item">
               <FeatherIcon.User className="icon-dual icon-xs mr-2" />
               <span>My Account</span>
             </Link>
@@ -46,8 +46,8 @@ const UserProfile = (props) => {
             <Link to="/" className="dropdown-item notify-item">
               <FeatherIcon.Lock className="icon-dual icon-xs mr-2" />
               <span>Lock Screen</span>
-            </Link>
-            <DropdownItem divider />
+            </Link> */}
+            {/* <DropdownItem divider /> */}
             <Link to="/account/logout" className="dropdown-item notify-item">
               <FeatherIcon.LogOut className="icon-dual icon-xs mr-2" />
               <span>Logout</span>
