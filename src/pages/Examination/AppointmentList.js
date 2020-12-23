@@ -202,7 +202,7 @@ const PatientList = ({ appointments, role, getAppointments }) => {
                       <Row>
                         <Col>
                           {/* Search bar */}
-                          <SearchBar {...props.searchProps} placeholder={t('appMenu.search')} />
+                          <SearchBar {...props.searchProps} placeholder={t('table.search')} />
                         </Col>
 
                         {/* Export CSV */}
