@@ -6,6 +6,7 @@ import { Globe } from 'react-feather';
 
 import enFlag from './flags/us.jpg';
 import vietNamFlag from './flags/vietnam.png';
+import jpFlag from './flags/japan.png';
 import { withTranslation } from 'react-i18next';
 
 const Languages = [
@@ -18,6 +19,11 @@ const Languages = [
     name: 'English',
     flag: enFlag,
     lng: 'en-US',
+  },
+  {
+    name: '日本人',
+    flag: jpFlag,
+    lng: 'jp',
   },
 ];
 

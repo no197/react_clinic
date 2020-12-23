@@ -13,7 +13,7 @@ const i18nextConfig = {
   // language: 'vi',
   lng: 'vi',
   // TODO: 11/28/20  multilanguages
-  whitelist: ['en', 'vi'],
+  whitelist: ['en', 'vi', 'jp'],
   fallbackLng: 'vi',
   ns: ['common'],
   defaultNS: 'common',

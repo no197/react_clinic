@@ -42,7 +42,7 @@ const TopFiveMedicinedUsed = () => {
                 <td>{item.medicineName}</td>
                 <td className="text-danger font-weight-bold">{item.timesUsed}</td>
                 <td>{item.qtyUsed}</td>
-                <td>{item.unit}</td>
+                <td>{t(`medicine.${item.unit}`)}</td>
               </tr>
             ))}
           </tbody>

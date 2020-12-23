@@ -233,7 +233,7 @@ const InvoiceDetail = (props) => {
                       </Button>
                     )}
 
-                    <Link to="/app/examinations">
+                    <Link to="/app/invoices">
                       <Button color="light" className=" ml-1">
                         Quay lại
                       </Button>
