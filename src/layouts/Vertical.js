@@ -9,6 +9,8 @@ import * as layoutConstants from '../constants/layout';
 import ThemeCustomizer from '../components/ThemeCustomizer';
 import PreLoaderWidget from '../components/Loader';
 
+import { withTranslation } from 'react-i18next';
+
 // code splitting and lazy loading
 // https://blog.logrocket.com/lazy-loading-components-in-react-16-6-6cea535c0b52
 const LeftSidebar = React.lazy(() => import('../components/LeftSidebar'));
@@ -56,6 +58,7 @@ class VerticalLayout extends Component {
     const isCondensed = this.props.layout.leftSideBarType === layoutConstants.LEFT_SIDEBAR_TYPE_CONDENSED;
     const isLight = this.props.layout.leftSideBarTheme === layoutConstants.LEFT_SIDEBAR_THEME_DEFAULT;
 
+    const { t } = this.props;
     return (
       <div className="app">
         <div id="wrapper">
@@ -80,7 +83,7 @@ class VerticalLayout extends Component {
         </div>
 
         <Suspense fallback={emptyLoading()}>
-          <RightSidebar title="Customize" {...this.props}>
+          <RightSidebar title={t('setting.customize')} {...this.props}>
             <ThemeCustomizer />
           </RightSidebar>
         </Suspense>
@@ -94,4 +97,7 @@ const mapStateToProps = (state) => {
     layout: state.Layout,
   };
 };
-export default connect(mapStateToProps, { changeSidebarTheme, changeSidebarType })(VerticalLayout);
+
+const I18nVerticalLayout = withTranslation()(VerticalLayout);
+
+export default connect(mapStateToProps, { changeSidebarTheme, changeSidebarType })(I18nVerticalLayout);

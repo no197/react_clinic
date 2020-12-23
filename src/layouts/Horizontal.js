@@ -8,6 +8,7 @@ import * as layoutConstants from '../constants/layout';
 import ThemeCustomizer from '../components/ThemeCustomizer';
 
 import PreLoaderWidget from '../components/Loader';
+import { withTranslation } from 'react-i18next';
 
 // code splitting and lazy loading
 // https://blog.logrocket.com/lazy-loading-components-in-react-16-6-6cea535c0b52
@@ -45,6 +46,7 @@ class HorizontalLayout extends Component {
   render() {
     // get the child view which we would like to render
     const children = this.props.children || null;
+    const { t } = this.props;
     return (
       <React.Fragment>
         <div id="wrapper">
@@ -69,7 +71,7 @@ class HorizontalLayout extends Component {
         </div>
 
         <Suspense fallback={loading()}>
-          <RightSidebar title="Customize" {...this.props}>
+          <RightSidebar title={t('setting.customize')} {...this.props}>
             <ThemeCustomizer />
           </RightSidebar>
         </Suspense>
@@ -84,4 +86,6 @@ const mapStateToProps = (state) => {
     user: state.Auth.user,
   };
 };
-export default connect(mapStateToProps, { changeLayout })(HorizontalLayout);
+
+const I18nHorizontalLayout = withTranslation()(HorizontalLayout);
+export default connect(mapStateToProps, { changeLayout })(I18nHorizontalLayout);

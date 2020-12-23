@@ -11,7 +11,7 @@ class Footer extends Component {
           <div className="row">
             <div className="col-12">
               2020 &copy; Framework Project. Create with <i className="uil uil-heart text-danger font-size-12"></i> by
-              17521288 - 1852xxxx
+              17521288 - 18520996
             </div>
           </div>
         </div>
