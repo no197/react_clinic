@@ -61,9 +61,9 @@ const NewExamination = (props) => {
     let newPres = prescriptionDetails;
     //Check update in pres change medicine
     if (selectedIndex !== -1 && selectedPre) {
-      //Check if update duplicate
+      //Check if update duplicate and dupIndex !== vị trí cũ
 
-      if (dupIndex !== -1) {
+      if (dupIndex !== -1 && dupIndex !== selectedIndex) {
         //Remove old pre
         newPres = prescriptionDetails.filter((item, index) => index !== selectedIndex);
         newPres[dupIndex] = prescription;

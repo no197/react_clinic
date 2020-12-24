@@ -10,6 +10,7 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import { deleteMedicines, getMedicines } from '../../redux/Medicines/actions';
 import DeletePatientButton from '../../components/Confirm/DeleteButtonConfirm';
 import * as FeatherIcon from 'react-feather';
+import formatCash from '../../helpers/formatCash';
 const MedicinesList = ({ medicines, getMedicines }) => {
   useEffect(() => {
     getMedicines();
@@ -79,6 +80,9 @@ const MedicinesList = ({ medicines, getMedicines }) => {
     {
       dataField: 'price',
       text: `${t('medicine.price')}`,
+      formatter: (cell, row, rowIndex) => {
+        return formatCash(row.price);
+      },
       sort: true,
     },
     {

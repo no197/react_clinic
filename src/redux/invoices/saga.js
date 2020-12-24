@@ -1,6 +1,6 @@
 import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import apiCall from '../../helpers/apiCall';
-import { push } from 'connected-react-router';
+import { toast } from 'react-toastify';
 
 import {
   getInvoiceDetailFail,
@@ -54,13 +54,13 @@ function* getInvoicesDetailSaga({ payload: id }) {
   }
 }
 
-// CREATE PATIENT
+// UPDATE INVOICE
 function* updateInvoiceSaga({ payload }) {
   const { invoiceId: id } = payload;
   try {
     const { data: resonse } = yield call(() => apiCall.put(`/invoices/${id}`, payload));
     yield put(updateInvoiceSuccess(resonse));
-    yield put(push('/app/patients'));
+    toast.success('Cập nhật thành công tình trạng hóa đơn: Đã Thanh Toán');
   } catch (error) {
     console.log(error);
     let message;

@@ -36,7 +36,7 @@ const InvoiceDetail = (props) => {
     okeBtn: {
       text: `${t('invoice.printInvoice')}`,
       color: 'warning',
-      onClick: () => updateInvoice({ ...invoiceDetail, status: `${t('invoice.paid')}` }), // truyền action cần dispatch
+      onClick: () => updateInvoice({ ...invoiceDetail, status: 'Đã thanh toán' }), // truyền action cần dispatch
     },
     cancelBtn: {
       text: `${t('invoice.cancel')}`,

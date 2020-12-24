@@ -250,6 +250,7 @@ const PrescriptionModal = ({ isOpen, toggle, onSubmit, className, size, model, o
     selectedMedicine = options.find((item) => item.value === model.medicineId);
   }
   const getQtySelectedMedicine = (option) => {
+    if (!medicines) return;
     const { items } = medicines;
     const medicine = items.find((item) => item.medicineId === option.value);
     if (!medicine) return;
@@ -258,11 +259,14 @@ const PrescriptionModal = ({ isOpen, toggle, onSubmit, className, size, model, o
 
   const cancelModal = () => {
     if (model) onCancel();
+    setErrors([]);
     toggle();
   };
   const handleSubmit = (event, values) => {
     console.log(values);
-    const medicine = fakeMedicines.items.find((item) => item.medicineId === values.medicineId);
+    if (!medicines) return;
+    const { items } = medicines;
+    const medicine = items.find((item) => item.medicineId === values.medicineId);
     onSubmit({ ...values, medicineName: medicine.medicineName });
   };
 

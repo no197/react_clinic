@@ -17,6 +17,7 @@ import PageTitle from '../../components/PageTitle';
 import MaskedInput from 'react-text-mask';
 import { getMonthlyRevenue } from '../../redux/statistic/action';
 import { useTranslation } from 'react-i18next';
+import formatCash from '../../helpers/formatCash';
 const MonthlyRevenue = ({ monthlyRevenue, getMonthlyRevenue }) => {
   const [monthYear, setMonthYear] = useState(() => moment().format('MM/YYYY'));
   const [t] = useTranslation();
@@ -69,11 +70,17 @@ const MonthlyRevenue = ({ monthlyRevenue, getMonthlyRevenue }) => {
     {
       dataField: 'revenue',
       text: `${t('statistic.revenue')}`,
+      formatter: (cell, row, rowIndex) => {
+        return formatCash(row.revenue);
+      },
       sort: true,
     },
     {
       dataField: 'percent',
       text: `${t('statistic.percent')}`,
+      formatter: (cell, row, rowIndex) => {
+        return `${row.percent} %`;
+      },
       sort: true,
     },
   ];
@@ -135,7 +142,7 @@ const MonthlyRevenue = ({ monthlyRevenue, getMonthlyRevenue }) => {
                       <Row>
                         <Col>
                           {/* Search bar */}
-                          <Col lg={6}>
+                          <Col lg={3}>
                             <div className="form-group">
                               <label>{t('statistic.monthYearReport')}</label> <br />
                               <MaskedInput

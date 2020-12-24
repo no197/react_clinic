@@ -185,7 +185,8 @@
     "newDetail": "Thêm đơn thuốc",
     "symptomRequired": "Triệu chứng bệnh là bắt buộc",
     "diagnoseRequired": "Chẩn đoán bệnh là bắt buộc",
-    "readExam": "Xem phiếu khám"
+    "readExam": "Xem phiếu khám",
+    "symptomMinLength": "Triệu chứng phải có độ dài tối thiểu là 6"
   },
   "appoitment": {
     "list": "Danh sách đăng ký khám bệnh",
@@ -227,7 +228,8 @@
     "timesUsed": "Số lần dùng",
     "qtyUsed": "Số lượng",
     "monthYearInput": "MM/YYYY",
-    "nonRevenue": "Không có bất kỳ khoảng thu nào trong tháng đã chọn"
+    "nonRevenue": "Không có bất kỳ khoảng thu nào trong tháng đã chọn",
+    "nonPatient": "Không có bất kỳ bệnh nhân nào đến khám trong tháng đã chọn"
   },
   "dashboard": {
     "waitPatient": "Bệnh nhân chờ khám",

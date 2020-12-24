@@ -147,7 +147,7 @@ const MonthlyPatient = ({ monthlyPatient, getMonthlyPatient }) => {
                       <Row>
                         <Col>
                           {/* Search bar */}
-                          <Col lg={6}>
+                          <Col md={3}>
                             <div className="form-group">
                               <label>{t('statistic.monthYearReport')}</label> <br />
                               <MaskedInput
