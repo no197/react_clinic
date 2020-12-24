@@ -6,6 +6,7 @@ import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import { getMedicines } from '../../redux/Medicines/actions';
 import AVSelect from '../Form/AVSelect';
 
+// TODO: 12/24/20 BUG HERE
 let fakeMedicines = {
   totalItems: 30,
   items: [
@@ -249,7 +250,6 @@ const PrescriptionModal = ({ isOpen, toggle, onSubmit, className, size, model, o
     selectedMedicine = options.find((item) => item.value === model.medicineId);
   }
   const getQtySelectedMedicine = (option) => {
-    if (!medicines) return;
     const { items } = medicines;
     const medicine = items.find((item) => item.medicineId === option.value);
     if (!medicine) return;

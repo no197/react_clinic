@@ -74,7 +74,7 @@ const MedicinesList = ({ medicines, getMedicines }) => {
     {
       dataField: 'unit',
       text: `${t('medicine.unit')}`,
-      sort: false,
+      sort: true,
     },
     {
       dataField: 'price',
@@ -84,7 +84,7 @@ const MedicinesList = ({ medicines, getMedicines }) => {
     {
       dataField: 'quantity',
       text: `${t('medicine.quantity')}`,
-      sort: false,
+      sort: true,
     },
     {
       dataField: 'action',

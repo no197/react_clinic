@@ -14,7 +14,6 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import { DeleteButtonConfirm } from '../../components/Confirm/DeleteButtonConfirm';
 import PageTitle from '../../components/PageTitle';
-// import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 
 //Import action to dispatch
 import { deletePatients, getPatients } from '../../redux/patients/actions';
@@ -106,7 +105,7 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
     {
       dataField: 'gender',
       text: `${t('patient.patientGender')}`,
-      sort: false,
+      sort: true,
     },
     {
       dataField: 'dateOfBirth',

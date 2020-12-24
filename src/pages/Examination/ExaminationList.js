@@ -39,7 +39,7 @@ const ExaminationList = ({ appointments, getExaminations }) => {
       <React.Fragment>
         {/* <ButtonAppointmentModal patient={row} /> */}
         <Link to={`/app/examinations/${row.examinationId}`}>
-          <Button className="mr-2" color="primary" onClick={() => {}}>
+          <Button className="mr-2" color="info" onClick={() => {}}>
             <i className="uil-file-medical-alt"></i> {t('examination.readExam')}
           </Button>
         </Link>
@@ -65,7 +65,7 @@ const ExaminationList = ({ appointments, getExaminations }) => {
     {
       dataField: 'patientName',
       text: `${t('patient.patientName')}`,
-      sort: false,
+      sort: true,
     },
     {
       dataField: 'createdDate',
@@ -78,7 +78,7 @@ const ExaminationList = ({ appointments, getExaminations }) => {
     {
       dataField: 'diagnose',
       text: `${t('examination.diagnose')}`,
-      sort: false,
+      sort: true,
     },
     {
       dataField: 'action',

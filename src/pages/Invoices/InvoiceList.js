@@ -66,7 +66,7 @@ const InvoiceList = ({ invoices, getInvoices }) => {
     {
       dataField: 'patientName',
       text: `${t('patient.patientName')}`,
-      sort: false,
+      sort: true,
     },
     {
       dataField: 'price',
@@ -74,7 +74,7 @@ const InvoiceList = ({ invoices, getInvoices }) => {
       formatter: (cell, row, rowIndex) => {
         return formatCash(row.price);
       },
-      sort: false,
+      sort: true,
     },
     {
       dataField: 'createdDate',
@@ -90,7 +90,7 @@ const InvoiceList = ({ invoices, getInvoices }) => {
       formatter: (cell, row, rowIndex) => {
         return (
           <Badge color={row.status === 'Chưa thanh toán' ? 'warning' : 'success'} pill className="mr-1">
-            {row.status}
+            {t(`invoice.${row.status}`)}
           </Badge>
         );
       },

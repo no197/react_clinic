@@ -76,7 +76,7 @@ const EmployeesList = ({ employees, getEmployees }) => {
     {
       dataField: 'gender',
       text: `${t('employee.EmployeeGender')}`,
-      sort: false,
+      sort: true,
     },
     {
       dataField: 'dateOfBirth',
@@ -94,7 +94,7 @@ const EmployeesList = ({ employees, getEmployees }) => {
     {
       dataField: 'position',
       text: `${t('employee.EmployeePosition')}`,
-      sort: false,
+      sort: true,
     },
     {
       dataField: 'action',

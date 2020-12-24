@@ -89,7 +89,7 @@ const PatientList = ({ appointments, role, getAppointments }) => {
     {
       dataField: 'patientName',
       text: `${t('patient.patientName')}`,
-      sort: false,
+      sort: true,
     },
     {
       dataField: 'dateOfAppointment',
