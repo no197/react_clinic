@@ -11,14 +11,16 @@ import * as FeatherIcon from 'react-feather';
 import { Row, Col, Button, Card, CardBody } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import { DeleteButtonConfirm } from '../../components/Confirm/DeleteButtonConfirm';
 import PageTitle from '../../components/PageTitle';
+// import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 
 //Import action to dispatch
 import { deletePatients, getPatients } from '../../redux/patients/actions';
 import { createAppointment } from '../../redux/examinations/actions';
 import { useTranslation } from 'react-i18next';
+
 const PatientList = ({ patients, getPatients, createAppointment }) => {
   // Use effect to get items
   useEffect(() => {
@@ -28,7 +30,7 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
   const [t] = useTranslation();
   // Destruct UI Componenet for TookitProvider
   const { SearchBar } = Search;
-  const { ExportCSVButton } = CSVExport;
+  //const { ExportCSVButton } = CSVExport;
 
   // Get Items to display on table
   let items = [];
@@ -228,11 +230,11 @@ const PatientList = ({ patients, getPatients, createAppointment }) => {
                         </Col>
 
                         {/* Export CSV */}
-                        <Col className="text-right">
+                        {/* <Col className="text-right">
                           <ExportCSVButton {...props.csvProps} className="btn btn-primary">
                             {t('table.exportCSV')}
                           </ExportCSVButton>
-                        </Col>
+                        </Col> */}
                       </Row>
 
                       {/* Table */}

@@ -184,7 +184,8 @@
     "patientName": "Họ và Tên",
     "newDetail": "Thêm đơn thuốc",
     "symptomRequired": "Triệu chứng bệnh là bắt buộc",
-    "diagnoseRequired": "Chẩn đoán bệnh là bắt buộc"
+    "diagnoseRequired": "Chẩn đoán bệnh là bắt buộc",
+    "readExam": "Xem phiếu khám"
   },
   "appoitment": {
     "list": "Danh sách đăng ký khám bệnh",

@@ -1,7 +1,9 @@
 import AvField from 'availity-reactstrap-validation/lib/AvField';
 import AvForm from 'availity-reactstrap-validation/lib/AvForm';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import { getMedicines } from '../../redux/Medicines/actions';
 import AVSelect from '../Form/AVSelect';
 
 let fakeMedicines = {
@@ -224,17 +226,32 @@ const PrescriptionModal = ({ isOpen, toggle, onSubmit, className, size, model, o
   const [errors, setErrors] = useState([]);
   const [qtySelect, setQtySelect] = useState(Number.MAX_VALUE);
 
-  const options = fakeMedicines.items.map((item) => ({
-    value: item.medicineId,
-    label: item.medicineName,
-  }));
+  const medicines = useSelector((state) => state.Medicine.medicines);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMedicines());
+    return () => {};
+  }, [dispatch]);
+
+  let options = [];
+
+  if (medicines) {
+    const { items } = medicines;
+    options = items.map((item) => ({
+      value: item.medicineId,
+      label: item.medicineName,
+    }));
+  }
 
   let selectedMedicine = null;
   if (model) {
     selectedMedicine = options.find((item) => item.value === model.medicineId);
   }
   const getQtySelectedMedicine = (option) => {
-    const medicine = fakeMedicines.items.find((item) => item.medicineId === option.value);
+    if (!medicines) return;
+    const { items } = medicines;
+    const medicine = items.find((item) => item.medicineId === option.value);
     if (!medicine) return;
     setQtySelect(medicine.quantity);
   };

@@ -88,7 +88,7 @@ class Topbar extends Component {
                 <div className="app-search">
                   <form>
                     <div className="input-group">
-                      <input type="text" className="form-control" placeholder="Search..." />
+                      <input type="text" className="form-control" placeholder={t('table.search')} />
                       <Search />
                     </div>
                   </form>

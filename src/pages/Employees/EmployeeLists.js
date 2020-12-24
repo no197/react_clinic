@@ -6,7 +6,7 @@ import { Row, Col, Button, Card, CardBody } from 'reactstrap';
 
 import PageTitle from '../../components/PageTitle';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import { deleteEmployees, getEmployees } from '../../redux/Employees/actions';
 import DeletePatientButton from '../../components/Confirm/DeleteButtonConfirm';
 import * as FeatherIcon from 'react-feather';
@@ -21,7 +21,7 @@ const EmployeesList = ({ employees, getEmployees }) => {
   let items = [];
 
   const { SearchBar } = Search;
-  const { ExportCSVButton } = CSVExport;
+  //const { ExportCSVButton } = CSVExport;
 
   // Cột action
   const ActionColumn = (cell, row, rowIndex, formatExtraData) => {
@@ -186,9 +186,9 @@ const EmployeesList = ({ employees, getEmployees }) => {
                           <SearchBar {...props.searchProps} placeholder={t('table.search')} />
                         </Col>
                         <Col className="text-right">
-                          <ExportCSVButton {...props.csvProps} className="btn btn-primary">
+                          {/* <ExportCSVButton {...props.csvProps} className="btn btn-primary">
                             {t('table.exportCSV')}
-                          </ExportCSVButton>
+                          </ExportCSVButton> */}
                         </Col>
                       </Row>
 

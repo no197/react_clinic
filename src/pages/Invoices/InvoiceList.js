@@ -9,7 +9,7 @@ import moment from 'moment';
 import { Row, Col, Button, Card, CardBody, Badge } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import PageTitle from '../../components/PageTitle';
 
 //Import action to dispatch
@@ -26,7 +26,7 @@ const InvoiceList = ({ invoices, getInvoices }) => {
   const [t] = useTranslation();
   // Destruct UI Componenet for TookitProvider
   const { SearchBar } = Search;
-  const { ExportCSVButton } = CSVExport;
+  //const { ExportCSVButton } = CSVExport;
 
   // Get Items to display on table
   let items = [];
@@ -94,7 +94,7 @@ const InvoiceList = ({ invoices, getInvoices }) => {
           </Badge>
         );
       },
-      sort: false,
+      sort: true,
     },
     {
       dataField: 'action',
@@ -194,15 +194,15 @@ const InvoiceList = ({ invoices, getInvoices }) => {
                       <Row>
                         <Col>
                           {/* Search bar */}
-                          <SearchBar {...props.searchProps} placeholder="Tìm kiếm" />
+                          <SearchBar {...props.searchProps} placeholder={t('table.search')} />
                         </Col>
 
                         {/* Export CSV */}
-                        <Col className="text-right">
+                        {/* <Col className="text-right">
                           <ExportCSVButton {...props.csvProps} className="btn btn-primary">
                             Xuất CSV
                           </ExportCSVButton>
-                        </Col>
+                        </Col> */}
                       </Row>
 
                       {/* Table */}

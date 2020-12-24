@@ -9,7 +9,7 @@ import moment from 'moment';
 import { Row, Col, Button, Card, CardBody } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 
-import ToolkitProvider, { CSVExport } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 
 import PageTitle from '../../components/PageTitle';
 
@@ -29,7 +29,7 @@ const MonthlyMedical = ({ monthlyMedical, getMonthlyMedical }) => {
   }, [getMonthlyMedical]);
 
   // Destruct UI Componenet for TookitProvider
-  const { ExportCSVButton } = CSVExport;
+  //const { ExportCSVButton } = CSVExport;
 
   const handleChangeMonthYear = (evt) => {
     const { value } = evt.target;
@@ -157,11 +157,11 @@ const MonthlyMedical = ({ monthlyMedical, getMonthlyMedical }) => {
                         </Col>
 
                         {/* Export CSV */}
-                        <Col className="text-right">
+                        {/* <Col className="text-right">
                           <ExportCSVButton {...props.csvProps} className="btn btn-primary d-print-none">
                             {t('statistic.exportCSV')}
                           </ExportCSVButton>
-                        </Col>
+                        </Col> */}
                       </Row>
 
                       {/* Table */}

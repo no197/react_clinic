@@ -85,7 +85,7 @@ const ExaminationDetail = (props) => {
                       {t('examination.symptom')}: <b>{examinationDetail.symptom}</b>
                     </h6>
                     <h6 className="font-weight-normal">
-                      {t('examination.diagnose')}: {examinationDetail.diagnose}
+                      {t('examination.diagnose')}: <b>{examinationDetail.diagnose}</b>
                     </h6>
                   </Col>
 

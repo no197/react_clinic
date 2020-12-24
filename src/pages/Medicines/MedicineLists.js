@@ -6,7 +6,7 @@ import { Row, Col, Button, Card, CardBody } from 'reactstrap';
 import { useTranslation } from 'react-i18next';
 import PageTitle from '../../components/PageTitle';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import { deleteMedicines, getMedicines } from '../../redux/Medicines/actions';
 import DeletePatientButton from '../../components/Confirm/DeleteButtonConfirm';
 import * as FeatherIcon from 'react-feather';
@@ -19,7 +19,7 @@ const MedicinesList = ({ medicines, getMedicines }) => {
   let items = [];
 
   const { SearchBar } = Search;
-  const { ExportCSVButton } = CSVExport;
+  //const { ExportCSVButton } = CSVExport;
 
   // Cột action
   const ActionColumn = (cell, row, rowIndex, formatExtraData) => {
@@ -175,11 +175,11 @@ const MedicinesList = ({ medicines, getMedicines }) => {
                         <Col>
                           <SearchBar {...props.searchProps} placeholder={t('table.search')} />
                         </Col>
-                        <Col className="text-right">
+                        {/* <Col className="text-right">
                           <ExportCSVButton {...props.csvProps} className="btn btn-primary">
                             {t('table.exportCSV')}
                           </ExportCSVButton>
-                        </Col>
+                        </Col> */}
                       </Row>
 
                       <BootstrapTable

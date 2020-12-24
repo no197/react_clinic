@@ -10,7 +10,7 @@ import * as FeatherIcon from 'react-feather';
 import { Row, Col, Button, Card, CardBody } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import { DeleteButtonConfirm } from '../../components/Confirm/DeleteButtonConfirm';
 import PageTitle from '../../components/PageTitle';
 
@@ -27,7 +27,7 @@ const PatientList = ({ appointments, role, getAppointments }) => {
   const [t] = useTranslation();
   // Destruct UI Componenet for TookitProvider
   const { SearchBar } = Search;
-  const { ExportCSVButton } = CSVExport;
+  //const { ExportCSVButton } = CSVExport;
 
   // Get Items to display on table
   let items = [];
@@ -206,11 +206,11 @@ const PatientList = ({ appointments, role, getAppointments }) => {
                         </Col>
 
                         {/* Export CSV */}
-                        <Col className="text-right">
+                        {/* <Col className="text-right">
                           <ExportCSVButton {...props.csvProps} className="btn btn-primary">
                             Xuất CSV
                           </ExportCSVButton>
-                        </Col>
+                        </Col> */}
                       </Row>
 
                       {/* Table */}

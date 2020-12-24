@@ -183,7 +183,8 @@
     "patientName": "Full Name",
     "newDetail": "Add Medicine",
     "symptomRequired": "Symptom is required",
-    "diagnoseRequired": "Diagnose is required"
+    "diagnoseRequired": "Diagnose is required",
+    "readExam": "Read Examination"
   },
   "appoitment": {
     "list": "List of medical registration",

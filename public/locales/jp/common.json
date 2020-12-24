@@ -184,7 +184,8 @@
     "patientName": "名前と苗字",
     "newDetail": "処方箋を追加する",
     "symptomRequired": "病気の症状が必要です",
-    "diagnoseRequired": "病気の診断が必要です"
+    "diagnoseRequired": "病気の診断が必要です",
+    "readExam": "審査票をご覧ください"
   },
   "appoitment": {
     "list": " 医療登録一覧",
